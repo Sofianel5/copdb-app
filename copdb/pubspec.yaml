@@ -23,10 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  shared_preferences: ^0.5.10
   simple_animations: ^2.2.1
-
   flutter_tts: ^1.2.6
   equatable: ^1.1.1
   data_connection_checker: ^0.3.4
