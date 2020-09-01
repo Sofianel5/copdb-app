@@ -1,10 +1,12 @@
 import 'dart:convert';
 
-import 'package:copdb/features/assistant/data/models/user_model.dart';
-import 'package:copdb/features/assistant/domain/entities/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:geolocator/geolocator.dart' as geo;
 
 import '../../../../core/errors/exceptions.dart';
+import '../../domain/entities/coordinates.dart';
+import '../../domain/entities/user.dart';
+import '../models/user_model.dart';
 
 abstract class LocalDataSource {
   Future<String> getAuthToken() {}
@@ -12,6 +14,10 @@ abstract class LocalDataSource {
   Future<void> clearData() {}
   Future<void> cacheUser(UserModel user) {}
   Future<User> getCachedUser() {}
+  Future<Map<String, String>> getAndroidDeviceInfo() {}
+  Future<Map<String, String>> getiOSDeviceInfo() {}
+  Future<Coordinates> getCoordinates() {}
+  
 }
 
 const String AUTH_TOKEN_KEY = "authtoken";
@@ -89,5 +95,39 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<User> getCachedUser() async {
     Map<String, dynamic> userJson = await _getJson(USER_KEY);
     return UserModel.fromJson(userJson);
+  }
+
+  @override
+  Future<Map<String, String>> getAndroidDeviceInfo() {
+    // TODO: implement getAndroidDeviceInfo
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Coordinates> getCoordinates() async {
+    try {
+      final level = geo.GeolocationPermission.locationWhenInUse;
+      geo.Geolocator locator = geo.Geolocator()..forceAndroidLocationManager = true;
+      geo.Position position = await locator.getCurrentPosition(desiredAccuracy: geo.LocationAccuracy.medium, locationPermissionLevel: level);
+      if (position == null) {
+        position = await locator.getLastKnownPosition(desiredAccuracy: geo.LocationAccuracy.medium, locationPermissionLevel: level);
+      }
+      Map<String, double> coordinates = {
+        "lat": position.latitude,
+        "lng": position.longitude
+      };
+      print(coordinates);
+      final coords = CoordinatesModel.fromJson(coordinates);
+      return coords;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  @override
+  Future<Map<String, String>> getiOSDeviceInfo() {
+    // TODO: implement getiOSDeviceInfo
+    throw UnimplementedError();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:copdb/features/assistant/domain/entities/user.dart';
+import 'package:copdb/features/copdb/domain/entities/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 

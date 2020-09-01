@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:copdb/features/assistant/data/models/user_model.dart';
+import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 

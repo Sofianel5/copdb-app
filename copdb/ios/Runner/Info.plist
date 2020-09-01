@@ -41,5 +41,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSContactsUsageDescription</key>  
+	<string>We need access to your contact list to connect you with others you know.</string> 
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location in order to show you nearby venues.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need your location in order to show you nearby venues.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location in order to show you nearby venues.</string>
 </dict>
 </plist>
