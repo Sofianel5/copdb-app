@@ -56,6 +56,7 @@ class _App extends State<App>
 
     bool seen = _seen;  
     return MaterialApp( 
+      theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       home: seen ? HomeScreen() : SignUpScreen(),
     );

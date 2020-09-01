@@ -1,7 +1,8 @@
+import 'package:copdb/screens/HomeScreen.dart';
 import 'package:copdb/screens/SignUpScreenPages/UserScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:copdb/animations/FadeAnimation.dart';
-import 'package:copdb/utils/top.dart';
+import 'package:copdb/utils/Top.dart';
 
 class SignUpScreen extends StatefulWidget 
 {
@@ -104,7 +105,12 @@ class _SignUpScreen extends State<SignUpScreen>
                       color: Color(0xFF54C6EB),
                     ),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                        );
+                      },
                       borderRadius: BorderRadius.circular(50),
                       highlightColor: Colors.white,
                       hoverColor: Colors.white,
@@ -112,7 +118,7 @@ class _SignUpScreen extends State<SignUpScreen>
                       child: Center(
                         child: Text(
                           "Login",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white, fontSize: 16,),
                         ),
                       ),
                     ),
@@ -146,7 +152,7 @@ class _SignUpScreen extends State<SignUpScreen>
                         child: Center(
                         child: Text(
                           "Sign Up",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white, fontSize: 16,),
                         ),
                       ),
                     ),

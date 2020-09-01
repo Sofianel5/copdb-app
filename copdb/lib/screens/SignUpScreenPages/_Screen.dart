@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:copdb/utils/top.dart';
+import 'package:copdb/utils/Top.dart';
 import 'package:flutter/material.dart';
 import 'package:copdb/animations/FadeAnimation.dart';
 
@@ -15,8 +15,9 @@ class Screen extends StatelessWidget
   final String text;
   final String inputText;
   StatefulWidget page;
+  Widget alt;
 
-  Screen({this.text, this.page, this.inputText});
+  Screen({this.text, this.page, this.inputText, this.alt});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class Screen extends StatelessWidget
                 SizedBox(
                   height: 40,
                 ),
-                FadeAnimation(
+                alt ?? FadeAnimation(
                   1,
                   Container(
                     padding: EdgeInsets.all(8.0),
@@ -70,7 +71,7 @@ class Screen extends StatelessWidget
                           style: TextStyle(color: Colors.white,),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Username",
+                            hintText: inputText,
                             hintStyle: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -110,7 +111,46 @@ class Screen extends StatelessWidget
                   child: Center(
                     child: Text(
                       "Next",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          FadeAnimation(
+            1,
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                width: 120,
+                height: 50,
+                margin: EdgeInsets.only(left: 30),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  /* color: Color(0xFF54C6EB), */
+                  border: Border.all(color: Color(0xFF54C6EB),),
+                  color: Colors.transparent,
+                ),
+                child: InkWell(
+                  onTap: () 
+                  {
+                    Navigator.pop(context);
+                  },
+                  borderRadius: BorderRadius.circular(50),
+                  highlightColor: Color(0xFF54C6EB),
+                  hoverColor: Color(0xFF54C6EB),
+                  splashColor: Color(0xFF54C6EB),
+                  child: Center(
+                    child: Text(
+                      "back",
+                      style: TextStyle(color: Colors.white,fontSize: 16,),
                     ),
                   ),
                 ),
