@@ -1,16 +1,18 @@
 import 'package:copdb/screens/HomeScreen.dart';
 import 'package:copdb/screens/SignUpScreenPages/UserScreen.dart';
+import 'package:copdb/screens/_Screenx.dart';
+import 'package:copdb/utils/Bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:copdb/animations/FadeAnimation.dart';
 import 'package:copdb/utils/Top.dart';
 
-class SignUpScreen extends StatefulWidget 
+class EntryScreen extends StatefulWidget 
 {
   @override
-  _SignUpScreen createState() => _SignUpScreen();
+  _EntryScreen createState() => _EntryScreen();
 }
 
-class _SignUpScreen extends State<SignUpScreen>
+class _EntryScreen extends State<EntryScreen>
 {
   @override
   Widget build(BuildContext context) {
@@ -108,7 +110,7 @@ class _SignUpScreen extends State<SignUpScreen>
                       onTap: () {
                         Navigator.push(
                           context, 
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                          MaterialPageRoute(builder: (context) => ScreenX()),
                         );
                       },
                       borderRadius: BorderRadius.circular(50),
@@ -177,7 +179,8 @@ class _SignUpScreen extends State<SignUpScreen>
                 ),
               ],
             ),
-          )
+          ),
+          Bottom(),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
-import 'screens/SignUpScreen.dart';
+import 'screens/EntryScreen.dart';
 import 'screens/HomeScreen.dart';
 
 void main() => runApp(App());
@@ -58,7 +58,7 @@ class _App extends State<App>
     return MaterialApp( 
       theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: seen ? HomeScreen() : SignUpScreen(),
+      home: seen ? HomeScreen() : EntryScreen(),
     );
   } 
 }

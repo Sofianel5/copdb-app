@@ -1,15 +1,14 @@
-import 'package:copdb/screens/ProfileScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget 
+class IncidentScreen extends StatefulWidget 
 {
-  const HomeScreen({Key key}) : super(key: key);
+  const IncidentScreen({Key key}) : super(key: key);
   @override
-  _HomeScreen createState() => _HomeScreen();
+  _IncidentScreen createState() => _IncidentScreen();
 }
 
-class _HomeScreen extends State<HomeScreen>
+class _IncidentScreen extends State<IncidentScreen>
 {
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class _HomeScreen extends State<HomeScreen>
       backgroundColor: Color.fromRGBO(8, 11, 17, 1),
       body: Center(
         child: Text(
-          "hs",
+          "is",
           style: TextStyle(fontSize: 26),
         ),
       ),

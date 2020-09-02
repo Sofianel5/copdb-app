@@ -1,15 +1,14 @@
-import 'package:copdb/screens/ProfileScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget 
+class DatabaseScreen extends StatefulWidget 
 {
-  const HomeScreen({Key key}) : super(key: key);
+  const DatabaseScreen({Key key}) : super(key: key);
   @override
-  _HomeScreen createState() => _HomeScreen();
+  _DatabaseScreen createState() => _DatabaseScreen();
 }
 
-class _HomeScreen extends State<HomeScreen>
+class _DatabaseScreen extends State<DatabaseScreen>
 {
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class _HomeScreen extends State<HomeScreen>
       backgroundColor: Color.fromRGBO(8, 11, 17, 1),
       body: Center(
         child: Text(
-          "hs",
+          "db",
           style: TextStyle(fontSize: 26),
         ),
       ),

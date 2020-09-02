@@ -1,3 +1,4 @@
+import 'package:copdb/utils/Bottom.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:copdb/utils/Top.dart';
 import 'package:flutter/material.dart';
@@ -157,6 +158,7 @@ class Screen extends StatelessWidget
               ),
             ),
           ),
+          Bottom(),
         ]
       ),
     );
