@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class Event
 {
   int id;
@@ -5,11 +7,12 @@ class Event
   String description;
   String location;
   String date;
+  AssetImage imageLocation;
   int likes;
   int comments;
 
-  Event(this.title, this.date, this.comments, this.likes, this.location, this.description);
-  Event.withId(this.id, this.title, this.date, this.comments, this.likes, this.location, this.description);
+  Event(this.title, this.date, this.comments, this.likes, this.location, this.description, this.imageLocation);
+  Event.withId(this.id, this.title, this.date, this.comments, this.likes, this.location, this.description, this.imageLocation);
 
   Map<String, dynamic> toMap() 
   {
@@ -22,6 +25,7 @@ class Event
       'likes' : likes,
       'location' : location,
       'description' : description,
+      'imageLocation' : imageLocation,
     };
   }
 
@@ -34,6 +38,7 @@ class Event
     this.likes = map['likes'];
     this.location = map['location'];
     this.description = map['description'];
+    this.imageLocation = map['imageLocation'];
   }
 
   @override
