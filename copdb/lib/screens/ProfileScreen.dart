@@ -10,6 +10,65 @@ class ProfileScreen extends StatefulWidget
 
 class _ProfileScreen extends State<ProfileScreen>
 {
+  List<String> contactList = ['deez nutz', 'pog champion', 'saladin oual', 'jamie philips', ''];
+  ListView _getContacts()
+  {
+    return ListView.builder(
+      padding: EdgeInsets.only(top: 5),
+      physics: BouncingScrollPhysics(),
+      itemCount: contactList.length,
+      itemBuilder:(BuildContext context, int index) 
+      {
+        return Container(
+          alignment: Alignment.center,
+          height: 50,
+          child: Row(
+            children: [
+              Container(
+                child: Icon(Icons.account_circle, size: 38),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left:10),
+                      alignment: Alignment.centerLeft,
+                      height: 25,
+                      child: Text(
+                        contactList[index],
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      )
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left:10),
+                      alignment: Alignment.centerLeft,
+                      height: 15,
+                      child: Text(
+                        contactList[index],
+                        style: TextStyle(fontSize: 12, color: Colors.white70),
+                      )
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Color(0xFF54C6EB),
+                ),
+                width: 60,
+                height: 30,
+                child: Text('add'),
+              ),
+            ],
+          ),
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +119,7 @@ class _ProfileScreen extends State<ProfileScreen>
           ),
           Container(height: 30,),
           Container(
-            width: 200,
+            width: 300,
             height: 1,
             decoration: BoxDecoration(
               color: Color(0xFF54C6EB),
@@ -117,7 +176,7 @@ class _ProfileScreen extends State<ProfileScreen>
           ),
           Container(height: 30,),
           Container(
-            width: 200,
+            width: 300,
             height: 1,
             decoration: BoxDecoration(
               color: Color(0xFF54C6EB),
@@ -131,6 +190,20 @@ class _ProfileScreen extends State<ProfileScreen>
               ],
             ),
             alignment: Alignment.center,
+          ),
+          Container(height: 30,),
+          Container(
+            child: Text(
+              'People you may know',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            )
+          ),
+          Container(height: 10,),
+          Container(
+            alignment: Alignment.center,
+            height: 220, 
+            width: 300,
+            child: _getContacts()
           ),
         ],
       )
