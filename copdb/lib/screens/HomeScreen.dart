@@ -27,7 +27,7 @@ class _HomeScreen extends State<HomeScreen>
       itemCount: eventList.length,
       itemBuilder:(BuildContext context, int index) 
       {
-        return EventItem(event: eventList[index]);
+        return EventItem(event: eventList[index], index: index);
       }
     );
   }
