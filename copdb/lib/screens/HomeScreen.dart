@@ -13,10 +13,6 @@ class HomeScreen extends StatefulWidget
 
 class _HomeScreen extends State<HomeScreen>
 {
-  String lorem = 
-    '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea ''';
   List<Event> eventList = [
     Event('fake title', 'date/00', 1 , 1, 'over there city 10', '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  ''', AssetImage('assets/stock-1.jpg')),
     Event('fake title', 'date/00', 1 , 1, 'over there city 10', '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  ''', AssetImage('assets/stock-2.jpg')),
@@ -78,7 +74,7 @@ class _HomeScreen extends State<HomeScreen>
               ],
             ),
           ),
-          Container(height: 10,),
+          Container(height: 10, ),
           Expanded(
             child: _getEvents(),
           ),
