@@ -1,7 +1,8 @@
 import 'package:copdb/animations/SlideAnimation.dart';
-import 'package:copdb/screens/ReportScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:flutter/material.dart';
+
+import 'ReportScreenPages/BadgeScreen.dart';
 
 class IncidentScreen extends StatefulWidget 
 {
@@ -150,7 +151,7 @@ class _IncidentScreen extends State<IncidentScreen>
                 Container(height: 30,),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, SlideFromBottomPageRoute(widget: ReportScreen()));
+                    Navigator.push(context, SlideFromBottomPageRoute(widget: BadgeScreen()));
                   },
                   child: Container(
                     alignment: Alignment.center,
