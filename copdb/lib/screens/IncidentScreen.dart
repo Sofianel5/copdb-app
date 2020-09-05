@@ -33,6 +33,27 @@ class _IncidentScreen extends State<IncidentScreen>
             ),
           ),
           Container(height: 10, ),
+          /* Text('you have not made any reports', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),), */
+          Expanded(child: Container(),),
+          Container(
+            height: 120,
+            alignment: Alignment.topCenter,
+            child: Container(
+              alignment: Alignment.center,
+              width: 160,
+              height: 60,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Color(0xFF54C6EB),
+              ),
+              child: Text(
+                'create report',
+                style: TextStyle(
+                  fontSize: 19
+                ),
+              ),
+            ),
+          ),
         ]
       ),
     );
