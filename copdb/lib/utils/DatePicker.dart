@@ -2,14 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:copdb/animations/FadeAnimation.dart';
 
-typedef void StringCallback(String s);
-class DatePicker extends StatelessWidget
+class DatePicker extends StatefulWidget
 {
-  final DateTime _dateTime = DateTime.now();
-  //init callback
   final StringCallback onDateChanged;
   final StringCallback onTimeChanged;
   DatePicker({ @required this.onDateChanged, this.onTimeChanged});
+  @override
+  _DatePicker createState() => _DatePicker();
+}
+
+typedef void StringCallback(String s);
+class _DatePicker extends State<DatePicker>
+{
+  final DateTime _dateTime = DateTime.now();
+  //init callback
+  
   Widget build(BuildContext context)
   {
     double h = MediaQuery.of(context).size.height;
@@ -48,7 +55,7 @@ class DatePicker extends StatelessWidget
                   //backgroundColor: Color(0xFFFFFFF0),
                   initialDateTime: _dateTime,
                   mode: CupertinoDatePickerMode.date,
-                  onDateTimeChanged: (dateTime) {onDateChanged(dateTime.toString().split(" ")[0]);},
+                  onDateTimeChanged: (dateTime) {widget.onDateChanged(dateTime.toString().split(" ")[0]);},
                 ),
               ),
             ),

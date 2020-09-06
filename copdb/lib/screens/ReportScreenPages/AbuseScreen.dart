@@ -1,5 +1,6 @@
 import 'package:copdb/screens/ReportScreenPages/AllegationScreen.dart';
 import 'package:copdb/screens/SignUpScreenPages/_Screen.dart';
+import 'package:copdb/utils/DropSelection.dart';
 import 'package:flutter/material.dart';
 
 
@@ -17,6 +18,7 @@ class _AbuseScreen extends State<AbuseScreen>
       text: 'Select the abuse type \nof the accused cop',
       inputText: 'badge number',
       page: AllegationScreen(),
+      alt: DropSelection(),
     );
   }
 }

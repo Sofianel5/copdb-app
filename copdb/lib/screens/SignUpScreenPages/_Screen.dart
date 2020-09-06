@@ -16,7 +16,7 @@ class Screen extends StatelessWidget
   final String text;
   final String inputText;
   StatefulWidget page;
-  Widget alt;
+  StatefulWidget alt;
 
   Screen({this.text, this.page, this.inputText, this.alt});
 
