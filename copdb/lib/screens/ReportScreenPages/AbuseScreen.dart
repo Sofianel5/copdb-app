@@ -16,7 +16,7 @@ class _AbuseScreen extends State<AbuseScreen>
   Widget build(BuildContext context) {
     return Screen(
       text: 'Select the abuse type \nof the accused cop',
-      inputText: 'badge number',
+      inputText: '',
       page: AllegationScreen(),
       alt: DropSelection(),
     );

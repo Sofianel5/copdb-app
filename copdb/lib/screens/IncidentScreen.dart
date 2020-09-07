@@ -1,4 +1,7 @@
 import 'package:copdb/animations/SlideAnimation.dart';
+import 'package:copdb/models/Report.dart';
+import 'package:copdb/models/ReportPreview.dart';
+import 'package:copdb/screens/ReportDetailScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +16,113 @@ class IncidentScreen extends StatefulWidget
 
 class _IncidentScreen extends State<IncidentScreen>
 {
+  //mock data ; pull from db instead
+  bool hasMadeReport = true;
+  List<ReportPreview> reportList = [
+    ReportPreview('firstname', 'lastname', Icons.smoking_rooms, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+    ReportPreview('firstname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+    ReportPreview('firstname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+    ReportPreview('firstname', 'lastname', Icons.wc, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+  ];
+  ListView _getReports()
+  {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      padding: EdgeInsets.only(top: 5),
+      physics: BouncingScrollPhysics(),
+      itemCount: reportList.length,
+      itemBuilder:(BuildContext context, int index) 
+      {
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => ReportDetailScreen(
+                report: Report('', '', '', '', '', '', '', '', null), 
+                index: index,)
+              ),
+            );
+          },
+          child: Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(right: 12),
+            width: 90,
+            height: 50,
+            decoration: BoxDecoration(
+              /* borderRadius: BorderRadius.circular(8), */
+              /* border: Border(
+                left: BorderSide(color: Colors.white),
+              ) */
+            ),
+            child: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 8),
+                  alignment: Alignment.topLeft,
+                  /* alignment: Alignment.centerLeft, */
+                  child: Icon(reportList[index].icon, size: 38),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      /* alignment: Alignment.centerLeft, */
+                      height: 25,
+                      child: Text(
+                        reportList[index].firstname,
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      )
+                    ),
+                    /* Container(
+                      /* alignment: Alignment.centerLeft, */
+                      height: 20,
+                      child: Text(
+                        reportList[index].date,
+                        style: TextStyle(fontSize: 14, color: Colors.white70),
+                      )
+                    ), */
+                    Container(
+                      /* alignment: Alignment.centerLeft, */
+                      height: 20,
+                      child: Text(
+                        reportList[index].abuse,
+                        style: TextStyle(fontSize: 14, color: Colors.white70),
+                      )
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          Navigator.push(context, SlideFromBottomPageRoute(widget: BadgeScreen()));
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: 140,
+          height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            color: Color(0xFF54C6EB),
+          ),
+          child: Text(
+            'create report',
+            style: TextStyle(
+              fontSize: 18
+            ),
+          ),
+        ),
+      ),
       backgroundColor: Color.fromRGBO(8, 11, 17, 1),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,22 +145,22 @@ class _IncidentScreen extends State<IncidentScreen>
           Container(height: 15, ),
           Container(
             decoration: BoxDecoration(
-            color: Color.fromRGBO(8, 11, 17, 1),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFF54C6EB).withOpacity(0.5),
-                spreadRadius: .5,
-                blurRadius: 7,
-                offset: Offset(0, 0), // changes position of shadow
+              color: Color.fromRGBO(8, 11, 17, 1),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFF54C6EB).withOpacity(0.5),
+                  spreadRadius: .5,
+                  blurRadius: 7,
+                  offset: Offset(0, 0), // changes position of shadow
+                ),
+              ],
+              border: Border(
+                left: BorderSide.none, 
+                right: BorderSide.none, 
+                top: BorderSide(color: Color(0xFF54C6EB).withOpacity(0.6), width: .5),
+                /*  bottom: BorderSide(color: Colors.white) */
               ),
-            ],
-            border: Border(
-              left: BorderSide.none, 
-              right: BorderSide.none, 
-              top: BorderSide(color: Color(0xFF54C6EB).withOpacity(0.6), width: .5),
-              /*  bottom: BorderSide(color: Colors.white) */
             ),
-          ),
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
             /* height: 330, */
@@ -145,33 +252,48 @@ class _IncidentScreen extends State<IncidentScreen>
                   margin: EdgeInsets.only(bottom: 4),
                   child: Text('Your Reports', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                 ),
+                hasMadeReport ? 
+                Container(
+                  height: 240,
+                  width: 500,
+                  child: _getReports(),
+                )
+                : 
                 Container(
                   child: Text('You currently have not made any reports', style: TextStyle(fontSize: 16, color: Colors.white70),),
-                ),
-                Container(height: 30,),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, SlideFromBottomPageRoute(widget: BadgeScreen()));
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 140,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Color(0xFF54C6EB),
-                    ),
-                    child: Text(
-                      'create report',
-                      style: TextStyle(
-                        fontSize: 18
-                      ),
-                    ),
-                  ),
                 ),
               ]
             ),
           ),
+          /* Container(
+            padding: EdgeInsets.only(left: 30, top: 20),
+            alignment: Alignment.topLeft,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 12),
+                  child: Text('Add to the public database', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  width: 120,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(0xFF54C6EB),
+                  ),
+                  child: Text(
+                    'create report',
+                    style: TextStyle(
+                      fontSize: 16
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ), */
           Expanded(child: Container(),),
         ]
       ),

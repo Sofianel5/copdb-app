@@ -41,34 +41,42 @@ class _DropSelection extends State<DropSelection>
               DropdownMenuItem<String>(
                 child: Container(
                   alignment: Alignment.centerRight,
-                  child: Text('Item 1')
+                  child: Text('Selection Type Item 1')
                 ),
                 value: '1',
               ),
               DropdownMenuItem<String>(
                 child: Container(
                   alignment: Alignment.centerRight,
-                  child: Text('Item 2')
+                  child: Text('Selection Type Item 2')
                 ),
                 value: '2',
               ),
               DropdownMenuItem<String>(
                 child: Container(
                   alignment: Alignment.centerRight,
-                  child: Text('Item 3')
+                  child: Text('Selection Type Item 3')
                 ),
-                value: 'one',
+                value: '3',
               ),
               DropdownMenuItem<String>(
                 child: Container(
                   alignment: Alignment.centerRight,
-                  child: Text('Item 4')
+                  child: Text('Selection Type Item 4')
                 ),
-                value: 'one',
+                value: '4',
+              ),
+              DropdownMenuItem<String>(
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: Text('Selection Type Item 5')
+                ),
+                value: '5',
               ),
             ],
             onChanged: (String value) 
             {
+
             },
             hint: Text('Select Item', style: TextStyle(color: Colors.white)),
             value: _value,

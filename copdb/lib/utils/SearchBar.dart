@@ -10,31 +10,50 @@ class _SearchBar extends State<SearchBar>
 {
   Widget build(BuildContext context)
   {
-    return Container(
-      height: 40,
-      width: 260,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: Colors.white,),
-        color: Colors.transparent,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Icon(Icons.search),
-          Container(
-            width: 200,
-            child: TextField(
-              style: TextStyle(color: Colors.white,),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: "Search..",
-                hintStyle: TextStyle(color: Colors.white),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          height: 40,
+          width: 280,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(color: Colors.white,),
+            color: Colors.transparent,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Icon(Icons.search),
+              Container(
+                width: 220,
+                child: TextField(
+                  style: TextStyle(color: Colors.white,),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Enter cop name or id #",
+                    hintStyle: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
+            ],
+          ),
+        ),
+        Container(
+          alignment: Alignment.center,
+            width: 60,
+            height: 34,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Color(0xFF54C6EB),
+            ),
+            child: Text(
+              'search',
+              style: TextStyle(color: Colors.white, fontSize: 14),
             ),
           )
-        ],
-      ),
+      ]
     );
   }
 }

@@ -1,25 +1,25 @@
-import 'package:copdb/models/Event.dart';
+import 'package:copdb/models/Report.dart';
 import 'package:flutter/material.dart';
 
-class EventScreen extends StatefulWidget 
+class ReportDetailScreen extends StatefulWidget 
 {
-  Event event;
+  Report report;
   int index;
-  EventScreen({this.event, this.index});
+  ReportDetailScreen({this.report, this.index});
   @override
-  _EventScreen createState() => _EventScreen();
+  _ReportDetailScreen createState() => _ReportDetailScreen();
 }
 
-class _EventScreen extends State<EventScreen>
+class _ReportDetailScreen extends State<ReportDetailScreen>
 {
-  Event _event;
+  Report _report;
   int _index;
 
   @override
   void initState() 
   {
     super.initState();
-    _event = widget.event;
+    _report = widget.report;
     _index = widget.index;
   }
 
@@ -42,7 +42,7 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 4),
                       child: Text(
-                        _event.date, 
+                        _report.date, 
                         style: TextStyle(
                           fontSize: 18, color: Colors.white70,
                         ),
@@ -53,7 +53,7 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 4),
                       child: Text(
-                        _event.title, 
+                        _report.firstname, 
                         style: TextStyle(
                           fontSize: 36, fontWeight: FontWeight.bold
                         ),
@@ -64,7 +64,7 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16),
                       child: Text(
-                        _event.location, 
+                        _report.location, 
                         style: TextStyle(
                           fontSize: 18, color: Colors.white70,
                         ),
@@ -73,31 +73,15 @@ class _EventScreen extends State<EventScreen>
                     Container(
                       padding: EdgeInsets.only(left: 30, right: 30),
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 20),
-                        child: Container(
-                        height: 260,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: _event.imageLocation,
-                            fit: BoxFit.cover,
-                          ),
-                          color: Color.fromRGBO(8, 11, 17, 1),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.white, )
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 30, right: 30),
-                      alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16),
                       child: Text(
-                        _event.description * 4, 
+                        _report.description * 4, 
                         style: TextStyle(
                           fontSize: 16, color: Colors.white,
                         ),
                       ),
-                    ),   
+                    ),
+                    
                   ],
                 ),
               ),

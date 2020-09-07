@@ -1,4 +1,5 @@
 import 'package:copdb/utils/NavBar.dart';
+import 'package:copdb/utils/SearchBar.dart';
 import 'package:flutter/material.dart';
 
 class DatabaseScreen extends StatefulWidget 
@@ -52,7 +53,29 @@ class _DatabaseScreen extends State<DatabaseScreen>
               ],
             ),
           ),
-          Container(height: 10, ),
+          Container(height: 15, ),
+          Container(
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(8, 11, 17, 1),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFF54C6EB).withOpacity(0.5),
+                  spreadRadius: .5,
+                  blurRadius: 7,
+                  offset: Offset(0, 0), // changes position of shadow
+                ),
+              ],
+              border: Border(
+                left: BorderSide.none, 
+                right: BorderSide.none, 
+                top: BorderSide(color: Color(0xFF54C6EB).withOpacity(0.6), width: .5),
+                /*  bottom: BorderSide(color: Colors.white) */
+              ),
+            ),
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+            child: SearchBar(),
+          ),
         ]
       ),
     );

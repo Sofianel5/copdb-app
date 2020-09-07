@@ -15,8 +15,8 @@ class _CopLocationScreen extends State<CopLocationScreen>
   @override
   Widget build(BuildContext context) {
     return Screen(
-      text: 'Enter the incidents \nlocation',
-      inputText: 'address',
+      text: 'Enter the incidents \nzip code',
+      inputText: 'zip code',
       page: AbuseScreen(),
     );
   }
