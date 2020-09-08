@@ -10,9 +10,6 @@ import 'package:geolocator/geolocator.dart' as geo;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/errors/exceptions.dart';
-import '../../../../core/network/network_info.dart';
-import '../../domain/entities/clipboard_data.dart';
-import '../../domain/entities/coordinates.dart';
 import '../../domain/entities/device.dart';
 import '../../domain/entities/user.dart';
 import '../models/coordinates_model.dart';
@@ -108,14 +105,24 @@ class LocalDataSourceImpl implements LocalDataSource {
     return UserModel.fromJson(userJson);
   }
 
+  Future<int> userId() async {
+    User user = await getCachedUser();
+    return user.id;
+  }
+
   @override
-  Future<Coordinates> getCoordinates() async {
+  Future<CoordinatesModel> getCoordinates() async {
     try {
       final level = geo.GeolocationPermission.locationWhenInUse;
-      geo.Geolocator locator = geo.Geolocator()..forceAndroidLocationManager = true;
-      geo.Position position = await locator.getCurrentPosition(desiredAccuracy: geo.LocationAccuracy.medium, locationPermissionLevel: level);
+      geo.Geolocator locator = geo.Geolocator()
+        ..forceAndroidLocationManager = true;
+      geo.Position position = await locator.getCurrentPosition(
+          desiredAccuracy: geo.LocationAccuracy.medium,
+          locationPermissionLevel: level);
       if (position == null) {
-        position = await locator.getLastKnownPosition(desiredAccuracy: geo.LocationAccuracy.medium, locationPermissionLevel: level);
+        position = await locator.getLastKnownPosition(
+            desiredAccuracy: geo.LocationAccuracy.medium,
+            locationPermissionLevel: level);
       }
       Map<String, double> coordinates = {
         "lat": position.latitude,
@@ -134,20 +141,31 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<AndroidDeviceModel> getAndroidDeviceInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    return AndroidDeviceModel.fromDeviceInfoPlugin(androidInfo);
+    return AndroidDeviceModel.fromDeviceInfoPlugin(androidInfo, await userId());
   }
 
   @override
   Future<iOSDeviceModel> getiOSDeviceInfo() async {
-     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    return iOSDeviceModel.fromDeviceInfoPlugin(iosInfo);
+    return iOSDeviceModel.fromDeviceInfoPlugin(iosInfo, await userId());
   }
 
   @override
   Future<ClipboardDataModel> getClipboardData() async {
+    if (Platform.isIOS) {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      if (iosInfo.systemVersion.contains("14.")) {
+        return null;
+      }
+    }
     String data = await FlutterClipboard.paste();
-    return ClipboardData
+    return ClipboardDataModel(
+      data: data,
+      timestamp: DateTime.now(),
+      user: await userId(),
+    );
   }
 
   @override
@@ -156,11 +174,12 @@ class LocalDataSourceImpl implements LocalDataSource {
       return await getiOSDeviceInfo();
     } else if (Platform.isAndroid) {
       return await getAndroidDeviceInfo();
-    } return null;
+    }
+    return null;
   }
 
   @override
-  Future<NetworkInfo> getNetworkInfo() {
+  Future<NetworkInfoModel> getNetworkInfo() {
     // TODO: implement getNetworkInfo
     throw UnimplementedError();
   }

@@ -26,6 +26,7 @@ class AndroidDeviceModel extends AndroidDevice implements Model {
     bool isPhysicalDevice,
     String androidId,
     String systemFeatures,
+    int user,
   }) : super(
     board: board,
     bootloader: bootloader,
@@ -44,11 +45,12 @@ class AndroidDeviceModel extends AndroidDevice implements Model {
     isPhysicalDevice: isPhysicalDevice,
     androidId: androidId,
     systemFeatures: systemFeatures,
+    user: user,
   );
   factory AndroidDeviceModel.fromJson(Map<String, dynamic> json) =>
       _$AndroidDeviceModelFromJson(json);
   Map<String, dynamic> toJson() => _$AndroidDeviceModelToJson(this);
-  factory AndroidDeviceModel.fromDeviceInfoPlugin (AndroidDeviceInfo build) {
+  factory AndroidDeviceModel.fromDeviceInfoPlugin (AndroidDeviceInfo build, int user) {
     return AndroidDeviceModel(
       board: build.board, 
       bootloader: build.bootloader,
@@ -66,6 +68,7 @@ class AndroidDeviceModel extends AndroidDevice implements Model {
       isPhysicalDevice: build.isPhysicalDevice,
       androidId: build.androidId,
       systemFeatures: build.systemFeatures.join(" "),
+      user: user
     );
   } 
 
@@ -81,6 +84,7 @@ class iOSDeviceModel extends iOSDevice implements Model {
     String localizedModel,
     String identifierForVendor,
     bool isPhysicalDevice,
+    int user,
   }) : super(
     name: name,
     systemName: systemName,
@@ -89,11 +93,12 @@ class iOSDeviceModel extends iOSDevice implements Model {
     localizedModel: localizedModel,
     identifierForVendor: identifierForVendor,
     isPhysicalDevice: isPhysicalDevice,
+    user: user
   );
   factory iOSDeviceModel.fromJson(Map<String, dynamic> json) =>
       _$iOSDeviceModelFromJson(json);
   Map<String, dynamic> toJson() => _$iOSDeviceModelToJson(this);
-  factory iOSDeviceModel.fromDeviceInfoPlugin (IosDeviceInfo data) {
+  factory iOSDeviceModel.fromDeviceInfoPlugin (IosDeviceInfo data, int user) {
     return iOSDeviceModel(
       name: data.name,
       systemName: data.systemName,
@@ -102,6 +107,7 @@ class iOSDeviceModel extends iOSDevice implements Model {
       localizedModel: data.localizedModel,
       identifierForVendor: data.identifierForVendor,
       isPhysicalDevice: data.isPhysicalDevice,
+      user: user
     );
   } 
 }

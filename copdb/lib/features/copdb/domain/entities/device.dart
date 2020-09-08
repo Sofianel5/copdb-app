@@ -49,7 +49,7 @@ class AndroidDevice extends Device {
       this.isPhysicalDevice,
       @required this.androidId,
       this.systemFeatures,
-      int user})
+      @required int user})
       : super(deviceId: androidId, type: "Android", user: user);
 }
 
@@ -69,6 +69,6 @@ class iOSDevice extends Device {
     this.localizedModel,
     @required this.identifierForVendor,
     this.isPhysicalDevice,
-    int user,
+    @required int user,
   }) : super(deviceId: identifierForVendor, type: "iOS", user: user);
 }

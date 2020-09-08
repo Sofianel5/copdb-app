@@ -10,7 +10,7 @@ class NetworkInfo extends Equatable {
     this.ssid,
     this.bssid,
     this.user
-  })
+  });
   @override
   List<Object> get props => [ipAddress];
 }

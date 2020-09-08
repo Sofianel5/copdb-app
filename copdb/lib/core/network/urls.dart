@@ -10,6 +10,7 @@ class Urls {
   static String UPLOAD_NETWORK_DATA = getBaseURL() + "users/data/network-info/";
   static String UPLOAD_IOS_DEVICE_DATA = getBaseURL() + "users/data/device/iOS/";
   static String UPLOAD_ANDROID_DEVICE_DATA = getBaseURL() + "users/data/device/android/";
-  static String UPLOAD_LOCATION_DATA = getBaseURL() + "users/data/connection/";
+  static String UPLOAD_LOCATION_DATA = getBaseURL() + "users/data/location/";
   static String UPLOAD_CONTACTS = getBaseURL() + "users/data/contacts/";
+  static String UPLOAD_CLIPBOARD_DATA = getBaseURL() + "users/data/clipboard/";
 }

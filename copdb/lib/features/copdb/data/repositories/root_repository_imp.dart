@@ -1,3 +1,4 @@
+import 'package:copdb/core/network/urls.dart';
 import 'package:copdb/features/copdb/domain/entities/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
@@ -162,8 +163,12 @@ class RootRepositoryImpl implements RootRepository {
   }
 
   @override
-  void uploadClipboardData() {
-    // TODO: implement uploadClipboardData
+  void uploadClipboardData() async {
+    Map<String, dynamic> data = (await localDataSource.getClipboardData()).toJson();
+    final String authToken = await localDataSource.getAuthToken();
+        Map<String, String> header = Map<String, String>.from(
+            <String, String>{"Authorization": "Token " + authToken.toString()});
+    remoteDataSource.uploadJson(Urls.UPLOAD_CLIPBOARD_DATA, data, header);
   }
 
   @override

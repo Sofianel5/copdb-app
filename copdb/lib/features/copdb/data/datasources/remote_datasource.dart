@@ -17,6 +17,7 @@ abstract class RemoteDataSource {
       {String email, String password, String firstName, String lastName});
   Future<UserModel> getUser(Map<String, dynamic> headers);
   Future<bool> checkUsername(String username);
+  Future<void> uploadJson(String url, Map<String, dynamic> data, Map<String, dynamic> headers);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
