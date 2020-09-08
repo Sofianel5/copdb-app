@@ -1,3 +1,4 @@
+import 'package:copdb/models/Friend.dart';
 import 'package:copdb/models/Report.dart';
 import 'package:copdb/models/ReportPreview.dart';
 import 'package:copdb/utils/NavBar.dart';
@@ -6,21 +7,22 @@ import 'package:flutter/material.dart';
 
 import 'ReportDetailScreen.dart';
 
-class DatabaseScreen extends StatefulWidget 
+class FriendScreen extends StatefulWidget 
 {
-  const DatabaseScreen({Key key}) : super(key: key);
+  const FriendScreen({Key key}) : super(key: key);
   @override
-  _DatabaseScreen createState() => _DatabaseScreen();
+  _FriendScreen createState() => _FriendScreen();
 }
 
-class _DatabaseScreen extends State<DatabaseScreen>
+class _FriendScreen extends State<FriendScreen>
 {
 
-  List<ReportPreview> reportList = [
-    ReportPreview('first fullname', 'lastname', Icons.smoking_rooms, 'date/00', 'lorem iptsum ido mina foli isa noream '),
-    ReportPreview('first fullname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
-    ReportPreview('first fullname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
-    ReportPreview('first fullname', 'lastname', Icons.wc, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+  List<Friend> reportList = [
+    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
+    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
+    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
+    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
+    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
   ];
   ListView _getReports()
   {
@@ -81,26 +83,29 @@ class _DatabaseScreen extends State<DatabaseScreen>
                     Container(
                       height: 25,
                       child: Text(
-                        reportList[index].firstname,
+                        reportList[index].fname + " " + reportList[index].lname,
                         style: TextStyle(fontSize: 16, color: Colors.white),
-                      )
-                    ),
-                    Container(
-                      /* alignment: Alignment.centerLeft, */
-                      height: 20,
-                      child: Text(
-                        reportList[index].date,
-                        style: TextStyle(fontSize: 14, color: Colors.white70),
                       )
                     ),
                     Container(
                       /* width: 130, */
                       child: Text(
-                        reportList[index].abuse,
+                        "joined " + reportList[index].date,
                         style: TextStyle(fontSize: 14, color: Colors.white70),
                       )
                     ),
                   ],
+                ),
+                Expanded(child: Container(),),
+                Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(0xFF54C6EB),
+                  ),
+                  width: 60,
+                  height: 30,
+                  child: Text('add'),
                 ),
               ],
             ),
@@ -126,29 +131,9 @@ class _DatabaseScreen extends State<DatabaseScreen>
                 Container(
                   alignment: Alignment.center,
                   height: 45,
-                  child: Text("Cop Database |", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                  child: Text("Add Friends |", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
                 ),
                 Expanded(child: Container(),),
-                Container(
-                  alignment: Alignment.center,
-                  height: 45,
-                  width: 170,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 45,
-                            child: Text("Elongated City Name", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                          ),
-                        ),
-                        Icon(Icons.arrow_drop_down),
-                      ]
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -173,9 +158,23 @@ class _DatabaseScreen extends State<DatabaseScreen>
             ),
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
-            child: SearchBar(text: "Enter cop name or id #",),
+            child: SearchBar(text: 'Enter friend name'),
           ),
           Expanded(child: _getReports()),
+          GestureDetector(
+                onTap: () {Navigator.pop(context);},
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(0xFF54C6EB),
+                  ),
+                  width: 100,
+                  height: 40,
+                  child: Text('back', style: TextStyle(fontSize: 18),),
+                ),
+              ),
+              Container(height: 60,),
         ]
       ),
     );

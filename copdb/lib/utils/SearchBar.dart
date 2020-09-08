@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget
 {
+  String text;
+  SearchBar({this.text});
   @override 
   _SearchBar createState() => _SearchBar();
 }
@@ -32,7 +34,7 @@ class _SearchBar extends State<SearchBar>
                   style: TextStyle(color: Colors.white,),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: "Enter cop name or id #",
+                    hintText: widget.text,
                     hintStyle: TextStyle(color: Colors.white),
                   ),
                 ),

@@ -1,3 +1,5 @@
+import 'package:copdb/animations/SlideAnimation.dart';
+import 'package:copdb/screens/FriendScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:flutter/material.dart';
 
@@ -150,24 +152,29 @@ class _ProfileScreen extends State<ProfileScreen>
             alignment: Alignment.center,
           ),
           Container(height: 30,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: Icon(Icons.person_add, size: 32,),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Add Friends", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                    Text('add your friends on copDB', style: TextStyle(fontSize: 12, color: Colors.white70),)
-                  ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, SlideFromBottomPageRoute(widget: FriendScreen()));
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: Icon(Icons.person_add, size: 32,),
                 ),
-              ),
-            ],
+                Container(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Add Friends", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                      Text('add your friends on copDB', style: TextStyle(fontSize: 12, color: Colors.white70),)
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           Container(height: 20,),
           Row(

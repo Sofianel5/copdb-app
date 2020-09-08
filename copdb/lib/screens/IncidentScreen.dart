@@ -278,18 +278,23 @@ class _IncidentScreen extends State<IncidentScreen>
                   margin: EdgeInsets.only(bottom: 12),
                   child: Text('Add to the public database', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  width: 120,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Color(0xFF54C6EB),
-                  ),
-                  child: Text(
-                    'create report',
-                    style: TextStyle(
-                      fontSize: 16
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, SlideFromBottomPageRoute(widget: BadgeScreen()));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 120,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Color(0xFF54C6EB),
+                    ),
+                    child: Text(
+                      'create report',
+                      style: TextStyle(
+                        fontSize: 16
+                      ),
                     ),
                   ),
                 ),
