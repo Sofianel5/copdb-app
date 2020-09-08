@@ -19,15 +19,15 @@ class _IncidentScreen extends State<IncidentScreen>
   //mock data ; pull from db instead
   bool hasMadeReport = true;
   List<ReportPreview> reportList = [
-    ReportPreview('firstname', 'lastname', Icons.smoking_rooms, 'date/00', 'lorem iptsum ido mina foli isa noream '),
-    ReportPreview('firstname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
-    ReportPreview('firstname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
-    ReportPreview('firstname', 'lastname', Icons.wc, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+    ReportPreview('first fullname', 'lastname', Icons.smoking_rooms, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+    ReportPreview('first fullname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+/*     ReportPreview('first fullname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+    ReportPreview('first fullname', 'lastname', Icons.wc, 'date/00', 'lorem iptsum ido mina foli isa noream '), */
   ];
   ListView _getReports()
   {
     return ListView.builder(
-      scrollDirection: Axis.vertical,
+      scrollDirection: Axis.horizontal,
       padding: EdgeInsets.only(top: 5),
       physics: BouncingScrollPhysics(),
       itemCount: reportList.length,
@@ -45,29 +45,31 @@ class _IncidentScreen extends State<IncidentScreen>
           },
           child: Container(
             alignment: Alignment.center,
-            margin: EdgeInsets.only(right: 12),
-            width: 90,
+            margin: EdgeInsets.only(right: 16),
+            /* width: 90, */
+            width: 140,
             height: 50,
             decoration: BoxDecoration(
-              /* borderRadius: BorderRadius.circular(8), */
               /* border: Border(
                 left: BorderSide(color: Colors.white),
               ) */
             ),
-            child: Row(
-              children: [
-                Container(
+            child: /* Row(
+              children: [ */
+                /* Container(
                   margin: EdgeInsets.only(right: 8),
                   alignment: Alignment.topLeft,
                   /* alignment: Alignment.centerLeft, */
                   child: Icon(reportList[index].icon, size: 38),
-                ),
+                ), */
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      /* alignment: Alignment.centerLeft, */
+                      child: Icon(reportList[index].icon, size: 38),
+                    ),
+                    Container(
                       height: 25,
                       child: Text(
                         reportList[index].firstname,
@@ -83,8 +85,7 @@ class _IncidentScreen extends State<IncidentScreen>
                       )
                     ), */
                     Container(
-                      /* alignment: Alignment.centerLeft, */
-                      height: 20,
+                      /* width: 130, */
                       child: Text(
                         reportList[index].abuse,
                         style: TextStyle(fontSize: 14, color: Colors.white70),
@@ -92,8 +93,8 @@ class _IncidentScreen extends State<IncidentScreen>
                     ),
                   ],
                 ),
-              ],
-            ),
+              /* ],
+            ), */
           ),
         );
       }
@@ -103,7 +104,7 @@ class _IncidentScreen extends State<IncidentScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: GestureDetector(
+      /* floatingActionButton: GestureDetector(
         onTap: () {
           Navigator.push(context, SlideFromBottomPageRoute(widget: BadgeScreen()));
         },
@@ -122,7 +123,7 @@ class _IncidentScreen extends State<IncidentScreen>
             ),
           ),
         ),
-      ),
+      ), */
       backgroundColor: Color.fromRGBO(8, 11, 17, 1),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -254,7 +255,8 @@ class _IncidentScreen extends State<IncidentScreen>
                 ),
                 hasMadeReport ? 
                 Container(
-                  height: 240,
+                  height: 120,
+                  /* height: 240, */
                   width: 500,
                   child: _getReports(),
                 )
@@ -265,7 +267,7 @@ class _IncidentScreen extends State<IncidentScreen>
               ]
             ),
           ),
-          /* Container(
+          Container(
             padding: EdgeInsets.only(left: 30, top: 20),
             alignment: Alignment.topLeft,
             child: Column(
@@ -293,7 +295,7 @@ class _IncidentScreen extends State<IncidentScreen>
                 ),
               ],
             ),
-          ), */
+          ),
           Expanded(child: Container(),),
         ]
       ),
