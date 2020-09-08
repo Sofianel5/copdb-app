@@ -6,18 +6,6 @@ part of 'contact_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ItemModel _$ItemModelFromJson(Map<String, dynamic> json) {
-  return ItemModel(
-    label: json['label'] as String,
-    value: json['value'] as String,
-  );
-}
-
-Map<String, dynamic> _$ItemModelToJson(ItemModel instance) => <String, dynamic>{
-      'label': instance.label,
-      'value': instance.value,
-    };
-
 ContactModel _$ContactModelFromJson(Map<String, dynamic> json) {
   return ContactModel(
     user: json['user'] as int,
@@ -28,12 +16,19 @@ ContactModel _$ContactModelFromJson(Map<String, dynamic> json) {
     suffix: json['suffix'] as String,
     familyName: json['family_name'] as String,
     avatar: (json['avatar'] as List)?.map((e) => e as int)?.toList(),
+    emails: (json['emails'] as List)
+        ?.map((e) => (e as Map<String, dynamic>)?.map(
+              (k, e) => MapEntry(k, e as String),
+            ))
+        ?.toList(),
+    phones: (json['phones'] as List)
+        ?.map((e) => (e as Map<String, dynamic>)?.map(
+              (k, e) => MapEntry(k, e as String),
+            ))
+        ?.toList(),
     addresses: (json['addresses'] as List)?.map((e) => e as String)?.toList(),
     company: json['company'] as String,
     jobTitle: json['job_title'] as String,
-    addressesRaw: json['addresses_raw'] as String,
-    emailsRaw: json['emails_raw'] as String,
-    phonesRaw: json['phones_raw'] as String,
   );
 }
 
@@ -46,11 +41,10 @@ Map<String, dynamic> _$ContactModelToJson(ContactModel instance) =>
       'prefix': instance.prefix,
       'suffix': instance.suffix,
       'family_name': instance.familyName,
+      'phones': instance.phones,
+      'emails': instance.emails,
       'avatar': instance.avatar,
       'addresses': instance.addresses,
       'company': instance.company,
       'job_title': instance.jobTitle,
-      'emails_raw': instance.emailsRaw,
-      'phones_raw': instance.phonesRaw,
-      'addresses_raw': instance.addressesRaw,
     };

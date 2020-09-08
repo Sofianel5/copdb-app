@@ -7,19 +7,7 @@ import 'model.dart';
 part 'contact_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
-class ItemModel extends Item implements Model {
-  ItemModel({this.label, this.value});
-  String label, value;
-  factory ItemModel.fromJson(Map<String, dynamic> json) =>
-      _$ItemModelFromJson(json);
-  Map<String, dynamic> toJson() => _$ItemModelToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class ContactModel extends Contact implements Model {
-  String emailsRaw;
-  String phonesRaw;
-  String addressesRaw;
   ContactModel({
     int user,
     String displayName,
@@ -29,14 +17,11 @@ class ContactModel extends Contact implements Model {
     String suffix,
     String familyName,
     List<int> avatar,
-    List<ItemModel> emails,
-    List<ItemModel> phones,
+    List<Map<String, String>> emails,
+    List<Map<String, String>> phones,
     List<String> addresses,
     String company,
     String jobTitle,
-    this.addressesRaw,
-    this.emailsRaw,
-    this.phonesRaw
   }) : super ( 
     user: user,
     displayName: displayName,
@@ -65,8 +50,8 @@ class ContactModel extends Contact implements Model {
       prefix: contact.prefix,
       avatar: contact.avatar,
       suffix: contact.suffix,
-      phones: contact.phones.toList().map((e) => Item(label: e.label, value: e.value)),
-      emails: contact.emails.toList().map((e) => Item(label: e.label, value: e.value)),
+      phones: contact.phones.toList().map((e) => <String, String>{"label": e.label, "value": e.value}),
+      emails: contact.emails.toList().map((e) => <String, String>{"label": e.label, "value": e.value}),
       familyName: contact.familyName,
       addresses: contact.postalAddresses.map((e) => e.toString()),
       company: contact.company,
