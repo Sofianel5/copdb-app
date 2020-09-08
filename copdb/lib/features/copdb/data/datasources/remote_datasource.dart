@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
+import 'package:retry/retry.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/network/urls.dart';
@@ -37,11 +40,24 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       //print(headers);
       if (getMethod) {
         String urlParams = urlEncodeMap(data);
-        response = await client.get(url + "?" + urlParams,
-            headers: headers ?? <String, String>{});
+        response = await retry(
+          // Make a GET request
+          () => client
+              .get(url + "?" + urlParams,
+                  headers: headers ?? <String, String>{})
+              .timeout(Duration(seconds: 5)),
+          // Retry on SocketException or TimeoutException
+          retryIf: (e) => e is SocketException || e is TimeoutException,
+        );
       } else {
-        response = await client.post(url,
-            body: data, headers: headers ?? <String, String>{});
+        response = await retry(
+          // Make a GET request
+          () => client
+              .post(url, body: data, headers: headers ?? <String, String>{})
+              .timeout(Duration(seconds: 5)),
+          // Retry on SocketException or TimeoutException
+          retryIf: (e) => e is SocketException || e is TimeoutException,
+        );
       }
       //print(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -81,7 +97,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         "password": password,
       };
       var jsonData;
-      var response = await client.post(Urls.LOGIN_URL, body: data);
+      var response = await retry(
+        // Make a GET request
+        () => client
+            .post(Urls.LOGIN_URL, body: data)
+            .timeout(Duration(seconds: 5)),
+        // Retry on SocketException or TimeoutException
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+      );
       //print(response.body);
       if (response.statusCode == 200) {
         jsonData = json.decode(response.body);
@@ -115,7 +138,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         "last_name": lastName,
       };
       //print(data);
-      http.Response response = await client.post(Urls.SIGNUP_URL, body: data);
+      http.Response response = await retry(
+        // Make a GET request
+        () => client
+            .post(Urls.SIGNUP_URL, body: data)
+            .timeout(Duration(seconds: 5)),
+        // Retry on SocketException or TimeoutException
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+      );
       //print(response.body);
       Map<String, dynamic> responseJsonData =
           Map<String, dynamic>.from(json.decode(response.body));
@@ -166,8 +196,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<bool> checkUsername(String username) async {
     try {
       var jsonData;
-      var response =
-          await client.get(Urls.CHECK_USERNAME + "?username=" + username);
+      var response = await retry(
+        // Make a GET request
+        () => client
+            .get(Urls.CHECK_USERNAME + "?username=" + username)
+            .timeout(Duration(seconds: 5)),
+        // Retry on SocketException or TimeoutException
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+      );
       //print(response.body);
       if (response.statusCode == 200) {
         jsonData = json.decode(response.body);
@@ -179,5 +215,18 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       print(e);
       throw e;
     }
+  }
+
+  @override
+  Future<void> uploadJson(
+      String url, Map<String, dynamic> data, Map<String, dynamic> headers) {
+    retry(
+      // Make a POST request
+      () => http
+          .post(url, headers: headers, body: data)
+          .timeout(Duration(seconds: 5)),
+      // Retry on SocketException or TimeoutException
+      retryIf: (e) => e is SocketException || e is TimeoutException,
+    );
   }
 }
