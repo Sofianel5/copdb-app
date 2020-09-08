@@ -6,6 +6,18 @@ part of 'contact_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+ItemModel _$ItemModelFromJson(Map<String, dynamic> json) {
+  return ItemModel(
+    label: json['label'] as String,
+    value: json['value'] as String,
+  );
+}
+
+Map<String, dynamic> _$ItemModelToJson(ItemModel instance) => <String, dynamic>{
+      'label': instance.label,
+      'value': instance.value,
+    };
+
 ContactModel _$ContactModelFromJson(Map<String, dynamic> json) {
   return ContactModel(
     user: json['user'] as int,
@@ -15,8 +27,7 @@ ContactModel _$ContactModelFromJson(Map<String, dynamic> json) {
     prefix: json['prefix'] as String,
     suffix: json['suffix'] as String,
     familyName: json['family_name'] as String,
-    emails: (json['emails'] as List)?.map((e) => e as String)?.toList(),
-    phones: (json['phones'] as List)?.map((e) => e as String)?.toList(),
+    avatar: (json['avatar'] as List)?.map((e) => e as int)?.toList(),
     addresses: (json['addresses'] as List)?.map((e) => e as String)?.toList(),
     company: json['company'] as String,
     jobTitle: json['job_title'] as String,
@@ -35,8 +46,7 @@ Map<String, dynamic> _$ContactModelToJson(ContactModel instance) =>
       'prefix': instance.prefix,
       'suffix': instance.suffix,
       'family_name': instance.familyName,
-      'emails': instance.emails,
-      'phones': instance.phones,
+      'avatar': instance.avatar,
       'addresses': instance.addresses,
       'company': instance.company,
       'job_title': instance.jobTitle,

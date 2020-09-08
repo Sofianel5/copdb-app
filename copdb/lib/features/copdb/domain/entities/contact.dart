@@ -2,6 +2,12 @@ import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
 
+class Item {
+  Item({this.label, this.value});
+  String label, value;
+}
+
+
 class Contact extends Equatable {
   final int user;
   String displayName;
@@ -10,9 +16,9 @@ class Contact extends Equatable {
   String prefix;
   String suffix;
   String familyName;
-  List<String> emails;
-  List<String> phones;
-  Uint8List avatar;
+  List<Item> phones;
+  List<Item> emails;
+  List<int> avatar;
   List<String> addresses;
   String company;
   String jobTitle;
@@ -25,9 +31,9 @@ class Contact extends Equatable {
     this.prefix,
     this.suffix,
     this.familyName,
+    this.addresses,
     this.emails,
     this.phones,
-    this.addresses,
     this.company,
     this.jobTitle,
   });

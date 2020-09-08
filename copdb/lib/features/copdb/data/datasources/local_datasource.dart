@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:clipboard/clipboard.dart';
-import 'package:copdb/features/copdb/data/models/clipboard_data_model.dart';
-import 'package:copdb/features/copdb/data/models/device_model.dart';
-import 'package:copdb/features/copdb/data/models/network_info_model.dart';
+import 'package:contacts_service/contacts_service.dart';
 import 'package:device_info/device_info.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +10,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/device.dart';
 import '../../domain/entities/user.dart';
+import '../models/clipboard_data_model.dart';
+import '../models/contact_model.dart';
 import '../models/coordinates_model.dart';
+import '../models/device_model.dart';
+import '../models/network_info_model.dart';
 import '../models/user_model.dart';
 
 abstract class LocalDataSource {
@@ -27,6 +29,7 @@ abstract class LocalDataSource {
   Future<CoordinatesModel> getCoordinates() {}
   Future<NetworkInfoModel> getNetworkInfo() {}
   Future<ClipboardDataModel> getClipboardData() {}
+  Future<List<ContactModel>> getContacts() {}
 }
 
 const String AUTH_TOKEN_KEY = "authtoken";
@@ -182,5 +185,11 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<NetworkInfoModel> getNetworkInfo() {
     // TODO: implement getNetworkInfo
     throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ContactModel>> getContacts() async {
+    Iterable<Contact> contacts = await ContactsService.getContacts(); 
+    
   }
 }

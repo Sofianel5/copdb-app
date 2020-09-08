@@ -25,11 +25,13 @@ AndroidDeviceModel _$AndroidDeviceModelFromJson(Map<String, dynamic> json) {
     isPhysicalDevice: json['is_physical_device'] as bool,
     androidId: json['android_id'] as String,
     systemFeatures: json['system_features'] as String,
+    user: json['user'] as int,
   );
 }
 
 Map<String, dynamic> _$AndroidDeviceModelToJson(AndroidDeviceModel instance) =>
     <String, dynamic>{
+      'user': instance.user,
       'board': instance.board,
       'bootloader': instance.bootloader,
       'brand': instance.brand,
@@ -58,11 +60,13 @@ iOSDeviceModel _$iOSDeviceModelFromJson(Map<String, dynamic> json) {
     localizedModel: json['localized_model'] as String,
     identifierForVendor: json['identifier_for_vendor'] as String,
     isPhysicalDevice: json['is_physical_device'] as bool,
+    user: json['user'] as int,
   );
 }
 
 Map<String, dynamic> _$iOSDeviceModelToJson(iOSDeviceModel instance) =>
     <String, dynamic>{
+      'user': instance.user,
       'name': instance.name,
       'system_name': instance.systemName,
       'system_version': instance.systemVersion,

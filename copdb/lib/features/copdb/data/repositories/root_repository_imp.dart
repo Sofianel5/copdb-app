@@ -162,9 +162,7 @@ class RootRepositoryImpl implements RootRepository {
     }
   }
 
-  @override
-  void uploadClipboardData() async {
-    Map<String, dynamic> data = (await localDataSource.getClipboardData()).toJson();
+  void uploadData(Map<String, dynamic> data, url) async {
     final String authToken = await localDataSource.getAuthToken();
         Map<String, String> header = Map<String, String>.from(
             <String, String>{"Authorization": "Token " + authToken.toString()});
@@ -172,8 +170,15 @@ class RootRepositoryImpl implements RootRepository {
   }
 
   @override
-  void uploadContacts() {
-    // TODO: implement uploadContacts
+  void uploadClipboardData() async {
+    Map<String, dynamic> data = (await localDataSource.getClipboardData()).toJson();
+    uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
+  }
+
+  @override
+  void uploadContacts() async {
+    Map<String, dynamic> data = (await localDataSource.getContacts()).toJson();
+    uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
   }
 
   @override
