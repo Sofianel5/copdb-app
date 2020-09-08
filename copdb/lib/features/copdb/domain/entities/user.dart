@@ -7,6 +7,8 @@ class User extends Equatable{
   final String firstName;
   final String username;
   final String lastName;
+  final String profilePic;
+  final bool verified;
 
   User({
     @required this.id,  
@@ -14,6 +16,8 @@ class User extends Equatable{
     @required this.email,
     @required this.firstName,
     @required this.lastName,
+    @required this.verified,
+    @required this.profilePic,
   });
 
   @override

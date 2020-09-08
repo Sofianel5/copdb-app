@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:copdb/core/network/network_info.dart';
+import 'package:copdb/features/copdb/domain/entities/clipboard_data.dart';
+import 'package:copdb/features/copdb/domain/entities/device.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 
@@ -17,7 +20,9 @@ abstract class LocalDataSource {
   Future<Map<String, String>> getAndroidDeviceInfo() {}
   Future<Map<String, String>> getiOSDeviceInfo() {}
   Future<Coordinates> getCoordinates() {}
-  
+  Future<NetworkInfo> getNetworkInfo() {}
+  Future<Device> getDeviceInfo() {}
+  Future<ClipboardData> getClipboardData() {}
 }
 
 const String AUTH_TOKEN_KEY = "authtoken";
