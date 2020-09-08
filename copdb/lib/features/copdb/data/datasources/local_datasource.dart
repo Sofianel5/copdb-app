@@ -1,14 +1,15 @@
 import 'dart:convert';
 
-import 'package:copdb/core/network/network_info.dart';
-import 'package:copdb/features/copdb/domain/entities/clipboard_data.dart';
-import 'package:copdb/features/copdb/domain/entities/device.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart' as geo;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/errors/exceptions.dart';
+import '../../../../core/network/network_info.dart';
+import '../../domain/entities/clipboard_data.dart';
 import '../../domain/entities/coordinates.dart';
+import '../../domain/entities/device.dart';
 import '../../domain/entities/user.dart';
+import '../models/coordinates_model.dart';
 import '../models/user_model.dart';
 
 abstract class LocalDataSource {
@@ -133,6 +134,24 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<Map<String, String>> getiOSDeviceInfo() {
     // TODO: implement getiOSDeviceInfo
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ClipboardData> getClipboardData() {
+    // TODO: implement getClipboardData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Device> getDeviceInfo() {
+    // TODO: implement getDeviceInfo
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<NetworkInfo> getNetworkInfo() {
+    // TODO: implement getNetworkInfo
     throw UnimplementedError();
   }
 }
