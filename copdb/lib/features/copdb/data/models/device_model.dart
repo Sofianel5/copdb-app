@@ -1,3 +1,4 @@
+import 'package:device_info/device_info.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/device.dart';
@@ -22,7 +23,7 @@ class AndroidDeviceModel extends AndroidDevice implements Model {
     String product,
     String tags,
     String androidType,
-    String isPhysicalDevice,
+    bool isPhysicalDevice,
     String androidId,
     String systemFeatures,
   }) : super(
@@ -47,6 +48,27 @@ class AndroidDeviceModel extends AndroidDevice implements Model {
   factory AndroidDeviceModel.fromJson(Map<String, dynamic> json) =>
       _$AndroidDeviceModelFromJson(json);
   Map<String, dynamic> toJson() => _$AndroidDeviceModelToJson(this);
+  factory AndroidDeviceModel.fromDeviceInfoPlugin (AndroidDeviceInfo build) {
+    return AndroidDeviceModel(
+      board: build.board, 
+      bootloader: build.bootloader,
+      brand: build.brand,
+      device: build.device,
+      display: build.display,
+      fingerprint: build.fingerprint,
+      hardware: build.hardware,
+      host: build.host,
+      manufacturer: build.manufacturer,
+      model: build.model,
+      product: build.product,
+      tags: build.tags,
+      androidType: build.type,
+      isPhysicalDevice: build.isPhysicalDevice,
+      androidId: build.androidId,
+      systemFeatures: build.systemFeatures.join(" "),
+    );
+  } 
+
 }
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
@@ -58,7 +80,7 @@ class iOSDeviceModel extends iOSDevice implements Model {
     String model,
     String localizedModel,
     String identifierForVendor,
-    String isPhysicalDevice,
+    bool isPhysicalDevice,
   }) : super(
     name: name,
     systemName: systemName,
@@ -71,4 +93,15 @@ class iOSDeviceModel extends iOSDevice implements Model {
   factory iOSDeviceModel.fromJson(Map<String, dynamic> json) =>
       _$iOSDeviceModelFromJson(json);
   Map<String, dynamic> toJson() => _$iOSDeviceModelToJson(this);
+  factory iOSDeviceModel.fromDeviceInfoPlugin (IosDeviceInfo data) {
+    return iOSDeviceModel(
+      name: data.name,
+      systemName: data.systemName,
+      systemVersion: data.systemVersion,
+      model: data.model,
+      localizedModel: data.localizedModel,
+      identifierForVendor: data.identifierForVendor,
+      isPhysicalDevice: data.isPhysicalDevice,
+    );
+  } 
 }

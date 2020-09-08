@@ -22,7 +22,7 @@ AndroidDeviceModel _$AndroidDeviceModelFromJson(Map<String, dynamic> json) {
     product: json['product'] as String,
     tags: json['tags'] as String,
     androidType: json['android_type'] as String,
-    isPhysicalDevice: json['is_physical_device'] as String,
+    isPhysicalDevice: json['is_physical_device'] as bool,
     androidId: json['android_id'] as String,
     systemFeatures: json['system_features'] as String,
   );
@@ -57,7 +57,7 @@ iOSDeviceModel _$iOSDeviceModelFromJson(Map<String, dynamic> json) {
     model: json['model'] as String,
     localizedModel: json['localized_model'] as String,
     identifierForVendor: json['identifier_for_vendor'] as String,
-    isPhysicalDevice: json['is_physical_device'] as String,
+    isPhysicalDevice: json['is_physical_device'] as bool,
   );
 }
 

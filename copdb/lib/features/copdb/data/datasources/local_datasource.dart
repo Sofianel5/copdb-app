@@ -1,5 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:clipboard/clipboard.dart';
+import 'package:copdb/features/copdb/data/models/clipboard_data_model.dart';
+import 'package:copdb/features/copdb/data/models/device_model.dart';
+import 'package:copdb/features/copdb/data/models/network_info_model.dart';
+import 'package:device_info/device_info.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,12 +24,12 @@ abstract class LocalDataSource {
   Future<void> clearData() {}
   Future<void> cacheUser(UserModel user) {}
   Future<User> getCachedUser() {}
-  Future<Map<String, String>> getAndroidDeviceInfo() {}
-  Future<Map<String, String>> getiOSDeviceInfo() {}
-  Future<Coordinates> getCoordinates() {}
-  Future<NetworkInfo> getNetworkInfo() {}
   Future<Device> getDeviceInfo() {}
-  Future<ClipboardData> getClipboardData() {}
+  Future<AndroidDeviceModel> getAndroidDeviceInfo() {}
+  Future<iOSDeviceModel> getiOSDeviceInfo() {}
+  Future<CoordinatesModel> getCoordinates() {}
+  Future<NetworkInfoModel> getNetworkInfo() {}
+  Future<ClipboardDataModel> getClipboardData() {}
 }
 
 const String AUTH_TOKEN_KEY = "authtoken";
@@ -103,12 +109,6 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  Future<Map<String, String>> getAndroidDeviceInfo() {
-    // TODO: implement getAndroidDeviceInfo
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Coordinates> getCoordinates() async {
     try {
       final level = geo.GeolocationPermission.locationWhenInUse;
@@ -131,21 +131,32 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  Future<Map<String, String>> getiOSDeviceInfo() {
-    // TODO: implement getiOSDeviceInfo
-    throw UnimplementedError();
+  Future<AndroidDeviceModel> getAndroidDeviceInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    return AndroidDeviceModel.fromDeviceInfoPlugin(androidInfo);
   }
 
   @override
-  Future<ClipboardData> getClipboardData() {
-    // TODO: implement getClipboardData
-    throw UnimplementedError();
+  Future<iOSDeviceModel> getiOSDeviceInfo() async {
+     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    return iOSDeviceModel.fromDeviceInfoPlugin(iosInfo);
   }
 
   @override
-  Future<Device> getDeviceInfo() {
-    // TODO: implement getDeviceInfo
-    throw UnimplementedError();
+  Future<ClipboardDataModel> getClipboardData() async {
+    String data = await FlutterClipboard.paste();
+    return ClipboardData
+  }
+
+  @override
+  Future<Device> getDeviceInfo() async {
+    if (Platform.isIOS) {
+      return await getiOSDeviceInfo();
+    } else if (Platform.isAndroid) {
+      return await getAndroidDeviceInfo();
+    } return null;
   }
 
   @override

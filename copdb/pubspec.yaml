@@ -43,6 +43,8 @@ dependencies:
   url_launcher: ^5.4.7
   contacts_service: ^0.4.6
   retry: ^3.0.1
+  device_info: ^0.4.2+7
+  clipboard: ^0.1.2+8
   
 
 

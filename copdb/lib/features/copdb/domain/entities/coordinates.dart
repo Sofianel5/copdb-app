@@ -10,5 +10,5 @@ class Coordinates extends Equatable {
     this.id,
   });
   @override
-  List<Object> get props => [lat, lng, id];
+  List<Object> get props => [lat, lng];
 }

@@ -28,7 +28,7 @@ class AndroidDevice extends Device {
   String product;
   String tags;
   String androidType;
-  String isPhysicalDevice;
+  bool isPhysicalDevice;
   String androidId;
   String systemFeatures;
   AndroidDevice(
@@ -60,7 +60,7 @@ class iOSDevice extends Device {
   String model;
   String localizedModel;
   String identifierForVendor;
-  String isPhysicalDevice;
+  bool isPhysicalDevice;
   iOSDevice({
     this.name,
     this.systemName,

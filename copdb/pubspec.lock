@@ -148,6 +148,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  clipboard:
+    dependency: "direct main"
+    description:
+      name: clipboard
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2+8"
   clock:
     dependency: transitive
     description:
@@ -225,6 +232,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.4"
+  device_info:
+    dependency: "direct main"
+    description:
+      name: device_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.2+7"
+  device_info_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   equatable:
     dependency: "direct main"
     description:
