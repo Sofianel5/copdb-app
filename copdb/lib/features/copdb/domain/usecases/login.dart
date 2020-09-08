@@ -15,23 +15,23 @@ class Login extends UseCase<User, LoginParams> {
   @override 
   Future<Either<Failure, User>> call(LoginParams params) async {
     final inputValidator = InputConverter();
-    final invalidInputs = inputValidator.validateLoginForm(params.email, params.password);
+    final invalidInputs = inputValidator.validateLoginForm(params.username, params.password);
     if (invalidInputs.length != 0) {
       InvalidFormFailure val = await Future.delayed(Duration(seconds: 0), () => InvalidFormFailure(messages: invalidInputs));
       return Left(val);
     } else {
-      final userOrFailure = await repository.login(email: params.email, password: params.password);
+      final userOrFailure = await repository.login(username: params.username, password: params.password);
       return userOrFailure;
     }
   }
 }
 
 class LoginParams extends Params {
-  final String email;
+  final String username;
   final String password;
-  LoginParams({@required this.email, @required this.password});
+  LoginParams({@required this.username, @required this.password});
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [username, password];
   
 }

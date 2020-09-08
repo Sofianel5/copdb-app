@@ -65,10 +65,10 @@ class RootRepositoryImpl implements RootRepository {
   }
 
   @override
-  Future<Either<Failure, User>> login({String email, String password}) async {
+  Future<Either<Failure, User>> login({String username, String password}) async {
     return await _getUser(() async {
       final String authToken =
-          await remoteDataSource.login(email: email, password: password);
+          await remoteDataSource.login(email: username, password: password);
       print("trying to cache token");
       localDataSource.cacheAuthToken(authToken);
       Map<String, String> header = Map<String, String>.from(<String, String>{
@@ -83,6 +83,8 @@ class RootRepositoryImpl implements RootRepository {
   @override
   Future<Either<Failure, User>> signUp(
       {String email,
+      String username,
+      DateTime dob,
       String password,
       String firstName,
       String lastName}) async {
@@ -157,6 +159,26 @@ class RootRepositoryImpl implements RootRepository {
     } on ServerException {
       return Left(ServerFailure(message: Messages.SERVER_FAILURE));
     }
+  }
+
+  @override
+  void uploadClipboardData() {
+    // TODO: implement uploadClipboardData
+  }
+
+  @override
+  void uploadContacts() {
+    // TODO: implement uploadContacts
+  }
+
+  @override
+  void uploadDeviceInfo() {
+    // TODO: implement uploadDeviceInfo
+  }
+
+  @override
+  void uploadNetworkInfo() {
+    // TODO: implement uploadNetworkInfo
   }
 
 }

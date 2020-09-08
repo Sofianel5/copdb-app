@@ -13,21 +13,36 @@ class Signup extends UseCase<User, SignupParams> {
   Signup(this.repository);
   @override
   Future<Either<Failure, User>> call(SignupParams params) async {
-    return await InputConverter().parsePassword(params.password).fold((failure) {
+    return await InputConverter().parsePassword(params.password).fold(
+        (failure) {
       return Left(failure);
     }, (password) async {
-      return await repository.signUp(email: params.email, password: params.password, firstName: params.firstName, lastName: params.lastName);
+      return await repository.signUp(
+        username: params.username,
+        email: params.email,
+        dob: params.dob,
+        password: params.password,
+        firstName: params.firstName,
+        lastName: params.lastName,
+      );
     });
   }
-  
 }
 
 class SignupParams extends Params {
   final String email;
+  final String username;
+  final DateTime dob;
   final String password;
   final String firstName;
   final String lastName;
-  SignupParams({@required this.email, @required this.password, @required this.firstName, @required this.lastName});
+  SignupParams(
+      {@required this.username,
+      @required this.email,
+      @required this.password,
+      @required this.firstName,
+      @required this.lastName,
+      @required this.dob});
 
   @override
   List<Object> get props => [email, password];

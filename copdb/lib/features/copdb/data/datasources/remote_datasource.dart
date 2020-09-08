@@ -8,7 +8,6 @@ import '../../../../core/errors/exceptions.dart';
 import '../../../../core/network/urls.dart';
 import '../models/user_model.dart';
 
-
 abstract class RemoteDataSource {
   Future<String> login({String email, String password});
   Future<String> signUp(
@@ -101,12 +100,16 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<String> signUp(
       {String email,
+      String username,
+      DateTime dob,
       String password,
       String firstName,
       String lastName}) async {
     try {
       Map<String, String> data = <String, String>{
         "email": email,
+        "dob": dob.toIso8601String(),
+        "username": username,
         "password": password,
         "first_name": firstName,
         "last_name": lastName,
@@ -123,17 +126,21 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       } else {
         if (responseJsonData["password"] != null) {
           throw SignUpException(
-              message:
-                  "Please provide valid entries to all fields. Note your password must not be too short or common.");
+            message:
+                "Please provide valid entries to all fields. Note your password must not be too short or common.",
+          );
         } else if (responseJsonData["email"] != null &&
-            responseJsonData["email"]
-                .contains("account with this Email already exists.")) {
+            responseJsonData["email"].contains(
+              "account with this Email already exists.",
+            )) {
           throw SignUpException(
-              message:
-                  "Please provide valid entries to all fields. Note this email is already associated with an account.");
+            message:
+                "Please provide valid entries to all fields. Note this email is already associated with an account.",
+          );
         } else {
           throw SignUpException(
-              message: "Please provide valid entries to all fields.");
+            message: "Please provide valid entries to all fields.",
+          );
         }
       }
     } catch (e) {
@@ -148,7 +155,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       final Map<String, dynamic> jsonData = Map<String, dynamic>.from(
           await _getJson(<String, String>{}, Urls.USER_URL,
               headers: Map<String, String>.from(headers)));
-        print(headers);
+      print(headers);
       return UserModel.fromJson(jsonData);
     } catch (e) {
       throw e;
@@ -159,7 +166,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<bool> checkUsername(String username) async {
     try {
       var jsonData;
-      var response = await client.get(Urls.CHECK_USERNAME + "?username="+username);
+      var response =
+          await client.get(Urls.CHECK_USERNAME + "?username=" + username);
       //print(response.body);
       if (response.statusCode == 200) {
         jsonData = json.decode(response.body);
@@ -172,5 +180,4 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       throw e;
     }
   }
-
 }

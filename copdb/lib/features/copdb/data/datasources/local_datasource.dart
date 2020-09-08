@@ -27,7 +27,6 @@ abstract class LocalDataSource {
 }
 
 const String AUTH_TOKEN_KEY = "authtoken";
-const String VENUES_KEY = "venues";
 const String USER_KEY = "user";
 
 class LocalDataSourceImpl implements LocalDataSource {
