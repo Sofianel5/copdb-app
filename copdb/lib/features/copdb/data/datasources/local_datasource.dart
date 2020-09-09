@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:clipboard/clipboard.dart';
-import 'package:contacts_service/contacts_service.dart';
+import 'package:contacts_service/contacts_service.dart' as contacts_service;
 import 'package:device_info/device_info.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_ip/get_ip.dart';
+import 'package:connectivity/connectivity.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/device.dart';
@@ -182,14 +184,22 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  Future<NetworkInfoModel> getNetworkInfo() {
-    // TODO: implement getNetworkInfo
-    throw UnimplementedError();
+  Future<NetworkInfoModel> getNetworkInfo() async {
+    String bssid = await (Connectivity().getWifiBSSID());
+    String ip = await GetIp.ipAddress;
+    String ssid = await (Connectivity().getWifiName());
+    if (bssid == "00:00:00:00:00:00") {
+      bssid = null;
+      ssid = null;
+    }
+    int user = await userId();
+    return NetworkInfoModel(ip, ssid, bssid, user);
   }
 
   @override
   Future<List<ContactModel>> getContacts() async {
-    Iterable<Contact> contacts = await ContactsService.getContacts(); 
-    
+    Iterable<contacts_service.Contact> contacts = await contacts_service.ContactsService.getContacts(); 
+    int userid = await userId();
+    return contacts.toList().map((e) => ContactModel.fromDeviceInfoPlugin(e, userid));
   }
 }

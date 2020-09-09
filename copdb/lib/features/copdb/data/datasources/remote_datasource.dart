@@ -17,7 +17,7 @@ abstract class RemoteDataSource {
       {String email, String password, String firstName, String lastName});
   Future<UserModel> getUser(Map<String, dynamic> headers);
   Future<bool> checkUsername(String username);
-  Future<void> uploadJson(String url, Map<String, dynamic> data, Map<String, dynamic> headers);
+  Future<void> uploadJson(String url, dynamic data, Map<String, dynamic> headers);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -220,7 +220,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<void> uploadJson(
-      String url, Map<String, dynamic> data, Map<String, dynamic> headers) {
+      String url, dynamic data, Map<String, dynamic> headers) {
     retry(
       // Make a POST request
       () => http
