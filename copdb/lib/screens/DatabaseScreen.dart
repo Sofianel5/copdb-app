@@ -77,8 +77,8 @@ class _DatabaseScreen extends State<DatabaseScreen>
               child: Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(right: 8),
-                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(right: 16),
+                    alignment: Alignment.centerLeft,
                     /* alignment: Alignment.centerLeft, */
                     child: Icon(reportList[index].icon, size: 38),
                   ),

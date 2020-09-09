@@ -17,13 +17,7 @@ class FriendScreen extends StatefulWidget
 
 class _FriendScreen extends State<FriendScreen>
 {
-  Widget _flightShuttleBuilder(BuildContext f, Animation<double> a, HeroFlightDirection d, BuildContext h, BuildContext t) 
-    {
-      return DefaultTextStyle(
-        style: DefaultTextStyle.of(t).style,
-        child: t.widget,
-      );
-    }
+
   List<Friend> reportList = [
     Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
     Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
@@ -44,78 +38,74 @@ class _FriendScreen extends State<FriendScreen>
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => FriendProfileScreen(index: index,))
+              MaterialPageRoute(builder: (context) => FriendProfileScreen())
             );
           },
-          child: Hero(
-            tag: '$index',
-            flightShuttleBuilder: _flightShuttleBuilder,
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(left: 30, right: 30),
-              /* width: 90, */
-              height: 100,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(8, 11, 17, 1),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xFF54C6EB).withOpacity(0.5),
-                    spreadRadius: .5,
-                    blurRadius: 7,
-                    offset: Offset(0, 0), // changes position of shadow
-                  ),
-                ],
-                border: Border(
-                  left: BorderSide.none, 
-                  right: BorderSide.none, 
-                  top: BorderSide(color: Color(0xFF54C6EB).withOpacity(0.6), width: .5),
-                  /*  bottom: BorderSide(color: Colors.white) */
+          child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(left: 30, right: 30),
+            /* width: 90, */
+            height: 100,
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(8, 11, 17, 1),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFF54C6EB).withOpacity(0.5),
+                  spreadRadius: .5,
+                  blurRadius: 7,
+                  offset: Offset(0, 0), // changes position of shadow
                 ),
+              ],
+              border: Border(
+                left: BorderSide.none, 
+                right: BorderSide.none, 
+                top: BorderSide(color: Color(0xFF54C6EB).withOpacity(0.6), width: .5),
+                /*  bottom: BorderSide(color: Colors.white) */
               ),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: 8),
-                    alignment: Alignment.center,
-                    /* alignment: Alignment.centerLeft, */
-                    child: Icon(reportList[index].icon, size: 38),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /* Container(
-                        child: Icon(reportList[index].icon, size: 38),
-                      ), */
-                      Container(
-                        height: 25,
-                        child: Text(
-                          reportList[index].fname + " " + reportList[index].lname,
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        )
-                      ),
-                      Container(
-                        /* width: 130, */
-                        child: Text(
-                          "joined " + reportList[index].date,
-                          style: TextStyle(fontSize: 14, color: Colors.white70),
-                        )
-                      ),
-                    ],
-                  ),
-                  Expanded(child: Container(),),
-                  Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Color(0xFF54C6EB),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 8),
+                  alignment: Alignment.center,
+                  /* alignment: Alignment.centerLeft, */
+                  child: Icon(reportList[index].icon, size: 38),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /* Container(
+                      child: Icon(reportList[index].icon, size: 38),
+                    ), */
+                    Container(
+                      height: 25,
+                      child: Text(
+                        reportList[index].fname + " " + reportList[index].lname,
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      )
                     ),
-                    width: 60,
-                    height: 30,
-                    child: Text('add'),
+                    Container(
+                      /* width: 130, */
+                      child: Text(
+                        "joined " + reportList[index].date,
+                        style: TextStyle(fontSize: 14, color: Colors.white70),
+                      )
+                    ),
+                  ],
+                ),
+                Expanded(child: Container(),),
+                Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(0xFF54C6EB),
                   ),
-                ],
-              ),
+                  width: 60,
+                  height: 30,
+                  child: Text('add'),
+                ),
+              ],
             ),
           ),
         );

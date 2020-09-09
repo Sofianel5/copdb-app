@@ -37,62 +37,139 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
               Expanded(
                 child: Column(
                   children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 30),
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        _report.date, 
-                        style: TextStyle(
-                          fontSize: 18, color: Colors.white70,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          /* alignment: Alignment.topRight, */
+                          padding: EdgeInsets.only(left: 30),
+                          width: 150,
+                          height: 120,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/cat.jpg'),
+                                fit: BoxFit.cover,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xFF54C6EB).withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 0), // changes position of shadow
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                            ),
+                            height: 75,
+                            width: 75,
+                          ),
                         ),
-                      ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 30),
+                              alignment: Alignment.centerLeft,
+                              margin: EdgeInsets.only(bottom: 4),
+                              child: Text(
+                                _report.date, 
+                                style: TextStyle(
+                                  fontSize: 18, color: Colors.white70,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 30),
+                              alignment: Alignment.centerLeft,
+                              margin: EdgeInsets.only(bottom: 4),
+                              child: Text(
+                                _report.firstname, 
+                                style: TextStyle(
+                                  fontSize: 36, fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 30),
+                              alignment: Alignment.centerLeft,
+                              margin: EdgeInsets.only(bottom: 4),
+                              child: Text(
+                                _report.lastname, 
+                                style: TextStyle(
+                                  fontSize: 36, fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 30),
+                              alignment: Alignment.centerLeft,
+                              margin: EdgeInsets.only(bottom: 16),
+                              child: Text(
+                                _report.age + " | " + _report.sex, 
+                                style: TextStyle(
+                                  fontSize: 18, color: Colors.white70,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 30),
+                      padding: EdgeInsets.only(left: 30, right: 30),
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        _report.firstname, 
-                        style: TextStyle(
-                          fontSize: 36, fontWeight: FontWeight.bold
-                        ),
-                      ),
+                      child: Text('Big Text Text', style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 30),
+                      padding: EdgeInsets.only(left: 30, right: 30),
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 4),
+                      margin: EdgeInsets.only(bottom: 16, top: 4),
                       child: Text(
-                        _report.lastname, 
+                        _report.description * 40, 
                         style: TextStyle(
-                          fontSize: 36, fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 30),
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 16),
-                      child: Text(
-                        _report.location, 
-                        style: TextStyle(
-                          fontSize: 18, color: Colors.white70,
+                          fontSize: 16, color: Colors.white,
                         ),
                       ),
                     ),
                     Container(
                       padding: EdgeInsets.only(left: 30, right: 30),
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 16),
+                      margin: EdgeInsets.only(bottom: 4),
+                      child: Text('Big Text Text', style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 30, right: 30),
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(bottom: 16, top: 4),
                       child: Text(
-                        _report.description * 4, 
+                        _report.description * 40, 
                         style: TextStyle(
                           fontSize: 16, color: Colors.white,
                         ),
                       ),
                     ),
-                    
+                    Container(
+                      padding: EdgeInsets.only(left: 30, right: 30),
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(bottom: 4),
+                      child: Text('Big Text Text', style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 30, right: 30),
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(bottom: 16, top: 4),
+                      child: Text(
+                        _report.description * 40, 
+                        style: TextStyle(
+                          fontSize: 16, color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
