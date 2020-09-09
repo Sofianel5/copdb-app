@@ -27,42 +27,118 @@ void main() {
   final String password = "214596983";
   final String email = "slarbi10@stuy.edy";
   final String realToken = "5c83dc215a855ef7640fc7b5410385051b8fe985";
+  final DateTime dob = DateTime.parse("2002-11-10T00:00:00-05:00");
+  final String first_name = "Sofiane";
+  final String username = "realsofianelarbi";
+  final String last_name = "Larbi";
+
   group(("login"), () {
     test("should send a post request to correct URL", () async {
       // arrange
-      when(mockHttpClient.post("https:/api.copdb.app/api/auth/token/login/", headers: anyNamed("headers"), body: anyNamed("body"))).thenAnswer((_) async => http.Response("""{"auth_token": "5c83dc215a855ef7640fc7b5410385051b8fe985"}""", 200));
-      // act 
+      when(mockHttpClient.post("https://api.copdb.app/users/auth/token/login/",
+              headers: anyNamed("headers"), body: anyNamed("body")))
+          .thenAnswer((_) async => http.Response(
+              """{"auth_token": "5c83dc215a855ef7640fc7b5410385051b8fe985"}""",
+              200));
+      // act
       dataSource.login(email: email, password: password);
-      // assert 
-      verify(mockHttpClient.post("https://api.copdb.app/api/auth/token/login/", body: {"email": email, "password": password}));
+      // assert
+      verify(mockHttpClient.post(
+          "https://api.copdb.app/users/auth/token/login/",
+          body: anyNamed("body")));
     });
 
     test("should return valid token when the response code is 200", () async {
       // arrange
-      when(mockHttpClient.post("https://api.copdb.app/api/auth/token/login/", headers: anyNamed("headers"), body: anyNamed("body"))).thenAnswer((_) async => http.Response("""{"auth_token": "5c83dc215a855ef7640fc7b5410385051b8fe985"}""", 200));
+      when(mockHttpClient.post("https://api.copdb.app/users/auth/token/login/",
+              headers: anyNamed("headers"), body: anyNamed("body")))
+          .thenAnswer((_) async => http.Response(
+              """{"auth_token": "5c83dc215a855ef7640fc7b5410385051b8fe985"}""",
+              200));
       // act
       final result = await dataSource.login(email: email, password: password);
-      // assert 
+      // assert
       expect(result, realToken);
     });
 
-    test("should throw ServerException when the response code is 500", () async {
+    test("should throw ServerException when the response code is 500",
+        () async {
       // arrange
-      when(mockHttpClient.post("https://api.copdb.app/api/auth/token/login/", headers: anyNamed("headers"), body: anyNamed("body"))).thenAnswer((_) async => http.Response("""""", 500));
+      when(mockHttpClient.post("https://api.copdb.app/users/auth/token/login/",
+              headers: anyNamed("headers"), body: anyNamed("body")))
+          .thenAnswer((_) async => http.Response("""""", 500));
       // act
       final call = dataSource.login;
-      // assert 
-      expect(() => call(email: email, password: password), throwsA(TypeMatcher<ServerException>()));
+      // assert
+      expect(() => call(email: email, password: password),
+          throwsA(TypeMatcher<ServerException>()));
     });
 
-    test("should throw AuthenticationException when the response code is 400", () async {
+    test("should throw AuthenticationException when the response code is 400",
+        () async {
       // arrange
-      when(mockHttpClient.post("https://api.copdb.app/api/auth/token/login/", headers: anyNamed("headers"), body: anyNamed("body"))).thenAnswer((_) async => http.Response("""""", 400));
+      when(mockHttpClient.post("https://api.copdb.app/users/auth/token/login/",
+              headers: anyNamed("headers"), body: anyNamed("body")))
+          .thenAnswer((_) async => http.Response("""""", 400));
       // act
       final call = dataSource.login;
-      // assert 
-      expect(() => call(email: email, password: password), throwsA(TypeMatcher<AuthenticationException>()));
+      // assert
+      expect(() => call(email: email, password: password),
+          throwsA(TypeMatcher<AuthenticationException>()));
     });
-    
+  });
+  group("signup", () {
+    test("should send a post request to correct URL", () async {
+      // arrange
+      when(
+        mockHttpClient.post(
+          "https://api.copdb.app/users/auth/users/",
+          headers: anyNamed("headers"),
+          body: anyNamed("body"),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(json.encode(userJson),
+          201,
+        ),
+      );
+      // act
+      dataSource.signUp(
+        email: email,
+        password: password,
+        firstName: first_name,
+        lastName: last_name,
+        dob: dob,
+        username: username,
+      );
+      // assert
+      verify(
+        mockHttpClient.post(
+          "https://api.copdb.app/users/auth/users/",
+          body: anyNamed("body"),
+        ),
+      );
+    });
+
+    test("should return valid token when the response code is 200", () async {
+      // arrange
+      when(mockHttpClient.post("https://api.copdb.app/users/auth/users/",
+              headers: anyNamed("headers"), body: anyNamed("body")))
+          .thenAnswer(
+        (_) async => http.Response(json.encode(userJson),
+          201,
+        ),
+      );
+      // act
+      final result = await dataSource.signUp(
+        email: email,
+        password: password,
+        firstName: first_name,
+        lastName: last_name,
+        dob: dob,
+        username: username,
+      );
+      // assert
+      expect(result, json.encode(userJson));
+    });
   });
 }

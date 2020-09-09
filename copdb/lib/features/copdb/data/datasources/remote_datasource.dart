@@ -17,7 +17,8 @@ abstract class RemoteDataSource {
       {String email, String password, String firstName, String lastName});
   Future<UserModel> getUser(Map<String, dynamic> headers);
   Future<bool> checkUsername(String username);
-  Future<void> uploadJson(String url, dynamic data, Map<String, dynamic> headers);
+  Future<void> uploadJson(
+      String url, dynamic data, Map<String, dynamic> headers);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -122,13 +123,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<String> signUp(
-      {String email,
-      String username,
-      DateTime dob,
-      String password,
-      String firstName,
-      String lastName}) async {
+  Future<String> signUp({
+    @required String email,
+    @required String username,
+    @required DateTime dob,
+    @required String password,
+    @required String firstName,
+    @required String lastName,
+  }) async {
     try {
       Map<String, String> data = <String, String>{
         "email": email,
@@ -140,7 +142,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       };
       //print(data);
       http.Response response = await retry(
-        // Make a GET request
+        // Make a POST request
         () => client
             .post(Urls.SIGNUP_URL, body: data)
             .timeout(Duration(seconds: 5)),
@@ -148,8 +150,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         retryIf: (e) => e is SocketException || e is TimeoutException,
       );
       //print(response.body);
-      Map<String, dynamic> responseJsonData =
-          Map<String, dynamic>.from(json.decode(response.body));
+      Map<String, dynamic> responseJsonData = Map<String, dynamic>.from(
+        json.decode(response.body),
+      );
       if (response.statusCode == 201) {
         String token = await login(
             email: responseJsonData["email"], password: data['password']);
