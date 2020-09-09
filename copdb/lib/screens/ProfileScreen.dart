@@ -24,10 +24,7 @@ class _ProfileScreen extends State<ProfileScreen>
       {
         return GestureDetector(
           onTap: () {
-            Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => FriendProfileScreen())
-            );
+            Navigator.push(context, SlideFromBottomPageRoute(widget: FriendProfileScreen()));
           },
           child: Container(
             alignment: Alignment.center,

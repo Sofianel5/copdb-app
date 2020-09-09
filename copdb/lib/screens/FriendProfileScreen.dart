@@ -77,21 +77,7 @@ class _FriendProfileScreen extends State<FriendProfileScreen>
       backgroundColor: Color.fromRGBO(8, 11, 17, 1),
       body: Column(
         children: [
-          Container(height: 45,),
-          Container(
-            padding: EdgeInsets.only(left: 30, right: 30,),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: 45,
-                  child: Text("Profile |", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
-                ),
-                Expanded(child: Container(),),
-              ],
-            ),
-          ),
+          Container(height: 90,),
           Container(height: 35,),
           Container(
             width: 152,

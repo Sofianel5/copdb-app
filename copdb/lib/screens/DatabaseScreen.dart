@@ -16,6 +16,14 @@ class DatabaseScreen extends StatefulWidget
 class _DatabaseScreen extends State<DatabaseScreen>
 {
 
+  Widget _flightShuttleBuilder(BuildContext f, Animation<double> a, HeroFlightDirection d, BuildContext h, BuildContext t) 
+    {
+      return DefaultTextStyle(
+        style: DefaultTextStyle.of(t).style,
+        child: t.widget,
+      );
+    }
+
   List<ReportPreview> reportList = [
     ReportPreview('first fullname', 'lastname', Icons.smoking_rooms, 'date/00', 'lorem iptsum ido mina foli isa noream '),
     ReportPreview('first fullname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
@@ -36,73 +44,77 @@ class _DatabaseScreen extends State<DatabaseScreen>
             Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => ReportDetailScreen(
-                report: Report('', '', '', '', '', '', '', '', null), 
+                report: Report('first name', 'last name', 'age', 'sex', 'allegation', 'date/00', 'location', 'text', null), 
                 index: index,)
               ),
             );
           },
-          child: Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.only(left: 30, right: 30),
-            /* width: 90, */
-            height: 100,
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(8, 11, 17, 1),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0xFF54C6EB).withOpacity(0.5),
-                  spreadRadius: .5,
-                  blurRadius: 7,
-                  offset: Offset(0, 0), // changes position of shadow
+          child: Hero(
+            flightShuttleBuilder: _flightShuttleBuilder,
+            tag: '$index',
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: 30, right: 30),
+              /* width: 90, */
+              height: 100,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(8, 11, 17, 1),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFF54C6EB).withOpacity(0.5),
+                    spreadRadius: .5,
+                    blurRadius: 7,
+                    offset: Offset(0, 0), // changes position of shadow
+                  ),
+                ],
+                border: Border(
+                  left: BorderSide.none, 
+                  right: BorderSide.none, 
+                  top: BorderSide(color: Color(0xFF54C6EB).withOpacity(0.6), width: .5),
+                  /*  bottom: BorderSide(color: Colors.white) */
                 ),
-              ],
-              border: Border(
-                left: BorderSide.none, 
-                right: BorderSide.none, 
-                top: BorderSide(color: Color(0xFF54C6EB).withOpacity(0.6), width: .5),
-                /*  bottom: BorderSide(color: Colors.white) */
               ),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(right: 8),
-                  alignment: Alignment.center,
-                  /* alignment: Alignment.centerLeft, */
-                  child: Icon(reportList[index].icon, size: 38),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /* Container(
-                      child: Icon(reportList[index].icon, size: 38),
-                    ), */
-                    Container(
-                      height: 25,
-                      child: Text(
-                        reportList[index].firstname,
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      )
-                    ),
-                    Container(
-                      /* alignment: Alignment.centerLeft, */
-                      height: 20,
-                      child: Text(
-                        reportList[index].date,
-                        style: TextStyle(fontSize: 14, color: Colors.white70),
-                      )
-                    ),
-                    Container(
-                      /* width: 130, */
-                      child: Text(
-                        reportList[index].abuse,
-                        style: TextStyle(fontSize: 14, color: Colors.white70),
-                      )
-                    ),
-                  ],
-                ),
-              ],
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 16),
+                    alignment: Alignment.centerLeft,
+                    /* alignment: Alignment.centerLeft, */
+                    child: Icon(reportList[index].icon, size: 38),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /* Container(
+                        child: Icon(reportList[index].icon, size: 38),
+                      ), */
+                      Container(
+                        height: 25,
+                        child: Text(
+                          reportList[index].firstname,
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        )
+                      ),
+                      Container(
+                        /* alignment: Alignment.centerLeft, */
+                        height: 20,
+                        child: Text(
+                          reportList[index].date,
+                          style: TextStyle(fontSize: 14, color: Colors.white70),
+                        )
+                      ),
+                      Container(
+                        /* width: 130, */
+                        child: Text(
+                          reportList[index].abuse,
+                          style: TextStyle(fontSize: 14, color: Colors.white70),
+                        )
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
