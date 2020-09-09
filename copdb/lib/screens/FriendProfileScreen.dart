@@ -1,20 +1,19 @@
 import 'package:copdb/animations/SlideAnimation.dart';
-import 'package:copdb/screens/FriendProfileScreen.dart';
 import 'package:copdb/screens/FriendScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatefulWidget 
+class FriendProfileScreen extends StatefulWidget 
 {
-  const ProfileScreen({Key key}) : super(key: key);
+  const FriendProfileScreen({Key key}) : super(key: key);
   @override
-  _ProfileScreen createState() => _ProfileScreen();
+  _FriendProfileScreen createState() => _FriendProfileScreen();
 }
 
-class _ProfileScreen extends State<ProfileScreen>
+class _FriendProfileScreen extends State<FriendProfileScreen>
 {
-  List<String> contactList = ['deez nutz', 'pog champion', 'saladin oual', 'jamie philips'];
-  ListView _getContacts()
+   List<String> contactList = ['deez nutz', 'pog champion', 'saladin oual', 'jamie philips'];
+  ListView _getMutuals()
   {
     return ListView.builder(
       padding: EdgeInsets.only(top: 5),
@@ -22,64 +21,56 @@ class _ProfileScreen extends State<ProfileScreen>
       itemCount: contactList.length,
       itemBuilder:(BuildContext context, int index) 
       {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => FriendProfileScreen())
-            );
-          },
-          child: Container(
-            alignment: Alignment.center,
-            height: 50,
-            child: Row(
-              children: [
-                Container(
-                  child: Icon(Icons.account_circle, size: 38),
+        return Container(
+          alignment: Alignment.center,
+          height: 50,
+          child: Row(
+            children: [
+              Container(
+                child: Icon(Icons.account_circle, size: 38),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left:10),
+                      alignment: Alignment.centerLeft,
+                      height: 25,
+                      child: Text(
+                        contactList[index],
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      )
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left:10),
+                      alignment: Alignment.centerLeft,
+                      height: 15,
+                      child: Text(
+                        contactList[index],
+                        style: TextStyle(fontSize: 12, color: Colors.white70),
+                      )
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left:10),
-                        alignment: Alignment.centerLeft,
-                        height: 25,
-                        child: Text(
-                          contactList[index],
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        )
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left:10),
-                        alignment: Alignment.centerLeft,
-                        height: 15,
-                        child: Text(
-                          contactList[index],
-                          style: TextStyle(fontSize: 12, color: Colors.white70),
-                        )
-                      ),
-                    ],
-                  ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Color(0xFF54C6EB),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Color(0xFF54C6EB),
-                  ),
-                  width: 60,
-                  height: 30,
-                  child: Text('add'),
-                ),
-              ],
-            ),
+                width: 60,
+                height: 30,
+                child: Text('add'),
+              ),
+            ],
           ),
         );
       }
     );
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,33 +168,13 @@ class _ProfileScreen extends State<ProfileScreen>
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Add Friends", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                      Text('add your friends on copDB', style: TextStyle(fontSize: 12, color: Colors.white70),)
+                      Text("Add Friend", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                      Text('add @name as a friend on copDB', style: TextStyle(fontSize: 12, color: Colors.white70),)
                     ],
                   ),
                 ),
               ],
             ),
-          ),
-          Container(height: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: Icon(Icons.share, size: 32,),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Invite Friends", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                    Text('invite your friends to copDB', style: TextStyle(fontSize: 12, color: Colors.white70),)
-                  ],
-                ),
-              ),
-            ],
           ),
           Container(height: 30,),
           Container(
@@ -225,7 +196,7 @@ class _ProfileScreen extends State<ProfileScreen>
           Container(height: 30,),
           Container(
             child: Text(
-              'People you may know',
+              'Mutual Contacts',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             )
           ),
@@ -234,7 +205,21 @@ class _ProfileScreen extends State<ProfileScreen>
             alignment: Alignment.center,
             height: 220, 
             width: 300,
-            child: _getContacts()
+            child: _getMutuals()
+          ),
+          Container(height: 20,),
+          GestureDetector(
+            onTap: () {Navigator.pop(context);},
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Color(0xFF54C6EB),
+              ),
+              width: 100,
+              height: 40,
+              child: Text('back', style: TextStyle(fontSize: 18),),
+            ),
           ),
         ],
       )

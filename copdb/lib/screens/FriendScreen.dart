@@ -1,6 +1,7 @@
 import 'package:copdb/models/Friend.dart';
 import 'package:copdb/models/Report.dart';
 import 'package:copdb/models/ReportPreview.dart';
+import 'package:copdb/screens/FriendProfileScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:copdb/utils/SearchBar.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _FriendScreen extends State<FriendScreen>
     Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
     Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
   ];
-  ListView _getReports()
+  ListView _getFriends()
   {
     return ListView.builder(
       scrollDirection: Axis.vertical,
@@ -37,10 +38,7 @@ class _FriendScreen extends State<FriendScreen>
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => ReportDetailScreen(
-                report: Report('', '', '', '', '', '', '', '', null), 
-                index: index,)
-              ),
+              MaterialPageRoute(builder: (context) => FriendProfileScreen())
             );
           },
           child: Container(
@@ -160,7 +158,7 @@ class _FriendScreen extends State<FriendScreen>
             padding: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
             child: SearchBar(text: 'Enter friend name'),
           ),
-          Expanded(child: _getReports()),
+          Expanded(child: _getFriends()),
           GestureDetector(
                 onTap: () {Navigator.pop(context);},
                 child: Container(
