@@ -13,6 +13,13 @@ class ProfileScreen extends StatefulWidget
 
 class _ProfileScreen extends State<ProfileScreen>
 {
+  Widget _flightShuttleBuilder(BuildContext f, Animation<double> a, HeroFlightDirection d, BuildContext h, BuildContext t) 
+  {
+    return DefaultTextStyle(
+      style: DefaultTextStyle.of(t).style,
+      child: t.widget,
+    );
+  }
   List<String> contactList = ['deez nutz', 'pog champion', 'saladin oual', 'jamie philips'];
   ListView _getContacts()
   {
@@ -26,53 +33,57 @@ class _ProfileScreen extends State<ProfileScreen>
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => FriendProfileScreen())
+              MaterialPageRoute(builder: (context) => FriendProfileScreen(index: index,))
             );
           },
-          child: Container(
-            alignment: Alignment.center,
-            height: 50,
-            child: Row(
-              children: [
-                Container(
-                  child: Icon(Icons.account_circle, size: 38),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left:10),
-                        alignment: Alignment.centerLeft,
-                        height: 25,
-                        child: Text(
-                          contactList[index],
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        )
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left:10),
-                        alignment: Alignment.centerLeft,
-                        height: 15,
-                        child: Text(
-                          contactList[index],
-                          style: TextStyle(fontSize: 12, color: Colors.white70),
-                        )
-                      ),
-                    ],
+          child: Hero(
+            flightShuttleBuilder: _flightShuttleBuilder,
+            tag: '$index',
+            child: Container(
+              alignment: Alignment.center,
+              height: 50,
+              child: Row(
+                children: [
+                  Container(
+                    child: Icon(Icons.account_circle, size: 38),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Color(0xFF54C6EB),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(left:10),
+                          alignment: Alignment.centerLeft,
+                          height: 25,
+                          child: Text(
+                            contactList[index],
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          )
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left:10),
+                          alignment: Alignment.centerLeft,
+                          height: 15,
+                          child: Text(
+                            contactList[index],
+                            style: TextStyle(fontSize: 12, color: Colors.white70),
+                          )
+                        ),
+                      ],
+                    ),
                   ),
-                  width: 60,
-                  height: 30,
-                  child: Text('add'),
-                ),
-              ],
+                  Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Color(0xFF54C6EB),
+                    ),
+                    width: 60,
+                    height: 30,
+                    child: Text('add'),
+                  ),
+                ],
+              ),
             ),
           ),
         );

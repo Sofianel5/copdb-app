@@ -16,6 +16,13 @@ class IncidentScreen extends StatefulWidget
 
 class _IncidentScreen extends State<IncidentScreen>
 {
+  Widget _flightShuttleBuilder(BuildContext f, Animation<double> a, HeroFlightDirection d, BuildContext h, BuildContext t) 
+    {
+      return DefaultTextStyle(
+        style: DefaultTextStyle.of(t).style,
+        child: t.widget,
+      );
+    }
   //mock data ; pull from db instead
   bool hasMadeReport = true;
   List<ReportPreview> reportList = [
@@ -43,58 +50,62 @@ class _IncidentScreen extends State<IncidentScreen>
               ),
             );
           },
-          child: Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(right: 16),
-            /* width: 90, */
-            width: 140,
-            height: 50,
-            decoration: BoxDecoration(
-              /* border: Border(
-                left: BorderSide(color: Colors.white),
-              ) */
+          child: Hero(
+            flightShuttleBuilder: _flightShuttleBuilder,
+            tag: '$index',
+            child: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(right: 16),
+              /* width: 90, */
+              width: 140,
+              height: 50,
+              decoration: BoxDecoration(
+                /* border: Border(
+                  left: BorderSide(color: Colors.white),
+                ) */
+              ),
+              child: /* Row(
+                children: [ */
+                  /* Container(
+                    margin: EdgeInsets.only(right: 8),
+                    alignment: Alignment.topLeft,
+                    /* alignment: Alignment.centerLeft, */
+                    child: Icon(reportList[index].icon, size: 38),
+                  ), */
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Icon(reportList[index].icon, size: 38),
+                      ),
+                      Container(
+                        height: 25,
+                        child: Text(
+                          reportList[index].firstname,
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        )
+                      ),
+                      /* Container(
+                        /* alignment: Alignment.centerLeft, */
+                        height: 20,
+                        child: Text(
+                          reportList[index].date,
+                          style: TextStyle(fontSize: 14, color: Colors.white70),
+                        )
+                      ), */
+                      Container(
+                        /* width: 130, */
+                        child: Text(
+                          reportList[index].abuse,
+                          style: TextStyle(fontSize: 14, color: Colors.white70),
+                        )
+                      ),
+                    ],
+                  ),
+                /* ],
+              ), */
             ),
-            child: /* Row(
-              children: [ */
-                /* Container(
-                  margin: EdgeInsets.only(right: 8),
-                  alignment: Alignment.topLeft,
-                  /* alignment: Alignment.centerLeft, */
-                  child: Icon(reportList[index].icon, size: 38),
-                ), */
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      child: Icon(reportList[index].icon, size: 38),
-                    ),
-                    Container(
-                      height: 25,
-                      child: Text(
-                        reportList[index].firstname,
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      )
-                    ),
-                    /* Container(
-                      /* alignment: Alignment.centerLeft, */
-                      height: 20,
-                      child: Text(
-                        reportList[index].date,
-                        style: TextStyle(fontSize: 14, color: Colors.white70),
-                      )
-                    ), */
-                    Container(
-                      /* width: 130, */
-                      child: Text(
-                        reportList[index].abuse,
-                        style: TextStyle(fontSize: 14, color: Colors.white70),
-                      )
-                    ),
-                  ],
-                ),
-              /* ],
-            ), */
           ),
         );
       }

@@ -62,6 +62,17 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                     Container(
                       padding: EdgeInsets.only(left: 30),
                       alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(bottom: 4),
+                      child: Text(
+                        _report.lastname, 
+                        style: TextStyle(
+                          fontSize: 36, fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 30),
+                      alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16),
                       child: Text(
                         _report.location, 

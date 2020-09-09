@@ -12,6 +12,7 @@ class Report
   String date;
   String location;
   AssetImage imageLocation;
+  int index;
 
   Report(
     this.firstname, 
@@ -22,7 +23,7 @@ class Report
     this.date, 
     this.location, 
     this.description, 
-    this.imageLocation
+    this.imageLocation,
   );
   Report.withId(
     this.id, 
