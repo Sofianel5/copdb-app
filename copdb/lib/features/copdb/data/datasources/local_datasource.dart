@@ -90,8 +90,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<void> clearData() async {
     try {
-      final pref = await SharedPreferences.getInstance();
-      await pref.clear();
+      await sharedPreferences.clear();
       return;
     } catch (e) {
       throw CacheException();
