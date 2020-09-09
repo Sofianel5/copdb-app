@@ -8,22 +8,26 @@ part 'user_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class UserModel extends User implements Model {
-  UserModel({
-    @required int id,
-    @required String username,
-    String email,
-    String profilePic,
-    @required String firstName,
-    @required String lastName,
-    @required bool verified
-  }) : super(
+  UserModel(
+      {@required int id,
+      @required String username,
+      String email,
+      String profilePic,
+      DateTime dob,
+      DateTime dateJoined,
+      @required String firstName,
+      @required String lastName,
+      @required bool verified})
+      : super(
           id: id,
           username: username,
           email: email,
           firstName: firstName,
           lastName: lastName,
           profilePic: profilePic,
-          verified: verified
+          verified: verified,
+          dob: dob,
+          dateJoined: dateJoined,
         );
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

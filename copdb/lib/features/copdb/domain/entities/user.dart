@@ -8,6 +8,8 @@ class User extends Equatable{
   final String username;
   final String lastName;
   final String profilePic;
+  final DateTime dob;
+  final DateTime dateJoined;
   final bool verified;
 
   User({
@@ -18,6 +20,8 @@ class User extends Equatable{
     @required this.lastName,
     @required this.verified,
     @required this.profilePic,
+    @required this.dob,
+    @required this.dateJoined,
   });
 
   @override
