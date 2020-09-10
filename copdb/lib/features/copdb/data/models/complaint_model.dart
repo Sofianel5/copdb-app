@@ -1,4 +1,3 @@
-
 import 'package:copdb/features/copdb/data/models/coordinates_model.dart';
 import 'package:copdb/features/copdb/data/models/cop_model.dart';
 import 'package:copdb/features/copdb/data/models/model.dart';
@@ -26,19 +25,19 @@ class ComplaintModel extends Complaint implements Model {
     String outcome,
     String finding,
   }) : super(
-    abuseType : abuseType,
-    allegation : allegation,
-    cop : cop,
-    complainantName : complainantName,
-    complainantGender : complainantGender,
-    complainantEthnicity : complainantEthnicity,
-    complainantAge : complainantAge,
-    contactReason : contactReason,
-    dateRecieved : dateRecieved,  
-    description : description,
-    outcome : outcome,
-    finding : finding,
-  );
+          abuseType: abuseType,
+          allegation: allegation,
+          cop: cop,
+          complainantName: complainantName,
+          complainantGender: complainantGender,
+          complainantEthnicity: complainantEthnicity,
+          complainantAge: complainantAge,
+          contactReason: contactReason,
+          dateRecieved: dateRecieved,
+          description: description,
+          outcome: outcome,
+          finding: finding,
+        );
   factory ComplaintModel.fromJson(Map<String, dynamic> json) =>
       _$ComplaintModelFromJson(json);
   Map<String, dynamic> toJson() => _$ComplaintModelToJson(this);
@@ -65,20 +64,20 @@ class CopDBComplaintModel extends CopDBComplaint {
     String outcome,
     String finding,
   }) : super(
-    location: location,
-    image: image,
-    account: account,
-    abuseType : abuseType,
-    allegation : allegation,
-    cop : cop,
-    complainantName : complainantName,
-    complainantGender : complainantGender,
-    complainantEthnicity : complainantEthnicity,
-    complainantAge : complainantAge,
-    contactReason : contactReason,
-    dateRecieved : dateRecieved,  
-    description : description,
-    outcome : outcome,
-    finding : finding,
-  );
+          location: location,
+          image: image,
+          account: account,
+          abuseType: abuseType,
+          allegation: allegation,
+          cop: cop,
+          complainantName: complainantName,
+          complainantGender: complainantGender,
+          complainantEthnicity: complainantEthnicity,
+          complainantAge: complainantAge,
+          contactReason: contactReason,
+          dateRecieved: dateRecieved,
+          description: description,
+          outcome: outcome,
+          finding: finding,
+        );
 }
