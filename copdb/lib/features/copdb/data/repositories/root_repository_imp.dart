@@ -191,4 +191,14 @@ class RootRepositoryImpl implements RootRepository {
     // TODO: implement uploadNetworkInfo
   }
 
+  @override
+  Future<Either<Failure, Map<String, dynamic>>> getFeed(String sort) {
+    _getMap(() async {
+      // Remote attempt to grab
+    }, () async {
+      // Local attempt to grab
+
+    });
+  }
+
 }
