@@ -1,7 +1,7 @@
-import 'package:json_annotation/json_annotation.dart';
 
-import '../../domain/entities/network_info.dart';
-import 'model.dart';
+import 'package:copdb/features/copdb/data/models/model.dart';
+import 'package:copdb/features/copdb/domain/entities/network_info.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'network_info_model.g.dart';
 

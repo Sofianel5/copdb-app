@@ -1,8 +1,7 @@
-import 'coordinates_model.dart';
+import 'package:copdb/features/copdb/data/models/coordinates_model.dart';
+import 'package:copdb/features/copdb/data/models/model.dart';
+import 'package:copdb/features/copdb/domain/entities/location_ping.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../domain/entities/location_ping.dart';
-import 'model.dart';
 
 part 'location_ping_model.g.dart';
 

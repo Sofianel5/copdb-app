@@ -1,8 +1,7 @@
+import 'package:copdb/features/copdb/data/models/model.dart';
+import 'package:copdb/features/copdb/domain/entities/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-
-import '../../domain/entities/user.dart';
-import 'model.dart';
 
 part 'user_model.g.dart';
 

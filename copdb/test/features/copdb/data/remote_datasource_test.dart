@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:copdb/core/errors/exceptions.dart';
+import 'package:copdb/core/network/urls.dart';
 import 'package:copdb/features/copdb/data/datasources/remote_datasource.dart';
 import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:copdb/features/copdb/domain/entities/user.dart';
@@ -92,7 +93,7 @@ void main() {
       // arrange
       when(
         mockHttpClient.post(
-          "https://api.copdb.app/users/auth/users/",
+          Urls.SIGNUP_URL,
           headers: anyNamed("headers"),
           body: anyNamed("body"),
         ),
@@ -113,7 +114,7 @@ void main() {
       // assert
       verify(
         mockHttpClient.post(
-          "https://api.copdb.app/users/auth/users/",
+          Urls.SIGNUP_URL,
           body: anyNamed("body"),
         ),
       );
@@ -121,7 +122,7 @@ void main() {
 
     test("should return valid token when the response code is 200", () async {
       // arrange
-      when(mockHttpClient.post("https://api.copdb.app/users/auth/users/",
+      when(mockHttpClient.post(Urls.SIGNUP_URL,
               headers: anyNamed("headers"), body: anyNamed("body")))
           .thenAnswer(
         (_) async => http.Response(json.encode(userJson),

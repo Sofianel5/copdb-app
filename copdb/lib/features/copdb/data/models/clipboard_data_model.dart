@@ -1,7 +1,6 @@
+import 'package:copdb/features/copdb/data/models/model.dart';
+import 'package:copdb/features/copdb/domain/entities/clipboard_data.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../domain/entities/clipboard_data.dart';
-import 'model.dart';
 
 part 'clipboard_data_model.g.dart';
 

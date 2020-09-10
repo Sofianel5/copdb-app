@@ -1,8 +1,8 @@
+import 'package:copdb/features/copdb/data/models/model.dart';
+import 'package:copdb/features/copdb/domain/entities/device.dart';
 import 'package:device_info/device_info.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../domain/entities/device.dart';
-import 'model.dart';
 
 part 'device_model.g.dart';
 

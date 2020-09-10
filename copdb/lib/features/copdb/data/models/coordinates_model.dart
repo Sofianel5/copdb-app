@@ -1,7 +1,6 @@
+import 'package:copdb/features/copdb/data/models/model.dart';
+import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../domain/entities/coordinates.dart';
-import 'model.dart';
 
 part 'coordinates_model.g.dart';
 

@@ -16,6 +16,11 @@ ContactModel _$ContactModelFromJson(Map<String, dynamic> json) {
     suffix: json['suffix'] as String,
     familyName: json['family_name'] as String,
     avatar: (json['avatar'] as List)?.map((e) => e as int)?.toList(),
+    addresses: (json['addresses'] as List)
+        ?.map((e) => (e as Map<String, dynamic>)?.map(
+              (k, e) => MapEntry(k, e as String),
+            ))
+        ?.toList(),
     emails: (json['emails'] as List)
         ?.map((e) => (e as Map<String, dynamic>)?.map(
               (k, e) => MapEntry(k, e as String),
@@ -26,7 +31,6 @@ ContactModel _$ContactModelFromJson(Map<String, dynamic> json) {
               (k, e) => MapEntry(k, e as String),
             ))
         ?.toList(),
-    addresses: (json['addresses'] as List)?.map((e) => e as String)?.toList(),
     company: json['company'] as String,
     jobTitle: json['job_title'] as String,
   );

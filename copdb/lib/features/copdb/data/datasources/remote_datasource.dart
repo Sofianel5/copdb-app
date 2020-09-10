@@ -144,8 +144,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       http.Response response = await retry(
         // Make a POST request
         () => client
-            .post(Urls.SIGNUP_URL, body: data)
-            .timeout(Duration(seconds: 5)),
+            .post(
+              Urls.SIGNUP_URL,
+              body: data,
+            )
+            .timeout(
+              Duration(seconds: 5),
+            ),
         // Retry on SocketException or TimeoutException
         retryIf: (e) => e is SocketException || e is TimeoutException,
       );
@@ -155,7 +160,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       );
       if (response.statusCode == 201) {
         String token = await login(
-            email: responseJsonData["email"], password: data['password']);
+          email: responseJsonData["email"],
+          password: data['password'],
+        );
         return token;
       } else {
         if (responseJsonData["password"] != null) {

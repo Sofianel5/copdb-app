@@ -11,7 +11,7 @@ class Contact extends Equatable {
   List<Map<String, String>> phones;
   List<Map<String, String>> emails;
   List<int> avatar;
-  List<String> addresses;
+  List<Map<String, String>> addresses;
   String company;
   String jobTitle;
   Contact({
