@@ -1,3 +1,4 @@
+import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/models/Friend.dart';
 import 'package:copdb/models/Report.dart';
 import 'package:copdb/models/ReportPreview.dart';
@@ -158,7 +159,7 @@ class _FriendScreen extends State<FriendScreen>
             padding: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
             child: SearchBar(text: 'Enter friend name'),
           ),
-          Expanded(child: _getFriends()),
+          Expanded(child: false ? CouldNotFetch(text: 'could not find specified person'): _getFriends()),
           GestureDetector(
                 onTap: () {Navigator.pop(context);},
                 child: Container(

@@ -1,3 +1,4 @@
+import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/animations/SlideAnimation.dart';
 import 'package:copdb/screens/FriendProfileScreen.dart';
 import 'package:copdb/screens/FriendScreen.dart';
@@ -231,7 +232,7 @@ class _ProfileScreen extends State<ProfileScreen>
             alignment: Alignment.center,
             height: 220, 
             width: 300,
-            child: _getContacts()
+            child: false ? CouldNotFetch(text: 'could not load'): _getContacts()
           ),
         ],
       )

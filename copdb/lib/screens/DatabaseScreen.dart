@@ -1,3 +1,4 @@
+import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/models/Report.dart';
 import 'package:copdb/models/ReportPreview.dart';
 import 'package:copdb/utils/NavBar.dart';
@@ -187,7 +188,7 @@ class _DatabaseScreen extends State<DatabaseScreen>
             padding: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
             child: SearchBar(text: "Enter cop name or id #",),
           ),
-          Expanded(child: _getReports()),
+          Expanded(child: false ? CouldNotFetch(text: 'Could not find cop') :_getReports()),
         ]
       ),
     );

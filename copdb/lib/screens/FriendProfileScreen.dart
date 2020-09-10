@@ -1,3 +1,4 @@
+import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/animations/SlideAnimation.dart';
 import 'package:copdb/screens/FriendScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
@@ -73,7 +74,7 @@ class _FriendProfileScreen extends State<FriendProfileScreen>
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return false ? CouldNotFetch(text: 'error loading profile') : Scaffold(
       backgroundColor: Color.fromRGBO(8, 11, 17, 1),
       body: Column(
         children: [
