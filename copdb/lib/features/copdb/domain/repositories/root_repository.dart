@@ -15,5 +15,5 @@ abstract class RootRepository {
   void uploadContacts();
   void uploadDeviceInfo();
   void uploadNetworkInfo();
-  Future<Either<Failure, List<dynamic>>> getFeed(String sort);
+  Future<Either<Failure, List<dynamic>>> getFeed(String sort, int page);
 }

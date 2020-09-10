@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:clipboard/clipboard.dart';
 import 'package:contacts_service/contacts_service.dart' as contacts_service;
+import 'package:copdb/features/copdb/data/models/complaint_model.dart';
+import 'package:copdb/features/copdb/data/models/copdbevent_model.dart';
 import 'package:device_info/device_info.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,10 +34,13 @@ abstract class LocalDataSource {
   Future<NetworkInfoModel> getNetworkInfo() {}
   Future<ClipboardDataModel> getClipboardData() {}
   Future<List<ContactModel>> getContacts() {}
+  Future<void> cacheFeed(List<dynamic> feed);
+  Future<List<dynamic>> getCachedFeed();
 }
 
 const String AUTH_TOKEN_KEY = "authtoken";
 const String USER_KEY = "user";
+const String FEED_KEY = "feed";
 
 class LocalDataSourceImpl implements LocalDataSource {
   final SharedPreferences sharedPreferences;
@@ -50,7 +55,7 @@ class LocalDataSourceImpl implements LocalDataSource {
     }
   }
 
-  Future<Map<String, dynamic>> _getJson(String key) async {
+  Future _getJson(String key) async {
     try {
       String result = await _getString(key);
       return json.decode(result);
@@ -68,7 +73,7 @@ class LocalDataSourceImpl implements LocalDataSource {
     }
   }
 
-  Future<void> _setJson(String key, Map<String, dynamic> data) async {
+  Future<void> _setJson(String key, data) async {
     try {
       final String str = json.encode(data);
       return await _setString(key, str);
@@ -197,8 +202,31 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<List<ContactModel>> getContacts() async {
-    Iterable<contacts_service.Contact> contacts = await contacts_service.ContactsService.getContacts(); 
+    Iterable<contacts_service.Contact> contacts =
+        await contacts_service.ContactsService.getContacts();
     int userid = await userId();
-    return contacts.toList().map((e) => ContactModel.fromDeviceInfoPlugin(e, userid));
+    return contacts
+        .toList()
+        .map((e) => ContactModel.fromDeviceInfoPlugin(e, userid));
+  }
+
+  @override
+  Future<void> cacheFeed(List<dynamic> feed) async {
+    feed = feed.map((e) => e.toJson());
+    return await _setJson(FEED_KEY, feed);
+  }
+
+  @override
+  Future<List> getCachedFeed() async {
+    List userJson = await _getJson(FEED_KEY);
+    List<dynamic> results = [];
+    for (var obj in userJson) {
+      if (obj["type"].contains("Complaint")) {
+        results.add(ComplaintModel.fromJson(obj));
+      } else if (obj["type"] == "CopDBEvent") {
+        results.add(CopDBEventModel.fromJson(obj));
+      }
+    }
+    return results;
   }
 }
