@@ -1,3 +1,4 @@
+import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:copdb/utils/NotificationItem.dart';
 import 'package:copdb/models/Notification.dart' as nf;
@@ -56,7 +57,7 @@ class _NotificationScreen extends State<NotificationScreen>
         ),
         Container(height: 10, ),
         Expanded(
-            child: _getNotifications(),
+            child: false ? CouldNotFetch(text: 'No notifcations found') : _getNotifications(),
           ),
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/models/Event.dart';
 import 'package:copdb/screens/ProfileScreen.dart';
 import 'package:copdb/utils/EventItem.dart';
@@ -76,7 +77,7 @@ class _HomeScreen extends State<HomeScreen>
           ),
           Container(height: 10, ),
           Expanded(
-            child: _getEvents(),
+            child: false ? CouldNotFetch(text: 'Could not fetch events') : _getEvents(),
           ),
         ],
       ),

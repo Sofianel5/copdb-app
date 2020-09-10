@@ -1,3 +1,4 @@
+import 'package:copdb/Errors/ConnectionError.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
