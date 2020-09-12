@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:copdb/features/copdb/data/models/complaint_model.dart';
+import 'package:copdb/features/copdb/data/models/cop_model.dart';
 import 'package:copdb/features/copdb/data/models/copdbevent_model.dart';
 import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +23,7 @@ abstract class RemoteDataSource {
   Future<void> uploadJson(
       String url, dynamic data, Map<String, dynamic> headers);
   Future<List<dynamic>> getFeed(String sort, int page, Map<String, dynamic> headers);
+  Future<List<CopModel>> getCops(String query, int page, Map<String, dynamic> headers);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -263,6 +265,30 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         } else if (obj["type"] == "CopDBEvent") {
           results.add(CopDBEventModel.fromJson(obj));
         }
+      }
+      return results;
+    } else if (response.statusCode ~/100 == 4) {
+      throw AuthenticationException();
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<CopModel>> getCops(String query, int page, Map<String, dynamic> headers) async {
+    var response = await retry(
+        // Make a GET request
+        () => client
+            .get(Urls.FEED_URL+"?page=$page&q=$query", headers: headers)
+            .timeout(Duration(seconds: 5)),
+        // Retry on SocketException or TimeoutException
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+      );
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      List<dynamic> results = [];
+      for (var obj in jsonData["results"]) {
+        results.add(CopModel.fromJson(obj));
       }
       return results;
     } else if (response.statusCode ~/100 == 4) {

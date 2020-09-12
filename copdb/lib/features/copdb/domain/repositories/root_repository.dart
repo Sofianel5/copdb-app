@@ -1,4 +1,4 @@
-import 'package:copdb/features/copdb/domain/usecases/upload_device_info.dart';
+import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failures.dart';
@@ -16,4 +16,5 @@ abstract class RootRepository {
   void uploadDeviceInfo();
   void uploadNetworkInfo();
   Future<Either<Failure, List<dynamic>>> getFeed(String sort, int page);
+  Future<Either<Failure, List<Cop>>> getCops(String query, int page);
 }

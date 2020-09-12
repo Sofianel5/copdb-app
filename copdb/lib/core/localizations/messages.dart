@@ -20,4 +20,5 @@ class Messages {
   static const String EMPTY_SEARCH_Q = "EMPTY_SEARCH_Q";
   static const String UNAVAILABLE_USERNAME = "UNAVAILABLE_USERNAME";
   static const String INVALID_USERNAME = "INVALID_USERNAME";
+  static const String NO_QUERY = "NO_QUERY";
 }

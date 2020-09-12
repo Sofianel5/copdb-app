@@ -1,6 +1,7 @@
 import 'package:copdb/core/constants/constants.dart';
 import 'package:copdb/core/network/urls.dart';
 import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
+import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/entities/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
@@ -232,6 +233,41 @@ class RootRepositoryImpl implements RootRepository {
       } catch (e) {
         return Left(UnknownFailure());
       }
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Cop>>> getCops(String query, int page) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final String authToken = await localDataSource.getAuthToken();
+        final String appVersion = Constants.APP_VERSION.toString();
+        print("Attempting to get locationData");
+        final Coordinates coordinates = await localDataSource.getCoordinates();
+        print("coordinates in getUser");
+        print(coordinates);
+        Map<String, String> header = Map<String, String>.from(<String, String>{
+          "Authorization": "Token " + authToken.toString(),
+          "APP-VERSION": appVersion,
+          "LAT": coordinates == null ? "" : coordinates.lat.toString(),
+          "LNG": coordinates == null ? "" : coordinates.lng.toString(),
+        });
+        final result = await remoteDataSource.getCops(query, page, header);
+        return Right(result);
+      } on AuthenticationException {
+        // Some error like 403
+        return Left(AuthenticationFailure(message: Messages.INVALID_PASSWORD));
+      } on ServerException {
+        // Some server error 500
+        return Left(ServerFailure(message: Messages.SERVER_FAILURE));
+      } on CacheException {
+        // No stored auth token
+        return Left(AuthenticationFailure(message: Messages.NO_USER));
+      } catch (e) {
+        return Left(UnknownFailure());
+      }
+    } else {
+      return Left(ConnectionFailure(message: Messages.NO_INTERNET));
     }
   }
 

@@ -78,4 +78,16 @@ class InputConverter {
       return Left(InvalidInputFailure(message: Messages.INVALID_USERNAME));
     }
   }
+  Either<Failure, Map<String, String>> extractParamters(String query) {
+    List<String> words = query.split(" ");
+    Map<String, String> queryParameters;
+    if (words.length == 3) {
+      for (var word in words) { 
+        if (!(isNumeric(word))) {
+          // If the word is a name
+          
+        }
+      }
+    }
+  }
 }
