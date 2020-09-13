@@ -16,4 +16,5 @@ class Urls {
   static String FEED_URL = getBaseURL() + "users/feed/";
   static String COPS_LIST_URL = getBaseURL() + "cops/list/";
   static String REPORT_URL = getBaseURL() + "cops/report/";
+  static String GET_NOTIFICATIONS = getBaseURL() + "users/notifications/";
 }

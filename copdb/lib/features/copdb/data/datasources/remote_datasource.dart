@@ -6,6 +6,7 @@ import 'package:copdb/features/copdb/data/models/complaint_model.dart';
 import 'package:copdb/features/copdb/data/models/cop_model.dart';
 import 'package:copdb/features/copdb/data/models/copdbevent_model.dart';
 import 'package:copdb/features/copdb/data/models/user_model.dart';
+import 'package:copdb/models/Notification.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:retry/retry.dart';
@@ -25,6 +26,7 @@ abstract class RemoteDataSource {
   Future<List<dynamic>> getFeed(String sort, int page, Map<String, dynamic> headers);
   Future<List<CopModel>> getCops(String query, int page, Map<String, dynamic> headers);
   Future<void> reportCop(CopDBComplaintModel complaint, Map<String, dynamic> headers);
+  Future<List<Notification>> getNotifications(int page, Map<String, dynamic> headers);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -302,5 +304,33 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<void> reportCop(CopDBComplaintModel complaint, Map<String, dynamic> headers) {
     return uploadJson(Urls.REPORT_URL, complaint.toJson(), headers);
+  }
+
+  @override
+  Future<List<Notification>> getNotifications(int page, Map<String, dynamic> headers) async {
+    var response = await retry(
+        // Make a GET request
+        () => client
+            .get(Urls.GET_NOTIFICATIONS+"?page=$page", headers: headers)
+            .timeout(Duration(seconds: 5)),
+        // Retry on SocketException or TimeoutException
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+      );
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      List<dynamic> results = [];
+      for (var obj in jsonData["results"]) {
+        if (obj["type"].contains("Complaint")) {
+          results.add(ComplaintModel.fromJson(obj));
+        } else if (obj["type"] == "CopDBEvent") {
+          results.add(CopDBEventModel.fromJson(obj));
+        }
+      }
+      return results;
+    } else if (response.statusCode ~/100 == 4) {
+      throw AuthenticationException();
+    } else {
+      throw ServerException();
+    }
   }
 }

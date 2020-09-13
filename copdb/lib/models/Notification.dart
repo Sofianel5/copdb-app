@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class Notification
+class SaadNotification
 {
   int id;
   String title;
@@ -8,8 +8,8 @@ class Notification
   String location;
   String date;
 
-  Notification(this.title, this.date,  this.location, this.description);
-  Notification.withId(this.id, this.title, this.date, this.location, this.description);
+  SaadNotification(this.title, this.date,  this.location, this.description);
+  SaadNotification.withId(this.id, this.title, this.date, this.location, this.description);
 
   Map<String, dynamic> toMap() 
   {
@@ -23,7 +23,7 @@ class Notification
     };
   }
 
-  Notification.fromMapObject(Map<String, dynamic> map) 
+  SaadNotification.fromMapObject(Map<String, dynamic> map) 
   {
 		this.id = map['id'];
 		this.title = map['title'];
