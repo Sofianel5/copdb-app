@@ -24,6 +24,7 @@ abstract class RemoteDataSource {
       String url, dynamic data, Map<String, dynamic> headers);
   Future<List<dynamic>> getFeed(String sort, int page, Map<String, dynamic> headers);
   Future<List<CopModel>> getCops(String query, int page, Map<String, dynamic> headers);
+  Future<void> reportCop(CopDBComplaintModel complaint, Map<String, dynamic> headers);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -279,7 +280,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     var response = await retry(
         // Make a GET request
         () => client
-            .get(Urls.FEED_URL+"?page=$page&q=$query", headers: headers)
+            .get(Urls.COPS_LIST_URL+"?page=$page&q=$query", headers: headers)
             .timeout(Duration(seconds: 5)),
         // Retry on SocketException or TimeoutException
         retryIf: (e) => e is SocketException || e is TimeoutException,
@@ -296,5 +297,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     } else {
       throw ServerException();
     }
+  }
+
+  @override
+  Future<void> reportCop(CopDBComplaintModel complaint, Map<String, dynamic> headers) {
+    return uploadJson(Urls.REPORT_URL, complaint.toJson(), headers);
   }
 }

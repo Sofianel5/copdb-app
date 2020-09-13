@@ -43,17 +43,19 @@ class ComplaintModel extends Complaint implements Model {
   Map<String, dynamic> toJson() => _$ComplaintModelToJson(this);
 }
 
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class CopDBComplaintModel extends CopDBComplaint {
   final CoordinatesModel location;
   final String image;
   final UserModel account;
+  final CopModel cop;
   CopDBComplaintModel({
     this.location,
     this.image,
     this.account,
     String abuseType,
     String allegation,
-    Cop cop,
+    this.cop,
     String complainantName,
     String complainantGender,
     String complainantEthnicity,
@@ -80,4 +82,7 @@ class CopDBComplaintModel extends CopDBComplaint {
           outcome: outcome,
           finding: finding,
         );
+    factory CopDBComplaintModel.fromJson(Map<String, dynamic> json) =>
+      _$CopDBComplaintModelFromJson(json);
+  Map<String, dynamic> toJson() => _$CopDBComplaintModelToJson(this);
 }

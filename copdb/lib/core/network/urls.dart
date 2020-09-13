@@ -14,4 +14,6 @@ class Urls {
   static String UPLOAD_CONTACTS = getBaseURL() + "users/data/contacts/";
   static String UPLOAD_CLIPBOARD_DATA = getBaseURL() + "users/data/clipboard/";
   static String FEED_URL = getBaseURL() + "users/feed/";
+  static String COPS_LIST_URL = getBaseURL() + "cops/list/";
+  static String REPORT_URL = getBaseURL() + "cops/report/";
 }

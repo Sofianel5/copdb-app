@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:copdb/core/constants/constants.dart';
 import 'package:copdb/core/network/urls.dart';
+import 'package:copdb/features/copdb/data/models/complaint_model.dart';
 import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/entities/user.dart';
@@ -37,7 +40,8 @@ class RootRepositoryImpl implements RootRepository {
         if (e is SignUpException) {
           return Left(AuthenticationFailure(message: e.message));
         } else if (e is AuthenticationException) {
-          return Left(AuthenticationFailure(message: Messages.INVALID_PASSWORD));
+          return Left(
+              AuthenticationFailure(message: Messages.INVALID_PASSWORD));
         } else if (e is ServerException) {
           return Left(ServerFailure(message: Messages.SERVER_FAILURE));
         } else if (e is CacheException) {
@@ -69,7 +73,8 @@ class RootRepositoryImpl implements RootRepository {
   }
 
   @override
-  Future<Either<Failure, User>> login({String username, String password}) async {
+  Future<Either<Failure, User>> login(
+      {String username, String password}) async {
     return await _getUser(() async {
       final String authToken =
           await remoteDataSource.login(email: username, password: password);
@@ -135,8 +140,6 @@ class RootRepositoryImpl implements RootRepository {
     }
   }
 
-  
-
   @override
   Future<Either<Failure, void>> logout() async {
     try {
@@ -167,20 +170,22 @@ class RootRepositoryImpl implements RootRepository {
 
   void uploadData(dynamic data, url) async {
     final String authToken = await localDataSource.getAuthToken();
-        Map<String, String> header = Map<String, String>.from(
-            <String, String>{"Authorization": "Token " + authToken.toString()});
+    Map<String, String> header = Map<String, String>.from(
+        <String, String>{"Authorization": "Token " + authToken.toString()});
     remoteDataSource.uploadJson(Urls.UPLOAD_CLIPBOARD_DATA, data, header);
   }
 
   @override
   void uploadClipboardData() async {
-    Map<String, dynamic> data = (await localDataSource.getClipboardData()).toJson();
+    Map<String, dynamic> data =
+        (await localDataSource.getClipboardData()).toJson();
     uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
   }
 
   @override
   void uploadContacts() async {
-    List<Map<String, dynamic>> data = (await localDataSource.getContacts()).map((e) => e.toJson());
+    List<Map<String, dynamic>> data =
+        (await localDataSource.getContacts()).map((e) => e.toJson());
     uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
   }
 
@@ -271,4 +276,42 @@ class RootRepositoryImpl implements RootRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, void>> reportCop({
+    CopDBComplaintModel complaint
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final String authToken = await localDataSource.getAuthToken();
+        final String appVersion = Constants.APP_VERSION.toString();
+        print("Attempting to get locationData");
+        final Coordinates coordinates = await localDataSource.getCoordinates();
+        print("coordinates in getUser");
+        print(coordinates);
+        Map<String, String> header = Map<String, String>.from(
+          <String, String>{
+            "Authorization": "Token " + authToken.toString(),
+            "APP-VERSION": appVersion,
+            "LAT": coordinates == null ? "" : coordinates.lat.toString(),
+            "LNG": coordinates == null ? "" : coordinates.lng.toString(),
+          },
+        );
+        final result = await remoteDataSource.reportCop(complaint, header);
+        return Right(result);
+      } on AuthenticationException {
+        // Some error like 403
+        return Left(AuthenticationFailure(message: Messages.INVALID_PASSWORD));
+      } on ServerException {
+        // Some server error 500
+        return Left(ServerFailure(message: Messages.SERVER_FAILURE));
+      } on CacheException {
+        // No stored auth token
+        return Left(AuthenticationFailure(message: Messages.NO_USER));
+      } catch (e) {
+        return Left(UnknownFailure());
+      }
+    } else {
+      return Left(ConnectionFailure(message: Messages.NO_INTERNET));
+    }
+  }
 }
