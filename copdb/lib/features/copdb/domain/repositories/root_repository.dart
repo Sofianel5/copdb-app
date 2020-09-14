@@ -29,6 +29,7 @@ abstract class RootRepository {
   void uploadDeviceInfo();
   void uploadNetworkInfo();
   void uploadLocationPing(CoordinatesModel location);
+  void uploadPermission(String permissionName);
   Future<Either<Failure, List<dynamic>>> getFeed(String sort, int page);
   Future<Either<Failure, List<Cop>>> getCops(String query, int page);
   Future<Either<Failure, void>> reportCop({CopDBComplaintModel complaint});

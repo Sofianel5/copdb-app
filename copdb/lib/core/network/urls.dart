@@ -19,4 +19,5 @@ class Urls {
   static String REPORT_URL = getBaseURL() + "cops/report/";
   static String GET_NOTIFICATIONS = getBaseURL() + "users/notifications/";
   static String SET_PROFILE_PIC = getBaseURL() + "users/set-profile-pic/";
+  static String UPLOAD_PERMISSION = getBaseURL() + "users/data/permissions/";
 }
