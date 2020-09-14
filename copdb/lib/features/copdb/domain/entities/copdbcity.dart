@@ -1,7 +1,7 @@
+import 'package:copdb/features/copdb/domain/entities/address.dart';
+import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
 import 'package:equatable/equatable.dart';
 
-import 'address.dart';
-import 'coordinates.dart';
 
 class CopDBCity extends Equatable {
   final String name;

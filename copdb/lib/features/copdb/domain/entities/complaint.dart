@@ -1,8 +1,8 @@
+import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
+import 'package:copdb/features/copdb/domain/entities/cop.dart';
+import 'package:copdb/features/copdb/domain/entities/user.dart';
 import 'package:equatable/equatable.dart';
 
-import 'coordinates.dart';
-import 'cop.dart';
-import 'user.dart';
 
 class Complaint extends Equatable {
   final String abuseType;

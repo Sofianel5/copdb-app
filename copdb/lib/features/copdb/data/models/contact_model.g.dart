@@ -33,6 +33,10 @@ ContactModel _$ContactModelFromJson(Map<String, dynamic> json) {
         ?.toList(),
     company: json['company'] as String,
     jobTitle: json['job_title'] as String,
+    referencedUser: json['referenced_user'] == null
+        ? null
+        : UserModel.fromJson(json['referenced_user'] as Map<String, dynamic>),
+    areFriends: json['are_friends'] as bool,
   );
 }
 
@@ -51,4 +55,6 @@ Map<String, dynamic> _$ContactModelToJson(ContactModel instance) =>
       'addresses': instance.addresses,
       'company': instance.company,
       'job_title': instance.jobTitle,
+      'referenced_user': instance.referencedUser?.toJson(),
+      'are_friends': instance.areFriends,
     };

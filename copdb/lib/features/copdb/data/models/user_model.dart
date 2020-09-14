@@ -7,17 +7,23 @@ part 'user_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class UserModel extends User implements Model {
-  UserModel(
-      {@required int id,
-      @required String username,
-      String email,
-      String profilePic,
-      DateTime dob,
-      DateTime dateJoined,
-      @required String firstName,
-      @required String lastName,
-      @required bool verified})
-      : super(
+  final List<UserModel> friends;
+  final List<UserModel> following;
+  final List<UserModel> followers;
+  UserModel({
+    @required int id,
+    @required String username,
+    String email,
+    String profilePic,
+    DateTime dob,
+    DateTime dateJoined,
+    @required String firstName,
+    @required String lastName,
+    @required bool verified,
+    this.followers,
+    this.friends,
+    this.following,
+  }) : super(
           id: id,
           username: username,
           email: email,

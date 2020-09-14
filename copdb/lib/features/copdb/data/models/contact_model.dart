@@ -1,8 +1,8 @@
 import 'package:contacts_service/contacts_service.dart' as service;
 import 'package:copdb/features/copdb/data/models/model.dart';
+import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:copdb/features/copdb/domain/entities/contact.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 
 part 'contact_model.g.dart';
 
@@ -22,6 +22,8 @@ class ContactModel extends Contact implements Model {
     List<Map<String, String>> phones,
     String company,
     String jobTitle,
+    UserModel referencedUser,
+    bool areFriends
   }) : super(
           user: user,
           displayName: displayName,
@@ -36,6 +38,8 @@ class ContactModel extends Contact implements Model {
           addresses: addresses,
           company: company,
           jobTitle: jobTitle,
+          areFriends: areFriends,
+          referencedUser: referencedUser
         );
   factory ContactModel.fromJson(Map<String, dynamic> json) =>
       _$ContactModelFromJson(json);

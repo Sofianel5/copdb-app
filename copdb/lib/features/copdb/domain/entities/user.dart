@@ -11,6 +11,9 @@ class User extends Equatable{
   final DateTime dob;
   final DateTime dateJoined;
   final bool verified;
+  final List<User> friends;
+  final List<User> following;
+  final List<User> followers;
 
   User({
     @required this.id,  
@@ -22,6 +25,9 @@ class User extends Equatable{
     @required this.profilePic,
     @required this.dob,
     @required this.dateJoined,
+    this.friends,
+    this.following,
+    this.followers,
   });
 
   @override

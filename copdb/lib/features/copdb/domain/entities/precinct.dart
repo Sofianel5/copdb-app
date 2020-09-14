@@ -1,8 +1,8 @@
 import 'package:copdb/features/copdb/domain/entities/address.dart';
 import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
+import 'package:copdb/features/copdb/domain/entities/police_department.dart';
 import 'package:equatable/equatable.dart';
 
-import 'police_department.dart';
 
 class Precinct extends Equatable {
   final String name;

@@ -5,8 +5,9 @@ import 'dart:io';
 import 'package:copdb/features/copdb/data/models/complaint_model.dart';
 import 'package:copdb/features/copdb/data/models/cop_model.dart';
 import 'package:copdb/features/copdb/data/models/copdbevent_model.dart';
+import 'package:copdb/features/copdb/data/models/notification_model.dart';
 import 'package:copdb/features/copdb/data/models/user_model.dart';
-import 'package:copdb/models/Notification.dart';
+import 'package:copdb/features/copdb/domain/entities/notification.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:retry/retry.dart';
@@ -318,13 +319,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       );
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      List<dynamic> results = [];
+      List<Notification> results = [];
       for (var obj in jsonData["results"]) {
-        if (obj["type"].contains("Complaint")) {
-          results.add(ComplaintModel.fromJson(obj));
-        } else if (obj["type"] == "CopDBEvent") {
-          results.add(CopDBEventModel.fromJson(obj));
-        }
+        results.add(NotificationModel.fromJson(obj));
       }
       return results;
     } else if (response.statusCode ~/100 == 4) {

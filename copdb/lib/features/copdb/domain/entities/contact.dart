@@ -1,3 +1,4 @@
+import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:equatable/equatable.dart';
 
 class Contact extends Equatable {
@@ -14,6 +15,8 @@ class Contact extends Equatable {
   List<Map<String, String>> addresses;
   String company;
   String jobTitle;
+  UserModel referencedUser;
+  bool areFriends;
   Contact({
     this.user,
     this.displayName,
@@ -28,6 +31,8 @@ class Contact extends Equatable {
     this.phones,
     this.company,
     this.jobTitle,
+    this.referencedUser,
+    this.areFriends,
   });
   @override
   List<Object> get props => [user];

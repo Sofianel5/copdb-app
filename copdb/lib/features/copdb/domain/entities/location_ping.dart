@@ -1,7 +1,7 @@
+import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import 'coordinates.dart';
 
 class LocationPing extends Equatable {
   static const TYPES = <String>["iOS", "Android"];

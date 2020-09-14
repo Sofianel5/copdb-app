@@ -1,6 +1,6 @@
+import 'package:copdb/features/copdb/domain/entities/precinct.dart';
 import 'package:equatable/equatable.dart';
 
-import 'precinct.dart';
 
 class Cop extends Equatable {
   final String firstName;

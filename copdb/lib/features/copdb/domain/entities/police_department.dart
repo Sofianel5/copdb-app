@@ -1,7 +1,6 @@
+import 'package:copdb/features/copdb/domain/entities/copdbcity.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
-import 'copdbcity.dart';
 
 class PoliceDepartment extends Equatable {
   final String name;

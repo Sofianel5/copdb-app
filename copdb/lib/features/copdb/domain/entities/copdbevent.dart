@@ -1,6 +1,6 @@
+import 'package:copdb/features/copdb/domain/entities/complaint.dart';
 import 'package:equatable/equatable.dart';
 
-import 'complaint.dart';
 
 class CopDBEvent extends Equatable {
 

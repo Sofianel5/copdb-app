@@ -3,7 +3,6 @@ import 'package:copdb/features/copdb/data/models/cop_model.dart';
 import 'package:copdb/features/copdb/data/models/model.dart';
 import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:copdb/features/copdb/domain/entities/complaint.dart';
-import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'complaint_model.g.dart';
