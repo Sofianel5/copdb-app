@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class NotificationItem extends StatefulWidget
 {
-  nf.Notification notification;
+  nf.ListNotification notification;
   NotificationItem({this.notification});
   @override 
   _NotificationItem createState() => _NotificationItem();
@@ -11,7 +11,7 @@ class NotificationItem extends StatefulWidget
 
 class _NotificationItem extends State<NotificationItem>
 {
-  nf.Notification _notification;
+  nf.ListNotification _notification;
 
   @override
   void initState() 

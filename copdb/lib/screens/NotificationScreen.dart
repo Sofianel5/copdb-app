@@ -13,13 +13,13 @@ class NotificationScreen extends StatefulWidget
 
 class _NotificationScreen extends State<NotificationScreen>
 {
-  List<nf.Notification> notificationList = [
-    nf.Notification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.Notification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.Notification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.Notification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.Notification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.Notification('notification title', 'notification date', 'notification location', 'notification description'),
+  List<nf.ListNotification> notificationList = [
+    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
+    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
+    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
+    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
+    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
+    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
   ];
 
   ListView _getNotifications()

@@ -1,17 +1,20 @@
+import 'package:copdb/features/copdb/domain/entities/copdbevent.dart';
 import 'package:copdb/models/Event.dart';
 import 'package:flutter/material.dart';
 
 class EventScreen extends StatefulWidget 
 {
+  CopDBEvent copDBEvent;
   Event event;
   int index;
-  EventScreen({this.event, this.index});
+  EventScreen({this.event, this.copDBEvent, this.index});
   @override
   _EventScreen createState() => _EventScreen();
 }
 
 class _EventScreen extends State<EventScreen>
 {
+  CopDBEvent _copDBEvent;
   Event _event;
   int _index;
 
@@ -20,6 +23,7 @@ class _EventScreen extends State<EventScreen>
   {
     super.initState();
     _event = widget.event;
+    _copDBEvent = widget.copDBEvent;
     _index = widget.index;
   }
 
@@ -42,7 +46,7 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 4),
                       child: Text(
-                        _event.date, 
+                        _copDBEvent.complaint.dateRecieved.toString(), 
                         style: TextStyle(
                           fontSize: 18, color: Colors.white70,
                         ),
@@ -53,7 +57,7 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 4),
                       child: Text(
-                        _event.title, 
+                        _copDBEvent.title, 
                         style: TextStyle(
                           fontSize: 36, fontWeight: FontWeight.bold
                         ),
@@ -64,7 +68,7 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16),
                       child: Text(
-                        _event.location, 
+                        _copDBEvent.complaint.location.toString(), 
                         style: TextStyle(
                           fontSize: 18, color: Colors.white70,
                         ),
