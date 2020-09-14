@@ -4,16 +4,18 @@ import 'package:equatable/equatable.dart';
 
 class CopDBEvent extends Equatable {
 
-  final Complaint complaint;
+  final CopDBComplaint complaint;
 
   final int numSharers;
+  final String title;
 
   final int numPromotions;
 
   CopDBEvent({
     this.complaint,
     this.numPromotions,
-    this.numSharers
+    this.numSharers,
+    this.title
   });
 
   @override

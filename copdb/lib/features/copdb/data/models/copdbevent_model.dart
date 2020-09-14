@@ -7,7 +7,7 @@ part 'copdbevent_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class CopDBEventModel extends CopDBEvent implements Model {
-  final ComplaintModel complaint;
+  final CopDBComplaintModel complaint;
   CopDBEventModel({
     this.complaint,
 
