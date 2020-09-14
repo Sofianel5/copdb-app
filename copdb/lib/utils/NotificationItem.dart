@@ -1,9 +1,10 @@
 import 'package:copdb/models/Notification.dart' as nf;
+import 'package:copdb/features/copdb/domain/entities/notification.dart' as n;
 import 'package:flutter/material.dart';
 
 class NotificationItem extends StatefulWidget
 {
-  nf.ListNotification notification;
+  n.Notification notification;
   NotificationItem({this.notification});
   @override 
   _NotificationItem createState() => _NotificationItem();
@@ -11,7 +12,7 @@ class NotificationItem extends StatefulWidget
 
 class _NotificationItem extends State<NotificationItem>
 {
-  nf.ListNotification _notification;
+  n.Notification _notification;
 
   @override
   void initState() 
@@ -48,7 +49,7 @@ class _NotificationItem extends State<NotificationItem>
           Container(
             margin: EdgeInsets.only(bottom: 4),
             child: Text(
-              _notification.date + "  •  " + _notification.location,
+              _notification.sentAt.toString() + "  •  " + 'location',
               style: TextStyle(
                 fontSize: 13, 
                 color: Colors.white70
@@ -64,7 +65,7 @@ class _NotificationItem extends State<NotificationItem>
               ),
             ),
           ),
-          Text(_notification.description),
+          Text(_notification.body),
         ],
       ),
     );

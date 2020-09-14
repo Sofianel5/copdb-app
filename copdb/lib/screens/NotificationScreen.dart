@@ -2,6 +2,7 @@ import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:copdb/utils/NotificationItem.dart';
 import 'package:copdb/models/Notification.dart' as nf;
+import 'package:copdb/features/copdb/domain/entities/notification.dart' as n;
 import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatefulWidget 
@@ -13,13 +14,13 @@ class NotificationScreen extends StatefulWidget
 
 class _NotificationScreen extends State<NotificationScreen>
 {
-  List<nf.ListNotification> notificationList = [
-    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
-    nf.ListNotification('notification title', 'notification date', 'notification location', 'notification description'),
+  List<n.Notification> notificationList = [
+    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
+    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
+    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
+    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
+    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
+    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
   ];
 
   ListView _getNotifications()
