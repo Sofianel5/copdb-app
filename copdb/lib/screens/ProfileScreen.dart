@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/animations/SlideAnimation.dart';
+import 'package:copdb/features/copdb/domain/entities/user.dart';
 import 'package:copdb/screens/FriendProfileScreen.dart';
 import 'package:copdb/screens/FriendScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
@@ -14,13 +16,50 @@ class ProfileScreen extends StatefulWidget
 
 class _ProfileScreen extends State<ProfileScreen>
 {
+  User user = new User(
+    firstName: 'Hamood',
+    lastName: 'Habibi',
+    username: '@hamood',
+    profilePic: '',
+    dateJoined: DateTime(2020, 0, 0),
+    verified: false,
+    dob: DateTime(2020, 0, 0),
+    email: 'email@email.com',
+    friends: [
+      User(
+        profilePic: '',
+        firstName: 'deez',
+        lastName: 'nutz',
+        username: '@deeznutz'
+      ),
+      User(
+        profilePic: '',
+        firstName: 'pog',
+        lastName: 'champ',
+        username: '@pogchamp'
+      ),
+      User(
+        profilePic: '',
+        firstName: 'nice',
+        lastName: 'atball',
+        username: '@boolin'
+      ),
+      User(
+        profilePic: '',
+        firstName: 'hi',
+        lastName: 'hey',
+        username: '@hello'
+      ),
+    ],
+  );
+
   List<String> contactList = ['deez nutz', 'pog champion', 'saladin oual', 'jamie philips'];
   ListView _getContacts()
   {
     return ListView.builder(
       padding: EdgeInsets.only(top: 5),
       physics: BouncingScrollPhysics(),
-      itemCount: contactList.length,
+      itemCount: user.friends.length,
       itemBuilder:(BuildContext context, int index) 
       {
         return GestureDetector(
@@ -33,7 +72,29 @@ class _ProfileScreen extends State<ProfileScreen>
             child: Row(
               children: [
                 Container(
-                  child: Icon(Icons.account_circle, size: 38),
+                  width: 42,
+                  height: 42,
+                  child: CachedNetworkImage(
+                    imageUrl: user.profilePic,
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                  decoration: BoxDecoration(
+                    /* image: DecorationImage(
+                      image: AssetImage('assets/cat.jpg'),
+                      fit: BoxFit.cover,
+                    ), */
+                    boxShadow: [
+                      /* BoxShadow(
+                        color: Color(0xFF54C6EB).withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ), */
+                    ],
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                  ),
+                  alignment: Alignment.center,
                 ),
                 Expanded(
                   child: Column(
@@ -44,7 +105,7 @@ class _ProfileScreen extends State<ProfileScreen>
                         alignment: Alignment.centerLeft,
                         height: 25,
                         child: Text(
-                          contactList[index],
+                          user.friends[index].firstName + " " + user.friends[index].lastName,
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         )
                       ),
@@ -53,7 +114,7 @@ class _ProfileScreen extends State<ProfileScreen>
                         alignment: Alignment.centerLeft,
                         height: 15,
                         child: Text(
-                          contactList[index],
+                          user.friends[index].username,
                           style: TextStyle(fontSize: 12, color: Colors.white70),
                         )
                       ),
@@ -103,11 +164,15 @@ class _ProfileScreen extends State<ProfileScreen>
           Container(
             width: 152,
             height: 152,
+            child: CachedNetworkImage(
+              imageUrl: user.profilePic,
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
             decoration: BoxDecoration(
-              image: DecorationImage(
+              /* image: DecorationImage(
                 image: AssetImage('assets/cat.jpg'),
                 fit: BoxFit.cover,
-              ),
+              ), */
               boxShadow: [
                 BoxShadow(
                   color: Color(0xFF54C6EB).withOpacity(0.5),
@@ -124,7 +189,7 @@ class _ProfileScreen extends State<ProfileScreen>
           Container(height: 20,),
           Container(
             child: Text(
-              "hamood habibi",
+              user.firstName + " " + user.lastName,
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold
@@ -134,7 +199,7 @@ class _ProfileScreen extends State<ProfileScreen>
           Container(height: 10,),
           Container(
             child: Text(
-              "@hamood",
+              user.username,
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white70
