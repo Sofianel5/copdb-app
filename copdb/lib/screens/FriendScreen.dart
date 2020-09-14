@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:copdb/Errors/CouldNotFetchEvents.dart';
+import 'package:copdb/features/copdb/domain/entities/user.dart';
 import 'package:copdb/models/Friend.dart';
 import 'package:copdb/models/Report.dart';
 import 'package:copdb/models/ReportPreview.dart';
@@ -19,12 +21,42 @@ class FriendScreen extends StatefulWidget
 class _FriendScreen extends State<FriendScreen>
 {
 
-  List<Friend> reportList = [
-    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
-    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
-    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
-    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
-    Friend('first fullname', 'lastname', 'date/00', Icons.account_circle),
+  List<User> friendList = [
+    User(
+        profilePic: '',
+        firstName: 'deez',
+        lastName: 'nutz',
+        username: '@deeznutz',
+        dateJoined: DateTime(2020, 0, 0),
+      ),
+      User(
+        profilePic: '',
+        firstName: 'pog',
+        lastName: 'champ',
+        username: '@pogchamp',
+        dateJoined: DateTime(2020, 0, 0),
+      ),
+      User(
+        profilePic: '',
+        firstName: 'nice',
+        lastName: 'atball',
+        username: '@boolin',
+        dateJoined: DateTime(2020, 0, 0),
+      ),
+      User(
+        profilePic: '',
+        firstName: 'hi',
+        lastName: 'hey',
+        username: '@hello',
+        dateJoined: DateTime(2020, 0, 0),
+      ),
+      User(
+        profilePic: '',
+        firstName: 'big',
+        lastName: 'chungus',
+        username: '@bigchungus',
+        dateJoined: DateTime(2020, 0, 0),
+      ),
   ];
   ListView _getFriends()
   {
@@ -32,7 +64,7 @@ class _FriendScreen extends State<FriendScreen>
       scrollDirection: Axis.vertical,
       padding: EdgeInsets.only(top: 0),
       physics: BouncingScrollPhysics(),
-      itemCount: reportList.length,
+      itemCount: friendList.length,
       itemBuilder:(BuildContext context, int index) 
       {
         return GestureDetector(
@@ -67,10 +99,30 @@ class _FriendScreen extends State<FriendScreen>
             child: Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(right: 8),
+                  margin: EdgeInsets.only(right: 16),
+                  width: 42,
+                  height: 42,
+                  child: CachedNetworkImage(
+                    imageUrl: friendList[index].profilePic,
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                  decoration: BoxDecoration(
+                    /* image: DecorationImage(
+                      image: AssetImage('assets/cat.jpg'),
+                      fit: BoxFit.cover,
+                    ), */
+                    boxShadow: [
+                      /* BoxShadow(
+                        color: Color(0xFF54C6EB).withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ), */
+                    ],
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                  ),
                   alignment: Alignment.center,
-                  /* alignment: Alignment.centerLeft, */
-                  child: Icon(reportList[index].icon, size: 38),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -82,14 +134,14 @@ class _FriendScreen extends State<FriendScreen>
                     Container(
                       height: 25,
                       child: Text(
-                        reportList[index].fname + " " + reportList[index].lname,
+                        friendList[index].firstName + " " + friendList[index].lastName,
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       )
                     ),
                     Container(
                       /* width: 130, */
                       child: Text(
-                        "joined " + reportList[index].date,
+                        "joined " + friendList[index].dateJoined.toString(),
                         style: TextStyle(fontSize: 14, color: Colors.white70),
                       )
                     ),
