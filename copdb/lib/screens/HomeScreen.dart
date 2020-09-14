@@ -1,4 +1,7 @@
 import 'package:copdb/Errors/CouldNotFetchEvents.dart';
+import 'package:copdb/features/copdb/domain/entities/address.dart';
+import 'package:copdb/features/copdb/domain/entities/complaint.dart';
+import 'package:copdb/features/copdb/domain/entities/copdbevent.dart';
 import 'package:copdb/models/Event.dart';
 import 'package:copdb/screens/ProfileScreen.dart';
 import 'package:copdb/utils/EventItem.dart';
@@ -14,10 +17,43 @@ class HomeScreen extends StatefulWidget
 
 class _HomeScreen extends State<HomeScreen>
 {
-  List<Event> eventList = [
-    Event('fake title', 'date/00', 1 , 1, 'over there city 10', '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  ''', AssetImage('assets/stock-1.jpg')),
-    Event('fake title', 'date/00', 1 , 1, 'over there city 10', '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  ''', AssetImage('assets/stock-2.jpg')),
-    Event('fake title', 'date/00', 1 , 1, 'over there city 10', '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  ''', AssetImage('assets/stock-3.jpg')),
+  List<CopDBEvent> eventList = [
+    CopDBEvent(
+      complaint: CopDBComplaint(
+        image: 'assets/stock-1.jpg',
+        allegation: 'allegation title',
+        dateRecieved: DateTime(2020, 10, 31),
+        description: 'lorem iptsum' * 10,
+        address: Address(city: 'city', state: 'state')
+      ),
+      numPromotions: 0,
+      numSharers: 0,
+      title: 'Fake Title',
+    ),
+    CopDBEvent(
+      complaint: CopDBComplaint(
+        image: null,
+        allegation: 'allegation title',
+        dateRecieved: DateTime(2020, 10, 31),
+        description: 'lorem iptsum' * 10,
+        address: Address(city: 'city', state: 'state')
+      ),
+      numPromotions: 0,
+      numSharers: 0,
+      title: 'Fake Title',
+    ),
+    CopDBEvent(
+      complaint: CopDBComplaint(
+        image: 'assets/stock-3.jpg',
+        allegation: 'allegation title',
+        dateRecieved: DateTime(2020, 10, 31),
+        description: 'lorem iptsum' * 10,
+        address: Address(city: 'city', state: 'state')
+      ),
+      numPromotions: 0,
+      numSharers: 0,
+      title: 'Fake Title',
+    ),
   ];
   
   ListView _getEvents() 
@@ -28,7 +64,7 @@ class _HomeScreen extends State<HomeScreen>
       itemCount: eventList.length,
       itemBuilder:(BuildContext context, int index) 
       {
-        return EventItem(event: eventList[index], index: index);
+        return EventItem(copDBEvent: eventList[index], index: index);
       }
     );
   }

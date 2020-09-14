@@ -19,6 +19,7 @@ class _EventItem extends State<EventItem>
   CopDBEvent _copDBEvent;
   Event _event;
   int _index;
+  bool showImage = true;
 
   @override
   void initState() 
@@ -27,11 +28,16 @@ class _EventItem extends State<EventItem>
     _copDBEvent = widget.copDBEvent;
     _event = widget.event;
     _index = widget.index;
+    if (_copDBEvent.complaint.image == null)
+    {
+      print('null');
+      showImage = false;
+    }
+      print('iit');
   }
 
   Widget build(BuildContext context)
   {
-
     Widget _flightShuttleBuilder(BuildContext f, Animation<double> a, HeroFlightDirection d, BuildContext h, BuildContext t) 
     {
       return DefaultTextStyle(
@@ -40,9 +46,18 @@ class _EventItem extends State<EventItem>
       );
     }
 
+    String _noImage()
+    {
+      setState(() {
+        showImage = false;
+      });
+      print('noImage'+ ' $showImage');
+      return '';
+    }
+
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => EventScreen(event: _event, index: _index,)),);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => EventScreen(copDBEvent: _copDBEvent, index: _index,)),);
       },
       child: Hero(
         flightShuttleBuilder: _flightShuttleBuilder,
@@ -99,20 +114,20 @@ class _EventItem extends State<EventItem>
                   ),
                 ),
               ),
-              Container(
+              showImage ? Container(
                 margin: EdgeInsets.only(bottom: 14),
-                height: 140,
+                height: 180,
+                width: 400,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(8, 11, 17, 1),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.white, )
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: _copDBEvent.complaint.image,
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  imageUrl: _copDBEvent.complaint.image ?? _noImage(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
-              ),
+                ) 
+              ) : Container(height: 0, width: 0,),
               Text(_copDBEvent.complaint.description),
             ],
           ),

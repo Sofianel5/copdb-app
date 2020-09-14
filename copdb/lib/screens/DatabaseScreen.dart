@@ -1,4 +1,5 @@
 import 'package:copdb/Errors/CouldNotFetchEvents.dart';
+import 'package:copdb/features/copdb/domain/entities/complaint.dart';
 import 'package:copdb/models/Report.dart';
 import 'package:copdb/models/ReportPreview.dart';
 import 'package:copdb/utils/NavBar.dart';
@@ -9,7 +10,8 @@ import 'ReportDetailScreen.dart';
 
 class DatabaseScreen extends StatefulWidget 
 {
-  const DatabaseScreen({Key key}) : super(key: key);
+  CopDBComplaint copDBComplaint;
+  DatabaseScreen({Key key, this.copDBComplaint}) : super(key: key);
   @override
   _DatabaseScreen createState() => _DatabaseScreen();
 }
@@ -18,12 +20,12 @@ class _DatabaseScreen extends State<DatabaseScreen>
 {
 
   Widget _flightShuttleBuilder(BuildContext f, Animation<double> a, HeroFlightDirection d, BuildContext h, BuildContext t) 
-    {
-      return DefaultTextStyle(
-        style: DefaultTextStyle.of(t).style,
-        child: t.widget,
-      );
-    }
+  {
+    return DefaultTextStyle(
+      style: DefaultTextStyle.of(t).style,
+      child: t.widget,
+    );
+  }
 
   List<ReportPreview> reportList = [
     ReportPreview('first fullname', 'lastname', Icons.smoking_rooms, 'date/00', 'lorem iptsum ido mina foli isa noream '),
@@ -31,6 +33,7 @@ class _DatabaseScreen extends State<DatabaseScreen>
     ReportPreview('first fullname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
     ReportPreview('first fullname', 'lastname', Icons.wc, 'date/00', 'lorem iptsum ido mina foli isa noream '),
   ];
+  
   ListView _getReports()
   {
     return ListView.builder(

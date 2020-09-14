@@ -18,6 +18,7 @@ class _EventScreen extends State<EventScreen>
   CopDBEvent _copDBEvent;
   Event _event;
   int _index;
+  bool showImage = true;
 
   @override
   void initState() 
@@ -26,6 +27,12 @@ class _EventScreen extends State<EventScreen>
     _event = widget.event;
     _copDBEvent = widget.copDBEvent;
     _index = widget.index;
+    if (_copDBEvent.complaint.image == null)
+    {
+      print('null');
+      showImage = false;
+    }
+      print('iit');
   }
 
   @override
@@ -69,18 +76,19 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16),
                       child: Text(
-                        _copDBEvent.complaint.address.state + ", " + _copDBEvent.complaint.address.state, 
+                        _copDBEvent.complaint.address.state + ", " + _copDBEvent.complaint.address.city, 
                         style: TextStyle(
                           fontSize: 18, color: Colors.white70,
                         ),
                       ),
                     ),
-                    Container(
+                    showImage ? Container(
                       padding: EdgeInsets.only(left: 30, right: 30),
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 20),
                         child: Container(
-                        height: 260,
+                        height: 220,
+                        width: 400,
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(8, 11, 17, 1),
                           borderRadius: BorderRadius.circular(12),
@@ -88,11 +96,10 @@ class _EventScreen extends State<EventScreen>
                         ),
                         child: CachedNetworkImage(
                           imageUrl: _copDBEvent.complaint.image,
-                          placeholder: (context, url) => CircularProgressIndicator(),
                           errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
                       ),
-                    ),
+                    ) : Container(),
                     Container(
                       padding: EdgeInsets.only(left: 30, right: 30),
                       alignment: Alignment.centerLeft,
