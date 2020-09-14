@@ -64,7 +64,9 @@ class _ProfileScreen extends State<ProfileScreen>
       {
         return GestureDetector(
           onTap: () {
-            Navigator.push(context, SlideFromBottomPageRoute(widget: FriendProfileScreen()));
+            Navigator.push(context, SlideFromBottomPageRoute(widget: FriendProfileScreen(
+              user: user.friends[index],
+            )));
           },
           child: Container(
             alignment: Alignment.center,
@@ -75,7 +77,7 @@ class _ProfileScreen extends State<ProfileScreen>
                   width: 42,
                   height: 42,
                   child: CachedNetworkImage(
-                    imageUrl: user.profilePic,
+                    imageUrl: user.friends[index].profilePic,
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                   decoration: BoxDecoration(

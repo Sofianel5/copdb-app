@@ -1,19 +1,29 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/animations/SlideAnimation.dart';
+import 'package:copdb/features/copdb/domain/entities/user.dart';
 import 'package:copdb/screens/FriendScreen.dart';
 import 'package:copdb/utils/NavBar.dart';
 import 'package:flutter/material.dart';
 
 class FriendProfileScreen extends StatefulWidget 
 {
-  const FriendProfileScreen({Key key}) : super(key: key);
+  User user;
+  FriendProfileScreen({Key key, this.user}) : super(key: key);
   @override
   _FriendProfileScreen createState() => _FriendProfileScreen();
 }
 
 class _FriendProfileScreen extends State<FriendProfileScreen>
 {
-   List<String> contactList = ['deez nutz', 'pog champion', 'saladin oual', 'jamie philips'];
+  User _user;
+  void initState()
+  {
+    super.initState();
+    _user = widget.user;
+  }
+
+  List<String> contactList = ['deez nutz', 'pog champion', 'saladin oual', 'jamie philips'];
   ListView _getMutuals()
   {
     return ListView.builder(
@@ -83,11 +93,15 @@ class _FriendProfileScreen extends State<FriendProfileScreen>
           Container(
             width: 152,
             height: 152,
+            child: CachedNetworkImage(
+              imageUrl: _user.profilePic,
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
             decoration: BoxDecoration(
-              image: DecorationImage(
+              /* image: DecorationImage(
                 image: AssetImage('assets/cat.jpg'),
                 fit: BoxFit.cover,
-              ),
+              ), */
               boxShadow: [
                 BoxShadow(
                   color: Color(0xFF54C6EB).withOpacity(0.5),
@@ -104,7 +118,7 @@ class _FriendProfileScreen extends State<FriendProfileScreen>
           Container(height: 20,),
           Container(
             child: Text(
-              "hamood habibi",
+              _user.firstName + " " + _user.lastName,
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold
@@ -114,7 +128,7 @@ class _FriendProfileScreen extends State<FriendProfileScreen>
           Container(height: 10,),
           Container(
             child: Text(
-              "@hamood",
+              _user.username,
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white70

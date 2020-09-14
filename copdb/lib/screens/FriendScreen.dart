@@ -71,7 +71,9 @@ class _FriendScreen extends State<FriendScreen>
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => FriendProfileScreen())
+              MaterialPageRoute(builder: (context) => FriendProfileScreen(
+                user: friendList[index],
+              ))
             );
           },
           child: Container(
