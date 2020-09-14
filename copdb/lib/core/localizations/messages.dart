@@ -21,4 +21,5 @@ class Messages {
   static const String UNAVAILABLE_USERNAME = "UNAVAILABLE_USERNAME";
   static const String INVALID_USERNAME = "INVALID_USERNAME";
   static const String NO_QUERY = "NO_QUERY";
+  static const String PERMISSON_DENIED = "PERMISSON_DENIED";
 }

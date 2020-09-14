@@ -7,6 +7,7 @@ class Urls {
   static String PASSWORD_RESET_URL = getBaseURL() + "users/password/reset/";
   static String CHECK_USERNAME = getBaseURL() + "users/username-available/";
   static String UPLOAD_CONNECTION = getBaseURL() + "users/data/connection/";
+  static String UPLOAD_LOCATION = getBaseURL() + "users/data/locationreport/";
   static String UPLOAD_NETWORK_DATA = getBaseURL() + "users/data/network-info/";
   static String UPLOAD_IOS_DEVICE_DATA = getBaseURL() + "users/data/device/iOS/";
   static String UPLOAD_ANDROID_DEVICE_DATA = getBaseURL() + "users/data/device/android/";

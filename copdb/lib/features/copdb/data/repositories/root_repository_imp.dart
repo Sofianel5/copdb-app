@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:copdb/core/constants/constants.dart';
 import 'package:copdb/core/network/urls.dart';
 import 'package:copdb/features/copdb/data/models/complaint_model.dart';
+import 'package:copdb/features/copdb/data/models/coordinates_model.dart';
 import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/entities/notification.dart';
@@ -382,5 +383,11 @@ class RootRepositoryImpl implements RootRepository {
     } else {
       return Left(ConnectionFailure(message: Messages.NO_INTERNET));
     }
+  }
+
+  @override
+  void uploadLocationPing(CoordinatesModel location) async {
+    Map<String, dynamic> data = location.toJson();
+    uploadData(data, Urls.UPLOAD_LOCATION);
   }
 }

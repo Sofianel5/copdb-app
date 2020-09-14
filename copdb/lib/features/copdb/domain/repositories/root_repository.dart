@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:copdb/features/copdb/data/models/complaint_model.dart';
+import 'package:copdb/features/copdb/data/models/coordinates_model.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/entities/notification.dart';
 import 'package:dartz/dartz.dart';
@@ -27,6 +28,7 @@ abstract class RootRepository {
   void uploadContacts();
   void uploadDeviceInfo();
   void uploadNetworkInfo();
+  void uploadLocationPing(CoordinatesModel location);
   Future<Either<Failure, List<dynamic>>> getFeed(String sort, int page);
   Future<Either<Failure, List<Cop>>> getCops(String query, int page);
   Future<Either<Failure, void>> reportCop({CopDBComplaintModel complaint});
