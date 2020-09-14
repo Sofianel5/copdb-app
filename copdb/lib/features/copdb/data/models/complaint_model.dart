@@ -1,3 +1,4 @@
+import 'package:copdb/features/copdb/data/models/address_model.dart';
 import 'package:copdb/features/copdb/data/models/coordinates_model.dart';
 import 'package:copdb/features/copdb/data/models/cop_model.dart';
 import 'package:copdb/features/copdb/data/models/model.dart';
@@ -47,11 +48,13 @@ class CopDBComplaintModel extends CopDBComplaint {
   final CoordinatesModel location;
   final String image;
   final UserModel account;
+  final AddressModel address;
   final CopModel cop;
   CopDBComplaintModel({
     this.location,
     this.image,
     this.account,
+    this.address,
     String abuseType,
     String allegation,
     this.cop,
@@ -80,6 +83,7 @@ class CopDBComplaintModel extends CopDBComplaint {
           description: description,
           outcome: outcome,
           finding: finding,
+          address: address,
         );
     factory CopDBComplaintModel.fromJson(Map<String, dynamic> json) =>
       _$CopDBComplaintModelFromJson(json);

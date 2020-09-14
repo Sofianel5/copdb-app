@@ -52,6 +52,9 @@ CopDBComplaintModel _$CopDBComplaintModelFromJson(Map<String, dynamic> json) {
     account: json['account'] == null
         ? null
         : UserModel.fromJson(json['account'] as Map<String, dynamic>),
+    address: json['address'] == null
+        ? null
+        : AddressModel.fromJson(json['address'] as Map<String, dynamic>),
     abuseType: json['abuse_type'] as String,
     allegation: json['allegation'] as String,
     cop: json['cop'] == null
@@ -88,5 +91,6 @@ Map<String, dynamic> _$CopDBComplaintModelToJson(
       'location': instance.location?.toJson(),
       'image': instance.image,
       'account': instance.account?.toJson(),
+      'address': instance.address?.toJson(),
       'cop': instance.cop?.toJson(),
     };

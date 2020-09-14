@@ -1,3 +1,4 @@
+import 'package:copdb/features/copdb/domain/entities/address.dart';
 import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/entities/user.dart';
@@ -52,11 +53,13 @@ class Complaint extends Equatable {
 
 class CopDBComplaint extends Complaint {
   final Coordinates location;
+  final Address address;
   final String image;
   final User account;
   CopDBComplaint({
     this.location,
     this.image,
+    this.address,
     this.account,
     String abuseType,
     String allegation,
