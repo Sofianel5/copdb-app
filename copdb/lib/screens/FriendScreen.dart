@@ -1,15 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/features/copdb/domain/entities/user.dart';
-import 'package:copdb/models/Friend.dart';
-import 'package:copdb/models/Report.dart';
-import 'package:copdb/models/ReportPreview.dart';
 import 'package:copdb/screens/FriendProfileScreen.dart';
-import 'package:copdb/utils/NavBar.dart';
 import 'package:copdb/utils/SearchBar.dart';
 import 'package:flutter/material.dart';
-
-import 'ReportDetailScreen.dart';
 
 class FriendScreen extends StatefulWidget 
 {
