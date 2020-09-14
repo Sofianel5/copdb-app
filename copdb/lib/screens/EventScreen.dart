@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:copdb/features/copdb/domain/entities/copdbevent.dart';
 import 'package:copdb/models/Event.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 4),
                       child: Text(
-                        _copDBEvent.title, 
+                        _copDBEvent.complaint.allegation, 
                         style: TextStyle(
                           fontSize: 36, fontWeight: FontWeight.bold
                         ),
@@ -68,7 +69,7 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16),
                       child: Text(
-                        _copDBEvent.complaint.location.toString(), 
+                        _copDBEvent.complaint.address.state + ", " + _copDBEvent.complaint.address.state, 
                         style: TextStyle(
                           fontSize: 18, color: Colors.white70,
                         ),
@@ -81,13 +82,14 @@ class _EventScreen extends State<EventScreen>
                         child: Container(
                         height: 260,
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: _event.imageLocation,
-                            fit: BoxFit.cover,
-                          ),
                           color: Color.fromRGBO(8, 11, 17, 1),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: Colors.white, )
+                        ),
+                        child: CachedNetworkImage(
+                          imageUrl: _copDBEvent.complaint.image,
+                          placeholder: (context, url) => CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
                       ),
                     ),
@@ -96,7 +98,7 @@ class _EventScreen extends State<EventScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16),
                       child: Text(
-                        _event.description * 4, 
+                        _copDBEvent.complaint.description, 
                         style: TextStyle(
                           fontSize: 16, color: Colors.white,
                         ),

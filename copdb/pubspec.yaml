@@ -50,6 +50,7 @@ dependencies:
   get_ip: ^0.4.0
   mockito: any 
   background_location: ^0.1.2
+  cached_network_image: ^2.3.2+1
 
 
   # The following adds the Cupertino Icons font to your application.

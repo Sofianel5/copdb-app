@@ -1,18 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:copdb/features/copdb/domain/entities/copdbevent.dart';
 import 'package:copdb/models/Event.dart';
 import 'package:copdb/screens/EventScreen.dart';
 import 'package:flutter/material.dart';
 
 class EventItem extends StatefulWidget
 {
+  CopDBEvent copDBEvent;
   Event event;
   int index;
-  EventItem({this.event, this.index});
+  EventItem({this.event, this.copDBEvent, this.index});
   @override 
   _EventItem createState() => _EventItem();
 }
 
 class _EventItem extends State<EventItem>
 {
+  CopDBEvent _copDBEvent;
   Event _event;
   int _index;
 
@@ -20,6 +24,7 @@ class _EventItem extends State<EventItem>
   void initState() 
   {
     super.initState();
+    _copDBEvent = widget.copDBEvent;
     _event = widget.event;
     _index = widget.index;
   }
@@ -68,7 +73,7 @@ class _EventItem extends State<EventItem>
               Container(
                 margin: EdgeInsets.only(bottom: 4),
                 child: Text(
-                  _event.date,
+                  _copDBEvent.complaint.dateRecieved.toString(), 
                   style: TextStyle(
                     fontSize: 13, 
                     color: Colors.white70
@@ -78,7 +83,7 @@ class _EventItem extends State<EventItem>
               Container(
                 margin: EdgeInsets.only(bottom: 2),
                 child: Text(
-                  _event.title, 
+                  _copDBEvent.title, 
                   style: TextStyle(
                     fontSize: 22, fontWeight: FontWeight.bold
                   ),
@@ -87,7 +92,7 @@ class _EventItem extends State<EventItem>
               Container(
                 margin: EdgeInsets.only(bottom: 14),
                 child: Text(
-                  _event.location,
+                  _copDBEvent.complaint.address.city +", " + _copDBEvent.complaint.address.state,
                   style: TextStyle(
                     fontSize: 13, 
                     color: Colors.white70
@@ -98,16 +103,17 @@ class _EventItem extends State<EventItem>
                 margin: EdgeInsets.only(bottom: 14),
                 height: 140,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: _event.imageLocation,
-                    fit: BoxFit.cover,
-                  ),
                   color: Color.fromRGBO(8, 11, 17, 1),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.white, )
                 ),
+                child: CachedNetworkImage(
+                  imageUrl: _copDBEvent.complaint.image,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
               ),
-              Text(_event.description),
+              Text(_copDBEvent.complaint.description),
             ],
           ),
         ),
