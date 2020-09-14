@@ -1,4 +1,5 @@
 import 'package:copdb/Errors/ConnectionError.dart';
+import 'package:copdb/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
@@ -17,10 +18,24 @@ class _App extends State<App>
 {
   Color grey = Color.fromRGBO(8, 11, 17, 1);
   bool _seen;
+  bool _splash = true;
+
+  Future<bool> _playSplash() async 
+  {
+    await Future.delayed(Duration(milliseconds: 2000), () {});
+    return true;
+  }
   
   @override
   void initState() 
   {
+    _playSplash().then(
+      (status) {
+        setState(() {
+          _splash = false;
+        });
+      }
+    );
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: grey,
       statusBarBrightness: Brightness.light,
@@ -56,10 +71,11 @@ class _App extends State<App>
     if (_seen == false) {_updateFirstTime();}
 
     bool seen = _seen;  
-    return MaterialApp( 
+    return MaterialApp(
+      color: Color.fromRGBO(8, 11, 17, 1), 
       theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: seen ? HomeScreen() : EntryScreen(),
+      home: _splash ? Splash() : (seen ? HomeScreen() : EntryScreen()),
     );
   } 
 }
