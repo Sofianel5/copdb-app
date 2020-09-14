@@ -28,6 +28,7 @@ abstract class RemoteDataSource {
   Future<List<CopModel>> getCops(String query, int page, Map<String, dynamic> headers);
   Future<void> reportCop(CopDBComplaintModel complaint, Map<String, dynamic> headers);
   Future<List<Notification>> getNotifications(int page, Map<String, dynamic> headers);
+  Future<UserModel> uploadProfilePic(File pic, Map<String, dynamic> headers);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -324,6 +325,28 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         results.add(NotificationModel.fromJson(obj));
       }
       return results;
+    } else if (response.statusCode ~/100 == 4) {
+      throw AuthenticationException();
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<UserModel> uploadProfilePic(File pic, Map<String, dynamic> headers) async {
+  String base64encoded = base64Encode(pic.readAsBytesSync());
+  Map<String, String> body = <String,String>{"img": base64encoded};
+   var response = await retry(
+        // Make a GET request
+        () => client
+            .post(Urls.SET_PROFILE_PIC, body: body, headers: headers)
+            .timeout(Duration(seconds: 5)),
+        // Retry on SocketException or TimeoutException
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+      );
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      return UserModel.fromJson(jsonData);
     } else if (response.statusCode ~/100 == 4) {
       throw AuthenticationException();
     } else {

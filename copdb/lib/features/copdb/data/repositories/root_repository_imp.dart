@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:copdb/core/constants/constants.dart';
 import 'package:copdb/core/network/urls.dart';
 import 'package:copdb/features/copdb/data/models/complaint_model.dart';
@@ -333,6 +335,37 @@ class RootRepositoryImpl implements RootRepository {
           },
         );
         final result = await remoteDataSource.getNotifications(page, header);
+        return Right(result);
+      } on AuthenticationException {
+        // Some error like 403
+        return Left(AuthenticationFailure(message: Messages.INVALID_PASSWORD));
+      } on ServerException {
+        // Some server error 500
+        return Left(ServerFailure(message: Messages.SERVER_FAILURE));
+      } on CacheException {
+        // No stored auth token
+        return Left(AuthenticationFailure(message: Messages.NO_USER));
+      } catch (e) {
+        return Left(UnknownFailure());
+      }
+    } else {
+      return Left(ConnectionFailure(message: Messages.NO_INTERNET));
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> uploadProfilePic(File pic) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final String authToken = await localDataSource.getAuthToken();
+        final String appVersion = Constants.APP_VERSION.toString();
+        Map<String, String> header = Map<String, String>.from(
+          <String, String>{
+            "Authorization": "Token " + authToken.toString(),
+            "APP-VERSION": appVersion,
+          },
+        );
+        final result = await remoteDataSource.uploadProfilePic(pic, header);
         return Right(result);
       } on AuthenticationException {
         // Some error like 403
