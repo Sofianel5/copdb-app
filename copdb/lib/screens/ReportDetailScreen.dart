@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:copdb/features/copdb/domain/entities/complaint.dart';
 import 'package:copdb/models/Report.dart';
 import 'package:flutter/material.dart';
 
 class ReportDetailScreen extends StatefulWidget 
 {
-  Report report;
+  CopDBComplaint report;
   int index;
   ReportDetailScreen({this.report, this.index});
   @override
@@ -12,8 +14,11 @@ class ReportDetailScreen extends StatefulWidget
 
 class _ReportDetailScreen extends State<ReportDetailScreen>
 {
-  Report _report;
+  CopDBComplaint _report;
   int _index;
+  bool showImage = true;
+  int _age;
+  String _sex;
 
   @override
   void initState() 
@@ -21,6 +26,13 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
     super.initState();
     _report = widget.report;
     _index = widget.index;
+    _age =  _report.cop.age;
+    _sex = _report.cop.sex;
+    if (_report.cop.image == null)
+    {
+      print('null');
+      showImage = false;
+    }
   }
 
   @override
@@ -48,10 +60,10 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                           height: 120,
                           child: Container(
                             decoration: BoxDecoration(
-                              image: DecorationImage(
+                              /* image: DecorationImage(
                                 image: AssetImage('assets/cat.jpg'),
                                 fit: BoxFit.cover,
-                              ),
+                              ), */
                               boxShadow: [
                                 BoxShadow(
                                   color: Color(0xFF54C6EB).withOpacity(0.5),
@@ -65,6 +77,10 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                             ),
                             height: 75,
                             width: 75,
+                            child: showImage ? CachedNetworkImage(
+                              imageUrl: _report.cop.image,
+                              errorWidget: (context, url, error) => Icon(Icons.error),
+                            ) : Container(),
                           ),
                         ),
                         Column(
@@ -76,7 +92,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                               alignment: Alignment.centerLeft,
                               margin: EdgeInsets.only(bottom: 4),
                               child: Text(
-                                _report.date, 
+                                _report.dateRecieved.toString(), 
                                 style: TextStyle(
                                   fontSize: 18, color: Colors.white70,
                                 ),
@@ -87,7 +103,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                               alignment: Alignment.centerLeft,
                               margin: EdgeInsets.only(bottom: 4),
                               child: Text(
-                                _report.firstname, 
+                                _report.cop.firstName, 
                                 style: TextStyle(
                                   fontSize: 36, fontWeight: FontWeight.bold
                                 ),
@@ -98,7 +114,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                               alignment: Alignment.centerLeft,
                               margin: EdgeInsets.only(bottom: 4),
                               child: Text(
-                                _report.lastname, 
+                                _report.cop.lastName, 
                                 style: TextStyle(
                                   fontSize: 36, fontWeight: FontWeight.bold
                                 ),
@@ -109,7 +125,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                               alignment: Alignment.centerLeft,
                               margin: EdgeInsets.only(bottom: 16),
                               child: Text(
-                                _report.age + " | " + _report.sex, 
+                                '$_age | $_sex', 
                                 style: TextStyle(
                                   fontSize: 18, color: Colors.white70,
                                 ),
@@ -130,7 +146,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16, top: 4),
                       child: Text(
-                        _report.description * 40, 
+                        _report.description * 5, 
                         style: TextStyle(
                           fontSize: 16, color: Colors.white,
                         ),
@@ -147,7 +163,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16, top: 4),
                       child: Text(
-                        _report.description * 40, 
+                        _report.description * 5, 
                         style: TextStyle(
                           fontSize: 16, color: Colors.white,
                         ),
@@ -164,7 +180,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16, top: 4),
                       child: Text(
-                        _report.description * 40, 
+                        _report.description * 5, 
                         style: TextStyle(
                           fontSize: 16, color: Colors.white,
                         ),

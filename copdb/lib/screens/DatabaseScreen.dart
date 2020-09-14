@@ -1,5 +1,6 @@
 import 'package:copdb/Errors/CouldNotFetchEvents.dart';
 import 'package:copdb/features/copdb/domain/entities/complaint.dart';
+import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/models/Report.dart';
 import 'package:copdb/models/ReportPreview.dart';
 import 'package:copdb/utils/NavBar.dart';
@@ -10,8 +11,7 @@ import 'ReportDetailScreen.dart';
 
 class DatabaseScreen extends StatefulWidget 
 {
-  CopDBComplaint copDBComplaint;
-  DatabaseScreen({Key key, this.copDBComplaint}) : super(key: key);
+  DatabaseScreen({Key key,}) : super(key: key);
   @override
   _DatabaseScreen createState() => _DatabaseScreen();
 }
@@ -27,11 +27,39 @@ class _DatabaseScreen extends State<DatabaseScreen>
     );
   }
 
-  List<ReportPreview> reportList = [
-    ReportPreview('first fullname', 'lastname', Icons.smoking_rooms, 'date/00', 'lorem iptsum ido mina foli isa noream '),
-    ReportPreview('first fullname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
-    ReportPreview('first fullname', 'lastname', Icons.record_voice_over, 'date/00', 'lorem iptsum ido mina foli isa noream '),
-    ReportPreview('first fullname', 'lastname', Icons.wc, 'date/00', 'lorem iptsum ido mina foli isa noream '),
+  List<CopDBComplaint> reportList = [
+    CopDBComplaint(
+      cop: Cop(
+        firstName: 'Firstname',
+        lastName: 'Lastname',
+      ),
+      dateRecieved: DateTime(2020, 0, 0),
+      description: 'lorem iptsum ido mina foli isa moream',
+    ),
+    CopDBComplaint(
+      cop: Cop(
+        firstName: 'Firstname',
+        lastName: 'Lastname',
+      ),
+      dateRecieved: DateTime(2020, 0, 0),
+      description: 'lorem iptsum ido mina foli isa moream',
+    ),
+    CopDBComplaint(
+      cop: Cop(
+        firstName: 'Firstname',
+        lastName: 'Lastname',
+      ),
+      dateRecieved: DateTime(2020, 0, 0),
+      description: 'lorem iptsum ido mina foli isa moream',
+    ),
+    CopDBComplaint(
+      cop: Cop(
+        firstName: 'Firstname',
+        lastName: 'Lastname',
+      ),
+      dateRecieved: DateTime(2020, 0, 0),
+      description: 'lorem iptsum ido mina foli isa moream',
+    ),
   ];
   
   ListView _getReports()
@@ -48,7 +76,7 @@ class _DatabaseScreen extends State<DatabaseScreen>
             Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => ReportDetailScreen(
-                report: Report('first name', 'last name', 'age', 'sex', 'allegation', 'date/00', 'location', 'text', null), 
+                report: reportList[index], 
                 index: index,)
               ),
             );
@@ -84,7 +112,7 @@ class _DatabaseScreen extends State<DatabaseScreen>
                     margin: EdgeInsets.only(right: 16),
                     alignment: Alignment.centerLeft,
                     /* alignment: Alignment.centerLeft, */
-                    child: Icon(reportList[index].icon, size: 38),
+                    child: Icon(Icons.record_voice_over, size: 38),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -96,7 +124,7 @@ class _DatabaseScreen extends State<DatabaseScreen>
                       Container(
                         height: 25,
                         child: Text(
-                          reportList[index].firstname,
+                          reportList[index].cop.firstName + " " + reportList[index].cop.firstName,
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         )
                       ),
@@ -104,14 +132,14 @@ class _DatabaseScreen extends State<DatabaseScreen>
                         /* alignment: Alignment.centerLeft, */
                         height: 20,
                         child: Text(
-                          reportList[index].date,
+                          reportList[index].dateRecieved.toString(),
                           style: TextStyle(fontSize: 14, color: Colors.white70),
                         )
                       ),
                       Container(
                         /* width: 130, */
                         child: Text(
-                          reportList[index].abuse,
+                          reportList[index].description,
                           style: TextStyle(fontSize: 14, color: Colors.white70),
                         )
                       ),

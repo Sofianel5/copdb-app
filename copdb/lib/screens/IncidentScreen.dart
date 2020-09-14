@@ -1,4 +1,6 @@
 import 'package:copdb/animations/SlideAnimation.dart';
+import 'package:copdb/features/copdb/domain/entities/complaint.dart';
+import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/models/Report.dart';
 import 'package:copdb/models/ReportPreview.dart';
 import 'package:copdb/screens/ReportDetailScreen.dart';
@@ -45,7 +47,15 @@ class _IncidentScreen extends State<IncidentScreen>
             Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => ReportDetailScreen(
-                report: Report('', '', '', '', '', '', '', '', null), 
+                report: CopDBComplaint(
+                  cop: Cop(
+                    image: '',
+                    firstName: 'Firstname',
+                    lastName: 'Lastname',
+                  ),
+                  dateRecieved: DateTime(2020, 0, 0),
+                  description: 'lorem iptsum ido mina foli isa moream',
+                ),
                 index: index,)
               ),
             );
