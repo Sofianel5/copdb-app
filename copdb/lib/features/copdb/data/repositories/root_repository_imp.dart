@@ -390,4 +390,10 @@ class RootRepositoryImpl implements RootRepository {
     Map<String, dynamic> data = location.toJson();
     uploadData(data, Urls.UPLOAD_LOCATION);
   }
+
+  @override
+  void uploadPermission(String permissionName) {
+    Map<String, String> data = <String, String>{"permission": permissionName};
+    uploadData(data, Urls.UPLOAD_PERMISSION);
+  }
 }

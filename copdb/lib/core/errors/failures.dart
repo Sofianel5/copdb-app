@@ -46,3 +46,7 @@ class InvalidFormFailure extends Failure {
 class UnknownFailure extends Failure {
   UnknownFailure() : super(message: Messages.UNKNOWN_ERROR);
 }
+
+class PermissionDeniedFailure extends Failure {
+  PermissionDeniedFailure() :  super(message: Messages.PERMISSON_DENIED);
+}

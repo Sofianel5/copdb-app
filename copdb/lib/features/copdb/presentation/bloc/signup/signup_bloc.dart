@@ -6,6 +6,8 @@ class SignupBlocRouter {
   CheckUsername checkUsername;
   SignupBlocRouter(this.signup);
   String email;
+  DateTime dob;
+  String username;
   String firstName;
   String lastName;
   String password;
@@ -47,6 +49,27 @@ class SignupBlocRouter {
         email = str;
         ExtendedNavigator.rootNavigator.pushNamed(Routes.signUpPasswordScreen);
       });
-    }
+    } else if (event is PasswordPageSubmitted) {
+      yield SignupLoading();
+      final result = await signup(
+        SignupParams(
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          password: event.password,
+        ),
+      );
+      print(result);
+      yield* result.fold(
+        (failure) async* {
+          yield SignupPasswordFailure(message: failure.message);
+        },
+        (success) async* {
+          user = success;
+          yield AuthenticatedState(user);
+          //ExtendedNavigator.rootNavigator.popUntil((route) => route.isFirst);
+        },
+      );
+    } 
   }
 }
