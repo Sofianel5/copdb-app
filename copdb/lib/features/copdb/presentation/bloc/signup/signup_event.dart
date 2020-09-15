@@ -23,10 +23,15 @@ class NamePageSubmitted extends SignupEvent {
   NamePageSubmitted(this.firstName, this.lastName);
 }
 
-class PasswordPageSubmitted extends RootEvent {
+class PasswordPageSubmitted extends SignupEvent {
   String password;
   PasswordPageSubmitted(this.password);
 
   @override
   List<Object> get props => [];
+}
+
+class ProfilePicturePageSubmitted extends RootEvent {
+  File picture;
+  ProfilePicturePageSubmitted({this.picture});
 }

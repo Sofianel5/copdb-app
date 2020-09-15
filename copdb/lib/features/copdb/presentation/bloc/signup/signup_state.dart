@@ -48,4 +48,15 @@ class SignupPasswordFailure extends SignupPassword {
   SignupPasswordFailure({this.message});
 }
 
+class SignupProfilePicture extends SignupState {
+  File picture;
+  SignupProfilePicture({this.picture});
+}
+
+class SignupProfilePictureFailure extends SignupProfilePicture {
+
+  String message;
+  SignupProfilePictureFailure({this.message});
+}
+
 class SignupLoading extends SignupState {}
