@@ -4,15 +4,21 @@ import 'package:copdb/features/copdb/presentation/widgets/top.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Screen extends StatelessWidget
+class Screen extends StatefulWidget
 {
   final String text;
   final String inputText;
+  final Function onNext;
   StatefulWidget page;
   StatefulWidget alt;
 
-  Screen({this.text, this.page, this.inputText, this.alt});
+  Screen({this.text, this.page, this.inputText, this.alt, this.onNext});
 
+  @override
+  _ScreenState createState() => _ScreenState();
+}
+
+class _ScreenState extends State<Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +39,7 @@ class Screen extends StatelessWidget
                 FadeAnimation(
                   1,
                   Text(
-                    text,
+                    widget.text,
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,
@@ -44,7 +50,7 @@ class Screen extends StatelessWidget
                 SizedBox(
                   height: 40,
                 ),
-                alt ?? FadeAnimation(
+                widget.alt ?? FadeAnimation(
                   1,
                   Container(
                     padding: EdgeInsets.all(8.0),
@@ -65,7 +71,7 @@ class Screen extends StatelessWidget
                           style: TextStyle(color: Colors.white,),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: inputText,
+                            hintText: widget.inputText,
                             hintStyle: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -95,7 +101,7 @@ class Screen extends StatelessWidget
                   {
                     Navigator.push(
                       context, 
-                      MaterialPageRoute(builder: (context) => page),
+                      MaterialPageRoute(builder: (context) => widget.page),
                     );
                   },
                   borderRadius: BorderRadius.circular(50),
@@ -103,11 +109,14 @@ class Screen extends StatelessWidget
                   hoverColor: Colors.white,
                   splashColor: Colors.white,
                   child: Center(
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                    child: GestureDetector(
+                      onTap: widget.onNext(),
+                                          child: Text(
+                        "Next",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
