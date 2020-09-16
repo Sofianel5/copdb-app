@@ -17,7 +17,6 @@ class _DoubleInput extends State<DoubleInput>
 {
   Widget build(BuildContext context)
   {
-    String _value;
     return FadeAnimation(
       1,
       Container(

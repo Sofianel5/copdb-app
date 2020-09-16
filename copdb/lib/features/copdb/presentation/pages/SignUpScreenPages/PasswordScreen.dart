@@ -1,3 +1,4 @@
+import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/AvatarScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/_Screen.dart';
 import 'package:copdb/features/copdb/presentation/pages/_ScreenX.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class _PasswordScreen extends State<PasswordScreen>
     return Screen(
       text: 'Create a unique \npassword',
       inputText: 'password',
-      page: ScreenX(),
+      page: AvatarScreen(),
     );
   }
 }
