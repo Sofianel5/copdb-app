@@ -4,6 +4,7 @@ class SignupBlocRouter {
   Signup signup;
   InputConverter inputConverter = InputConverter();
   CheckUsername checkUsername;
+  User user;
   SignupBlocRouter(this.signup);
   String email;
   DateTime dob;
@@ -54,8 +55,10 @@ class SignupBlocRouter {
       final result = await signup(
         SignupParams(
           email: email,
+          username: username,
           firstName: firstName,
           lastName: lastName,
+          dob: dob,
           password: event.password,
         ),
       );

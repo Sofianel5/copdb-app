@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
             FocusScope.of(context).unfocus();
             setState(() {
               bloc.add(
-              LoginAttemptEvent(email: _username.text, password: _password.text));
+              LoginAttemptEvent(username: _username.text, password: _password.text));
             });
           },
           focusNode: passwordNode,
@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
         onTap: () {
           FocusScope.of(context).unfocus();
           bloc.add(
-              LoginAttemptEvent(email: _username.text, password: _password.text));
+              LoginAttemptEvent(username: _username.text, password: _password.text));
         },
         child: AnimatedContainer(
             duration: Duration(seconds: 1),

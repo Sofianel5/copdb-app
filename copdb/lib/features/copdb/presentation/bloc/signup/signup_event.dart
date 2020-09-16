@@ -31,7 +31,11 @@ class PasswordPageSubmitted extends SignupEvent {
   List<Object> get props => [];
 }
 
-class ProfilePicturePageSubmitted extends RootEvent {
+class ProfilePicturePageSubmitted extends SignupEvent {
   File picture;
   ProfilePicturePageSubmitted({this.picture});
+}
+
+class SignUpComplete extends RootEvent {
+
 }
