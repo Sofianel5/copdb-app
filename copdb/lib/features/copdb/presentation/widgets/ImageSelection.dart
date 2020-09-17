@@ -5,9 +5,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:copdb/features/copdb/presentation/animations/FadeAnimation.dart';
 import 'package:flutter/material.dart';
 
-
+typedef void FileCallback(File s);
 class ImageSelection extends StatefulWidget 
 {
+  final FileCallback onFileAdd;
+  ImageSelection({this.onFileAdd});
   @override
   _ImageSelection createState() => _ImageSelection();
 }
@@ -23,6 +25,7 @@ class _ImageSelection extends State<ImageSelection>
 
     setState(() {
       _image = File(pickedFile.path);
+      widget.onFileAdd(_image);
     });
   }
 

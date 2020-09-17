@@ -4,15 +4,17 @@ import 'package:copdb/features/copdb/presentation/widgets/top.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+typedef void StringCallback(String s);
 class Screen extends StatefulWidget
 {
   final String text;
   final String inputText;
   final Function onNext;
+  final StringCallback onSubmit;
   StatefulWidget page;
   StatefulWidget alt;
 
-  Screen({this.text, this.page, this.inputText, this.alt, this.onNext});
+  Screen({this.text, this.page, this.inputText, this.alt, this.onNext, this.onSubmit});
 
   @override
   _ScreenState createState() => _ScreenState();
