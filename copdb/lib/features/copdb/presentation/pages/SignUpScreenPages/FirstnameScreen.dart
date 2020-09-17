@@ -20,7 +20,16 @@ class _FirstnameScreen extends State<FirstnameScreen>
       alt: DoubleInput(
         firstInputText: 'first name', 
         secondInputText: 'second name',
+        fname: (fname) {
+          //whenever firstname is inputed
+        },
+        lname: (lname) {
+          //whenever lastname is inputed
+        },
       ),
+      onSubmit: (s) {
+        //whenever submit button is pressed
+      },
     );
   }
 }

@@ -17,7 +17,9 @@ class _UserScreen extends State<UserScreen>
       text: 'Create a unique \nusername',
       inputText: 'username',
       page: EmailScreen(),
-      
+      onSubmit: (email) {
+        // you get the email here on submit
+      },
     );
   }
 }

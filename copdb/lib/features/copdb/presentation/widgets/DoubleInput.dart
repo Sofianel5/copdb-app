@@ -1,6 +1,7 @@
 import 'package:copdb/features/copdb/presentation/animations/FadeAnimation.dart';
 import 'package:flutter/material.dart';
 
+typedef void StringCallback(String s);
 class DoubleInput extends StatefulWidget
 {
   @override
@@ -8,8 +9,10 @@ class DoubleInput extends StatefulWidget
   String secondText;
   String firstInputText;
   String secondInputText;
-  
-  DoubleInput({this.firstInputText, this.firstText, this.secondInputText, this.secondText});
+  StringCallback fname;
+  StringCallback lname;
+
+  DoubleInput({this.firstInputText, this.firstText, this.secondInputText, this.secondText, this.fname, this.lname});
   _DoubleInput createState() => _DoubleInput();
 }
 

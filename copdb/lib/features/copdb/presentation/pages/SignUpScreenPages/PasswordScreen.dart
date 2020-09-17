@@ -17,6 +17,9 @@ class _PasswordScreen extends State<PasswordScreen>
       text: 'Create a unique \npassword',
       inputText: 'password',
       page: AvatarScreen(),
+      onSubmit: (password) {
+        //you get the password here onsubmit
+      },
     );
   }
 }

@@ -17,6 +17,9 @@ class _EmailScreen extends State<EmailScreen>
       text: 'Enter your \email',
       inputText: 'email',
       page: FirstnameScreen(),
+      onSubmit: (text) {
+        //whenever press next u get the string from input
+      },
     );
   }
 }
