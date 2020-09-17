@@ -4,8 +4,9 @@ class SignupBlocRouter {
   Signup signup;
   InputConverter inputConverter = InputConverter();
   CheckUsername checkUsername;
+  UploadProfilePic uploadPfp;
   User user;
-  SignupBlocRouter(this.signup);
+  SignupBlocRouter(this.signup, this.uploadPfp);
   String email;
   DateTime dob;
   String username;
@@ -47,7 +48,7 @@ class SignupBlocRouter {
           yield SignupNameFailure(firstName: event.firstName, lastName: event.lastName, message: failure.message);
         }, (str) async* {
           lastName = str;
-          ExtendedNavigator.rootNavigator.pushNamed(Routes.signUpEmail);
+          ExtendedNavigator.root.push(Routes.passwordScreen);
           yield SignupEmail();
         });
       });
@@ -74,6 +75,13 @@ class SignupBlocRouter {
           //ExtendedNavigator.rootNavigator.popUntil((route) => route.isFirst);
         },
       );
-    } 
+    } else if (event is ProfilePicturePageSubmitted) {
+      final result = await uploadPfp(UploadProfilePicParams(pic: event.picture));
+      yield* result.fold((failure) async* {
+        yield SignupProfilePictureFailure(message: failure.message);
+      }, (success) async* {
+        ExtendedNavigator.root.popUntil((route) => route.isFirst);
+      });
+    }
   }
 }

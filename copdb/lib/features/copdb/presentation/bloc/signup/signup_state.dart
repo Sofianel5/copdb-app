@@ -9,6 +9,12 @@ class SignupEmail extends SignupState {
   SignupEmail({this.email});
 }
 
+class SignupEmailFailure extends SignupEmail {
+  String email;
+  String message;
+  SignupEmailFailure({this.email, this.message}) : super(email: email);
+}
+
 class SignupUsername extends SignupState {
   String username;
   SignupUsername({this.username});
@@ -16,13 +22,7 @@ class SignupUsername extends SignupState {
 
 class SignupUsernameFailure extends SignupUsername {
   String message;
-  SignupUsernameFailure({String username, this.message}) : super(username);
-}
-
-class SignupEmailFailure extends SignupEmail {
-  String email;
-  String message;
-  SignupEmailFailure({this.email, this.message});
+  SignupUsernameFailure({String username, this.message}) : super(username: username);
 }
 
 class SignupName extends SignupState {
@@ -54,7 +54,6 @@ class SignupProfilePicture extends SignupState {
 }
 
 class SignupProfilePictureFailure extends SignupProfilePicture {
-
   String message;
   SignupProfilePictureFailure({this.message});
 }
