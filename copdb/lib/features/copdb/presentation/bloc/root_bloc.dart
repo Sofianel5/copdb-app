@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:copdb/features/copdb/domain/usecases/upload_profile_pic.dart';
+import 'package:copdb/routes/routes.gr.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -32,6 +34,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   final Login login;
   final Signup signup;
   final Logout logout;
+  final UploadProfilePic uploadPfp;
   final LoginBlocRouter loginBloc;
   final GetCachedUser getCachedUser;
   final SignupBlocRouter signupRouter;
@@ -44,7 +47,8 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     @required this.logout,
     @required this.loginBloc, 
     @required this.getCachedUser, 
-    @required this.signupRouter
+    @required this.signupRouter,
+    @required this.uploadPfp,
   });
   @override
   RootState get initialState => InitialState();
@@ -81,31 +85,10 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     } else if (event is LogoutEvent) {
       await logout(NoParams());
       yield UnauthenticatedState();
-    } else if (event is PasswordPageSubmitted) {
-      yield SignupLoading();
-      final result = await signup(
-        SignupParams(
-          email: signupRouter.email,
-          firstName: signupRouter.firstName,
-          lastName: signupRouter.lastName,
-          password: event.password,
-        ),
-      );
-      print(result);
-      yield* result.fold(
-        (failure) async* {
-          yield SignupPasswordFailure(message: failure.message);
-        },
-        (success) async* {
-          user = success;
-          yield AuthenticatedState(user);
-          ExtendedNavigator.rootNavigator.popUntil((route) => route.isFirst);
-        },
-      );
     } else if (event is SignupEvent) {
       yield* signupRouter.route(event);
     } else if (event is PopEvent) {
-      ExtendedNavigator.rootNavigator.pop();
+      ExtendedNavigator.root.pop();
     }
   }
 }
