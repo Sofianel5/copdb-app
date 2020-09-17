@@ -11,7 +11,7 @@ class SignupEmail extends SignupState {
 
 class SignupUsername extends SignupState {
   String username;
-  SignupUsername(this.username);
+  SignupUsername({this.username});
 }
 
 class SignupUsernameFailure extends SignupUsername {

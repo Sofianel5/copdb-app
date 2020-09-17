@@ -14,21 +14,29 @@ class SignupBlocRouter {
   String password;
   Stream<RootState> route(SignupEvent event) async* {
     if (event is RequestSignup) {
-      ExtendedNavigator.rootNavigator.pushNamed(Routes.signUpUsername);
-      yield SignupEmail();
+      ExtendedNavigator.root.push(Routes.userScreen);
+      yield SignupUsername();
     } else if (event is UsernamePageSubmitted) {
       yield*  (inputConverter.validateUsername(event.username)).fold((failure) async* {
         yield SignupUsernameFailure(message: failure.message, username: event.username);
-      }, (username) async* {
-        yield* (await checkUsername(CheckUsernameParams(username: username))).fold((failure) async* {
+      }, (_username) async* {
+        yield* (await checkUsername(CheckUsernameParams(username: _username))).fold((failure) async* {
           yield SignupUsernameFailure(message: failure.message, username: event.username);
         }, (res) async* {
           if (res){
-            ExtendedNavigator.rootNavigator.pushNamed(Routes.signUpName);
+            ExtendedNavigator.root.push(Routes.emailScreen);
+            this.username = _username;
           } else {
             yield SignupUsernameFailure(message: Messages.UNAVAILABLE_USERNAME, username: event.username);
           }
         });
+      });
+    } else if (event is EmailPageSubmitted) {
+      yield* inputConverter.parseEmail(event.email).fold((failure) async* {
+        yield SignupEmailFailure(email: event.email,message: failure.message);
+      } , (str) async* {
+        email = str;
+        ExtendedNavigator.root.push(Routes.firstnameScreen);
       });
     } else if (event is NamePageSubmitted) {
       yield* inputConverter.parseName(event.firstName).fold((failure) async* {
@@ -42,13 +50,6 @@ class SignupBlocRouter {
           ExtendedNavigator.rootNavigator.pushNamed(Routes.signUpEmail);
           yield SignupEmail();
         });
-      });
-    } else if (event is EmailPageSubmitted) {
-      yield* inputConverter.parseEmail(event.email).fold((failure) async* {
-        yield SignupEmailFailure(email: event.email,message: failure.message);
-      } , (str) async* {
-        email = str;
-        ExtendedNavigator.rootNavigator.pushNamed(Routes.signUpPasswordScreen);
       });
     } else if (event is PasswordPageSubmitted) {
       yield SignupLoading();
