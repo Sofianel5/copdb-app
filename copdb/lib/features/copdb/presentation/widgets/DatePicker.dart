@@ -1,16 +1,16 @@
 import 'package:copdb/features/copdb/presentation/animations/FadeAnimation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+typedef void StringCallback(String s);
 class DatePicker extends StatefulWidget
 {
   final StringCallback onDateChanged;
-  final StringCallback onTimeChanged;
-  DatePicker({ @required this.onDateChanged, this.onTimeChanged});
+  DatePicker({ @required this.onDateChanged});
   @override
   _DatePicker createState() => _DatePicker();
 }
 
-typedef void StringCallback(String s);
 class _DatePicker extends State<DatePicker>
 {
   final DateTime _dateTime = DateTime.now();

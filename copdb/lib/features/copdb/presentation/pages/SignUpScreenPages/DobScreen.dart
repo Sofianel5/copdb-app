@@ -18,7 +18,15 @@ class _DobScreen extends State<DobScreen>
       text: 'Enter your date \nof birth',
       inputText: 'date of birth',
       page: PasswordScreen(),
-      alt: DatePicker(onDateChanged: null, onTimeChanged: null,),
+      alt: DatePicker(
+        onDateChanged: (date) {
+          print(date);
+          //everytime someone changes the date u get it here 
+        },
+      ),
+      onSubmit: (s) {
+        //on press next from the _screen
+      },
     );
   }
 }
