@@ -15,7 +15,42 @@ class ProfileScreen extends StatefulWidget
 
 class _ProfileScreen extends State<ProfileScreen>
 {
-
+  User user = new User(
+    firstName: 'Hamood',
+    lastName: 'Habibi',
+    username: '@hamood',
+    profilePic: '',
+    dateJoined: DateTime(2020, 0, 0),
+    verified: false,
+    dob: DateTime(2020, 0, 0),
+    email: 'email@email.com',
+    friends: [
+      User(
+        profilePic: '',
+        firstName: 'deez',
+        lastName: 'nutz',
+        username: '@deeznutz'
+      ),
+      User(
+        profilePic: '',
+        firstName: 'pog',
+        lastName: 'champ',
+        username: '@pogchamp'
+      ),
+      User(
+        profilePic: '',
+        firstName: 'nice',
+        lastName: 'atball',
+        username: '@boolin'
+      ),
+      User(
+        profilePic: '',
+        firstName: 'hi',
+        lastName: 'hey',
+        username: '@hello'
+      ),
+    ],
+  );
   ListView _getContacts() {
     return ListView.builder(
       padding: EdgeInsets.only(top: 5),
