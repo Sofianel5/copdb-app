@@ -21,6 +21,15 @@ class Screen extends StatefulWidget
 }
 
 class _ScreenState extends State<Screen> {
+
+  final _textController = TextEditingController();
+  @override
+  void dispose() 
+  {
+    _textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +79,7 @@ class _ScreenState extends State<Screen> {
                           ),
                         ),
                         child: TextField(
+                          controller: _textController,
                           style: TextStyle(color: Colors.white,),
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -112,8 +122,8 @@ class _ScreenState extends State<Screen> {
                   splashColor: Colors.white,
                   child: Center(
                     child: GestureDetector(
-                      onTap: widget.onNext(),
-                                          child: Text(
+                      onTap: () {widget.onSubmit(_textController.text);},
+                      child: Text(
                         "Next",
                         style: TextStyle(
                           color: Colors.white,

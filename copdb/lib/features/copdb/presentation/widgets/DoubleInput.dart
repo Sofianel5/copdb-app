@@ -18,6 +18,16 @@ class DoubleInput extends StatefulWidget
 
 class _DoubleInput extends State<DoubleInput>
 {
+  final _lnameController = TextEditingController();
+  final _fnameController = TextEditingController();
+  @override
+  void dispose() 
+  {
+    _lnameController.dispose();
+    _fnameController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context)
   {
     return FadeAnimation(
@@ -48,6 +58,10 @@ class _DoubleInput extends State<DoubleInput>
                       ),
                     ),
                     child: TextField(
+                      controller: _fnameController,
+                      onSubmitted: (value) {
+                        widget.lname(_fnameController.text);
+                      },
                       style: TextStyle(color: Colors.white,),
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -76,6 +90,10 @@ class _DoubleInput extends State<DoubleInput>
                         ),
                       ),
                       child: TextField(
+                        controller: _lnameController,
+                        onSubmitted: (value) {
+                          widget.lname(_lnameController.text);
+                        },
                         style: TextStyle(color: Colors.white,),
                         decoration: InputDecoration(
                           border: InputBorder.none,
