@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/usecases/get_feed.dart';
+import 'package:copdb/features/copdb/domain/usecases/search_cop.dart';
 import 'package:copdb/features/copdb/domain/usecases/upload_profile_pic.dart';
 import 'package:copdb/routes/routes.gr.dart';
 import 'package:equatable/equatable.dart';

@@ -3,10 +3,11 @@ part of '../root_bloc.dart';
 class SearchPageBloc extends Bloc<SearchPageEvent, SearchState> {
   GetCops search;
   User user;
-  String initialSearch;
-  SearchPageBloc(this.search, this.user, {this.initialSearch}) {
-    if (this.initialSearch != null) {
-      this.add(SearchSubmitted(this.initialSearch));
+  String searchQ;
+  int page = 1;
+  SearchPageBloc(this.search, this.user, {this.searchQ}) {
+    if (this.searchQ != null) {
+      this.add(SearchSubmitted(this.searchQ));
     }
   }
 
@@ -18,15 +19,16 @@ class SearchPageBloc extends Bloc<SearchPageEvent, SearchState> {
     if (event is SearchCancelled) {
       yield InitialSearchState(user);
     } else if (event is SearchSubmitted) {
+      searchQ = event.query;
       yield SearchLoadingState(user);
       final result = await search(GetCopsParams(query: event.query));
       yield* result.fold((failure) async* {
         yield SearchFailedState(user, message: failure.message);
-      }, (venues) async* {
-        if (venues.length == 0) {
+      }, (cops) async* {
+        if (cops.length == 0) {
           yield NoResultsState(user);
         } else {
-          yield SearchFinishedState(user, venues: venues);
+          yield SearchFinishedState(user, cops: cops);
         }
       });
     }
