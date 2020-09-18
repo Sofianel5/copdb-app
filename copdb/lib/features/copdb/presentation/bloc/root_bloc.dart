@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:copdb/features/copdb/domain/usecases/get_feed.dart';
 import 'package:copdb/features/copdb/domain/usecases/upload_profile_pic.dart';
 import 'package:copdb/routes/routes.gr.dart';
 import 'package:equatable/equatable.dart';
@@ -23,11 +24,20 @@ import '../../domain/usecases/signup.dart';
 part 'login_page_bloc.dart';
 part 'login_page_event.dart';
 part 'login_page_state.dart';
+part 'home_page_bloc.dart';
+part 'home_page_event.dart';
+part 'home_page_state.dart';
 part 'root_event.dart';
 part 'root_state.dart';
 part 'signup/signup_bloc.dart';
 part 'signup/signup_event.dart';
 part 'signup/signup_state.dart';
+part 'landing_page/landing_page_bloc.dart';
+part 'landing_page/landing_page_state.dart';
+part 'landing_page/landing_page_event.dart';
+part 'search_page/search_page_bloc.dart';
+part 'search_page/search_page_state.dart';
+part 'search_page/search_page_event.dart';
 
 class RootBloc extends Bloc<RootEvent, RootState> {
   final GetExistingUser getExistingUser;

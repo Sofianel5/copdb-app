@@ -82,6 +82,8 @@ class SignupBlocRouter {
       }, (success) async* {
         ExtendedNavigator.root.popUntil((route) => route.isFirst);
       });
+    } else if (event is SignUpComplete) {
+       ExtendedNavigator.root.popUntil((route) => route.isFirst);
     }
   }
 }
