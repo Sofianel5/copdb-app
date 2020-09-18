@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Center(
-            child: Text("Assistant Loading...", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+            child: Text("CopDB Loading...", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
           )
         ],
       ),

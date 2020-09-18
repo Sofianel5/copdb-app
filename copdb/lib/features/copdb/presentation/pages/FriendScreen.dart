@@ -15,43 +15,7 @@ class FriendScreen extends StatefulWidget
 class _FriendScreen extends State<FriendScreen>
 {
 
-  List<User> friendList = [
-    User(
-        profilePic: '',
-        firstName: 'deez',
-        lastName: 'nutz',
-        username: '@deeznutz',
-        dateJoined: DateTime(2020, 0, 0),
-      ),
-      User(
-        profilePic: '',
-        firstName: 'pog',
-        lastName: 'champ',
-        username: '@pogchamp',
-        dateJoined: DateTime(2020, 0, 0),
-      ),
-      User(
-        profilePic: '',
-        firstName: 'nice',
-        lastName: 'atball',
-        username: '@boolin',
-        dateJoined: DateTime(2020, 0, 0),
-      ),
-      User(
-        profilePic: '',
-        firstName: 'hi',
-        lastName: 'hey',
-        username: '@hello',
-        dateJoined: DateTime(2020, 0, 0),
-      ),
-      User(
-        profilePic: '',
-        firstName: 'big',
-        lastName: 'chungus',
-        username: '@bigchungus',
-        dateJoined: DateTime(2020, 0, 0),
-      ),
-  ];
+  
   ListView _getFriends()
   {
     return ListView.builder(
