@@ -7,6 +7,7 @@ import '../../../../core/localizations/messages.dart';
 import '../bloc/root_bloc.dart';
 import 'error.dart';
 import 'splash.dart';
+import "EntryScreen.dart";
 
 class RootPage extends StatefulWidget with WidgetsBindingObserver {
   RootPage({Key key}) : super(key: key);
@@ -24,7 +25,7 @@ class _RootPageState extends State<RootPage> {
           if (state is InitialState) {
             return SplashScreen();
           } else if (state is UnauthenticatedState) {
-            return LoginPage();
+            return EntryScreen();
           } else if (state is AuthenticatedState) {
             return BlocProvider(
               create: (context) => BlocProvider.of<RootBloc>(context).homeBloc,

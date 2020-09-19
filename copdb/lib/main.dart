@@ -8,6 +8,7 @@ import 'injection_container.dart' as ic;
 import 'routes/routes.gr.dart' as routes;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await ic.init();
   runApp(CopDB());
 } 
