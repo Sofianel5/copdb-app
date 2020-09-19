@@ -1,12 +1,17 @@
 part of '../root_bloc.dart';
 
 class SignupBlocRouter {
-  Signup signup;
-  InputConverter inputConverter = InputConverter();
-  CheckUsername checkUsername;
-  UploadProfilePic uploadPfp;
+  final Signup signup;
+  final InputConverter inputConverter;
+  final CheckUsername checkUsername;
+  final UploadProfilePic uploadPfp;
   User user;
-  SignupBlocRouter(this.signup, this.uploadPfp);
+  SignupBlocRouter({
+    this.signup, 
+    this.uploadPfp,
+    this.inputConverter,
+    this.checkUsername
+  });
   String email;
   DateTime dob;
   String username;

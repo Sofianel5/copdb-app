@@ -1,20 +1,24 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
-import 'package:shimmer/shimmer.dart';
-import 'features/copdb/presentation/pages/EntryScreen.dart';
-import 'features/copdb/presentation/pages/HomeScreen.dart';
-import 'features/copdb/presentation/pages/root.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() => runApp(App());
+import 'features/copdb/presentation/bloc/root_bloc.dart';
+import 'injection_container.dart' as ic;
+import 'routes/routes.gr.dart' as routes;
 
-class App extends StatefulWidget 
+void main() async {
+  await ic.init();
+  runApp(CopDB());
+} 
+
+class CopDB extends StatefulWidget 
 {
   @override
-  _App createState() => new _App();
+  _CopDBState createState() => new _CopDBState();
 }
 
-class _App extends State<App>
+class _CopDBState extends State<CopDB>
 {
   Color grey = Color.fromRGBO(8, 11, 17, 1);
 
@@ -32,11 +36,15 @@ class _App extends State<App>
 
   Widget build(BuildContext context) 
   { 
-    return MaterialApp(
-      color: Color.fromRGBO(8, 11, 17, 1), 
-      theme: ThemeData.dark(),
-      debugShowCheckedModeBanner: false,
-      home: RootPage(),
+    return BlocProvider(
+      create: (context) => ic.sl<RootBloc>(),
+        child: MaterialApp(
+          title: 'CopDB',
+        color: grey, 
+        theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+        builder: ExtendedNavigator<routes.Router>(router: routes.Router()),
+      ),
     );
   } 
 }
