@@ -65,6 +65,7 @@ class _EntryScreen extends State<EntryScreen> {
               height: double.infinity,
                           child: SingleChildScrollView(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Top(),
