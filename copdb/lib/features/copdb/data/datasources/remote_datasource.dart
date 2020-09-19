@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:copdb/core/network/http_override.dart';
 import 'package:copdb/features/copdb/data/models/complaint_model.dart';
 import 'package:copdb/features/copdb/data/models/cop_model.dart';
 import 'package:copdb/features/copdb/data/models/copdbevent_model.dart';
@@ -17,9 +18,9 @@ import '../../../../core/network/urls.dart';
 import '../models/user_model.dart';
 
 abstract class RemoteDataSource {
-  Future<String> login({String email, String password});
+  Future<String> login({String username, String password});
   Future<String> signUp(
-      {String email, String password, String firstName, String lastName});
+      {String email, String username, DateTime dob, String password, String firstName, String lastName});
   Future<UserModel> getUser(Map<String, dynamic> headers);
   Future<bool> checkUsername(String username);
   Future<bool> checkEmail(String email);
@@ -103,10 +104,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<String> login({String email, String password}) async {
+  Future<String> login({String username, String password}) async {
     try {
       Map<String, String> data = <String, String>{
-        "username": email,
+        "username": username,
         "password": password,
       };
       var jsonData;
@@ -165,13 +166,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         // Retry on SocketException or TimeoutException
         retryIf: (e) => e is SocketException || e is TimeoutException,
       );
-      //print(response.body);
+      print(response.body);
       Map<String, dynamic> responseJsonData = Map<String, dynamic>.from(
         json.decode(response.body),
       );
       if (response.statusCode == 201) {
         String token = await login(
-          email: responseJsonData["email"],
+          username: responseJsonData["username"],
           password: data['password'],
         );
         return token;

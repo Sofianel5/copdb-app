@@ -53,9 +53,29 @@ class SignupNameFailure extends SignupName {
   List<Object> get props => [firstName, lastName, message];
 } 
 
+class SignupDOB extends SignupState {
+  DateTime dob;
+  SignupDOB({this.dob});
+  @override
+  List<Object> get props => [dob];
+}
+
+class SignupDOBFailure extends SignupDOB {
+  final String message;
+  SignupDOBFailure({this.message, DateTime dob}) : super(dob: dob);
+  @override 
+  List<Object> get props => [dob, message];
+}
+
 class SignupPassword extends SignupState {
   String password;
   SignupPassword({this.password});
+  @override
+  List<Object> get props => [password];
+}
+
+class SignupPasswordLoading extends SignupPassword {
+  SignupPasswordLoading({String password}) : super(password: password);
   @override
   List<Object> get props => [password];
 }
@@ -80,6 +100,12 @@ class SignupProfilePictureFailure extends SignupProfilePicture {
   SignupProfilePictureFailure({this.message, File picture}) : super(picture: picture);
   @override
   List<Object> get props => [picture, message];
+}
+
+class SignupProfilePictureLoading extends SignupProfilePicture {
+  SignupProfilePictureLoading({File picture}) : super(picture: picture);
+  @override
+  List<Object> get props => [picture];
 }
 
 class SignupLoading extends SignupState {}

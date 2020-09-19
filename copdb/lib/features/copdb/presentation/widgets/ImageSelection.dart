@@ -64,25 +64,6 @@ class _ImageSelection extends State<ImageSelection>
                     ),
                   ),
                 ),
-                FadeAnimation(
-                  1,
-                  Container(
-                    height: 50,
-                    padding: EdgeInsets.only(left: 20.0, right: 20),
-                    margin: EdgeInsets.only(left: 14),
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(color: Color(0xFF54C6EB))
-                    ),
-                    child: Text(
-                      'skip',
-                      style: TextStyle(
-                        fontSize: 18
-                      ),
-                    ),
-                  ),
-                ), 
               ],
             ), 
             _image == null ? Container() : Container(

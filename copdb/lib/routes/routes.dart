@@ -18,6 +18,7 @@ import 'package:copdb/features/copdb/presentation/pages/ReportScreenPages/CopLas
 import 'package:copdb/features/copdb/presentation/pages/ReportScreenPages/CopLocationScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/ReportScreenPages/SubmitScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/DobScreen.dart';
+import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/AvatarScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/EmailScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/NameScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/PasswordScreen.dart';
@@ -27,6 +28,7 @@ import 'package:copdb/features/copdb/presentation/pages/root.dart';
 
 @MaterialAutoRouter(routes: <AutoRoute>[
   MaterialRoute(page: RootPage, initial: true),
+  MaterialRoute(page: AvatarScreen),
   MaterialRoute(page: EntryScreen),
   MaterialRoute(page: DobScreen),
   MaterialRoute(page: EmailScreen),

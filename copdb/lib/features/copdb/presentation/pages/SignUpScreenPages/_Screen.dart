@@ -164,7 +164,7 @@ class _ScreenState extends State<Screen> {
                   splashColor: Color(0xFF54C6EB),
                   child: Center(
                     child: Text(
-                      "back",
+                      "Back",
                       style: TextStyle(color: Colors.white,fontSize: 16,),
                     ),
                   ),

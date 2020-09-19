@@ -95,6 +95,8 @@ class _UserScreen extends State<UserScreen> {
                                 ),
                               ),
                               child: TextField(
+                                  textCapitalization: TextCapitalization.none,
+                                  autocorrect: false,
                                   controller: _textController,
                                   style: TextStyle(
                                     color: Colors.white,
@@ -105,6 +107,7 @@ class _UserScreen extends State<UserScreen> {
                                     hintStyle: TextStyle(color: Colors.white),
                                   ),
                                   onSubmitted: (str) {
+                                    FocusScope.of(context).unfocus();
                                     bloc.add(UsernamePageSubmitted(str));
                                   }),
                             ),
@@ -130,6 +133,7 @@ class _UserScreen extends State<UserScreen> {
                         ),
                         child: InkWell(
                           onTap: () {
+                            FocusScope.of(context).unfocus();
                             bloc.add(
                                 UsernamePageSubmitted(_textController.text));
                           },
@@ -184,7 +188,7 @@ class _UserScreen extends State<UserScreen> {
                           splashColor: Color(0xFF54C6EB),
                           child: Center(
                             child: Text(
-                              "back",
+                              "Back",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,

@@ -63,6 +63,7 @@ class _DoubleInput extends State<DoubleInput> {
                       ),
                     ),
                     child: TextField(
+                      textCapitalization: TextCapitalization.words,
                       focusNode: widget.firstFocus,
                       controller: widget.firstController,
                       onSubmitted: (value) {
@@ -98,6 +99,7 @@ class _DoubleInput extends State<DoubleInput> {
                       ),
                     ),
                     child: TextField(
+                      textCapitalization: TextCapitalization.words,
                       focusNode: widget.secondFocus,
                       controller: widget.secondController,
                       onSubmitted: (value) {

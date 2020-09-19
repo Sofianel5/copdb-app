@@ -67,12 +67,19 @@ class SignupBlocRouter {
           yield SignupNameFailure(firstName: event.firstName, lastName: event.lastName, message: failure.message);
         }, (str) async* {
           lastName = str;
-          ExtendedNavigator.root.push(Routes.passwordScreen);
-          yield SignupEmail();
+          ExtendedNavigator.root.push(Routes.dobScreen);
+          yield SignupDOB();
         });
       });
+    } else if (event is DOBPageSubmitted) {
+      if (event.dob != null) {
+        dob = event.dob;
+        ExtendedNavigator.root.push(Routes.passwordScreen);
+      } else {
+        yield SignupDOBFailure(message: Messages.NULL_DOB, dob: event.dob);
+      }
     } else if (event is PasswordPageSubmitted) {
-      yield SignupLoading();
+      yield SignupPasswordLoading(password: password);
       final result = await signup(
         SignupParams(
           email: email,
@@ -91,18 +98,26 @@ class SignupBlocRouter {
         (success) async* {
           user = success;
           yield AuthenticatedState(user);
+          ExtendedNavigator.root.push(Routes.avatarScreen);
           //ExtendedNavigator.rootNavigator.popUntil((route) => route.isFirst);
         },
       );
     } else if (event is ProfilePicturePageSubmitted) {
-      final result = await uploadPfp(UploadProfilePicParams(pic: event.picture));
-      yield* result.fold((failure) async* {
-        yield SignupProfilePictureFailure(message: failure.message);
-      }, (success) async* {
-        ExtendedNavigator.root.popUntil((route) => route.isFirst);
-      });
+      if (event.picture == null) {
+        yield SignupProfilePictureFailure(message: Messages.NULL_IMAGE);
+      } else {
+        yield SignupProfilePictureLoading(picture: event.picture);
+        final result = await uploadPfp(UploadProfilePicParams(pic: event.picture));
+        yield* result.fold((failure) async* {
+          yield SignupProfilePictureFailure(message: failure.message, picture: event.picture);
+        }, (success) async* {
+          yield AuthenticatedState(user);
+          ExtendedNavigator.root.popUntil((route) => route.isFirst);
+        });
+      }
     } else if (event is SignUpComplete) {
-       ExtendedNavigator.root.popUntil((route) => route.isFirst);
+      yield AuthenticatedState(user);
+      ExtendedNavigator.root.popUntil((route) => route.isFirst);
     }
   }
 }

@@ -29,6 +29,7 @@ import '../features/copdb/presentation/pages/ReportScreenPages/CopFirstnameScree
 import '../features/copdb/presentation/pages/ReportScreenPages/CopLastnameScreen.dart';
 import '../features/copdb/presentation/pages/ReportScreenPages/CopLocationScreen.dart';
 import '../features/copdb/presentation/pages/ReportScreenPages/SubmitScreen.dart';
+import '../features/copdb/presentation/pages/SignUpScreenPages/AvatarScreen.dart';
 import '../features/copdb/presentation/pages/SignUpScreenPages/DobScreen.dart';
 import '../features/copdb/presentation/pages/SignUpScreenPages/EmailScreen.dart';
 import '../features/copdb/presentation/pages/SignUpScreenPages/NameScreen.dart';
@@ -40,6 +41,7 @@ import '../models/Event.dart';
 
 class Routes {
   static const String rootPage = '/';
+  static const String avatarScreen = '/avatar-screen';
   static const String entryScreen = '/entry-screen';
   static const String dobScreen = '/dob-screen';
   static const String emailScreen = '/email-screen';
@@ -65,6 +67,7 @@ class Routes {
   static const String submitScreen = '/submit-screen';
   static const all = <String>{
     rootPage,
+    avatarScreen,
     entryScreen,
     dobScreen,
     emailScreen,
@@ -96,6 +99,7 @@ class Router extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.rootPage, page: RootPage),
+    RouteDef(Routes.avatarScreen, page: AvatarScreen),
     RouteDef(Routes.entryScreen, page: EntryScreen),
     RouteDef(Routes.dobScreen, page: DobScreen),
     RouteDef(Routes.emailScreen, page: EmailScreen),
@@ -129,6 +133,12 @@ class Router extends RouterBase {
       );
       return MaterialPageRoute<dynamic>(
         builder: (context) => RootPage(key: args.key),
+        settings: data,
+      );
+    },
+    AvatarScreen: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => AvatarScreen(),
         settings: data,
       );
     },

@@ -1,3 +1,4 @@
+import 'package:copdb/core/network/http_override.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -86,6 +87,7 @@ Future<void> init() async {
   //! Core
   sl.registerLazySingleton<InputConverter>(() => InputConverter());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  //sl.registerLazySingleton<PersistentIoClient>(() => PersistentIoClient(sl()));
 
   //! External dependencies
   sl.registerLazySingleton<DataConnectionChecker>(() => DataConnectionChecker());

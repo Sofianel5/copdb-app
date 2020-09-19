@@ -79,7 +79,7 @@ class RootRepositoryImpl implements RootRepository {
       {String username, String password}) async {
     return await _getUser(() async {
       final String authToken =
-          await remoteDataSource.login(email: username, password: password);
+          await remoteDataSource.login(username: username, password: password);
       print("trying to cache token");
       localDataSource.cacheAuthToken(authToken);
       Map<String, String> header = Map<String, String>.from(<String, String>{
@@ -102,9 +102,12 @@ class RootRepositoryImpl implements RootRepository {
     return await _getUser(() async {
       final String authToken = await remoteDataSource.signUp(
           email: email,
+          username: username,
+          dob: dob,
           password: password,
           firstName: firstName,
           lastName: lastName);
+      print(authToken);
       localDataSource.cacheAuthToken(authToken);
       Map<String, String> header = Map<String, String>.from({
         "Authorization": "Token " + authToken.toString(),

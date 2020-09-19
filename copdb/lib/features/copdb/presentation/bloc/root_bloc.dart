@@ -125,6 +125,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   Stream<RootState> mapEventToState(
     RootEvent event,
   ) async* {
+    print(event);
     if (event is GetExistingUserEvent) {
       final result = await getExistingUser(NoParams());
       yield* result.fold((failure) async* {

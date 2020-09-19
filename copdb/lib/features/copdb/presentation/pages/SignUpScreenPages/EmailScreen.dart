@@ -97,7 +97,9 @@ class _EmailScreen extends State<EmailScreen> {
                                 ),
                               ),
                               child: TextField(
-
+                                keyboardType: TextInputType.emailAddress,
+                                textCapitalization: TextCapitalization.none,
+                                autocorrect: false,
                                 controller: _textController,
                                 style: TextStyle(
                                   color: Colors.white,
@@ -136,7 +138,7 @@ class _EmailScreen extends State<EmailScreen> {
                         child: InkWell(
                           onTap: () {
                             FocusScope.of(context).unfocus();
-                            bloc.add(EmailPageSubmitted(_textController.text));
+                            bloc.add(EmailPageSubmitted(_textController.text.toLowerCase()));
                           },
                           borderRadius: BorderRadius.circular(50),
                           highlightColor: Colors.white,
@@ -145,15 +147,15 @@ class _EmailScreen extends State<EmailScreen> {
                           child: Center(
                             child: GestureDetector(
                               onTap: () {},
-                              child: Text(
-                                state is SignupEmailLoading
+                              child: state is SignupEmailLoading
                                   ? CircularProgressIndicator()
-                                  : "Next",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              ),
+                                  : Text(
+                                      "Next",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
@@ -189,7 +191,7 @@ class _EmailScreen extends State<EmailScreen> {
                           splashColor: Color(0xFF54C6EB),
                           child: Center(
                             child: Text(
-                              "back",
+                              "Back",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,

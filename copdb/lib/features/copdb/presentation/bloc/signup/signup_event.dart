@@ -23,6 +23,11 @@ class NamePageSubmitted extends SignupEvent {
   NamePageSubmitted(this.firstName, this.lastName);
 }
 
+class DOBPageSubmitted extends SignupEvent {
+  DateTime dob;
+  DOBPageSubmitted(this.dob);
+}
+
 class PasswordPageSubmitted extends SignupEvent {
   String password;
   PasswordPageSubmitted(this.password);
