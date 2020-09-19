@@ -11,6 +11,7 @@ class LoginBlocRouter {
       yield* result.fold(
         (failure) async* {
           if (failure is InvalidFormFailure) {
+            print(failure.messages);
             yield LoginFailedState(
                 widgetMessages: failure.messages,
                 globalMessage: Messages.INVALID_FORM);

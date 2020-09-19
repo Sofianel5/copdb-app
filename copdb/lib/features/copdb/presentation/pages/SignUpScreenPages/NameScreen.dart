@@ -1,22 +1,21 @@
 import 'package:copdb/core/localizations/localizations.dart';
 import 'package:copdb/features/copdb/presentation/animations/FadeAnimation.dart';
 import 'package:copdb/features/copdb/presentation/bloc/root_bloc.dart';
-import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/NameScreen.dart';
-import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/_Screen.dart';
+import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/DobScreen.dart';
+import 'package:copdb/features/copdb/presentation/widgets/DoubleInput.dart';
 import 'package:flutter/material.dart';
 import 'package:copdb/features/copdb/presentation/widgets/Bottom.dart';
 import 'package:copdb/features/copdb/presentation/widgets/top.dart';
-import 'package:copdb/features/copdb/presentation/widgets/ImageSelection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EmailScreen extends StatefulWidget {
+class FirstnameScreen extends StatefulWidget {
   @override
-  _EmailScreen createState() => _EmailScreen();
+  _FirstnameScreen createState() => _FirstnameScreen();
 }
 
-class _EmailScreen extends State<EmailScreen> {
+class _FirstnameScreen extends State<FirstnameScreen> {
   TextEditingController _textController;
-  FocusNode emailNode = FocusNode();
+  FocusNode passwordNode = FocusNode();
   RootBloc bloc;
   final _key = GlobalKey<ScaffoldState>();
 
@@ -39,21 +38,21 @@ class _EmailScreen extends State<EmailScreen> {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
-        key: _key,
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Color.fromRGBO(8, 11, 17, 1),
-        body: BlocListener(
+      child: BlocListener(
+        bloc: bloc,
+        listener: (context, state) {
+          if (state is SignupNameFailure) {
+            _key.currentState.showSnackBar(SnackBar(
+                content: Text(Localizer.of(context).get(state.message))));
+          }
+        },
+        child: BlocBuilder(
           bloc: bloc,
-          listener: (context, state) {
-            if (state is SignupEmailFailure) {
-              _key.currentState.showSnackBar(SnackBar(
-                  content: Text(Localizer.of(context).get(state.message))));
-            }
-          },
-          child: BlocBuilder(
-            bloc: bloc,
-            builder: (context, state) => Column(
+          builder: (context, state) => Scaffold(
+            key: _key,
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Color.fromRGBO(8, 11, 17, 1),
+            body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Top(),
@@ -68,7 +67,7 @@ class _EmailScreen extends State<EmailScreen> {
                         FadeAnimation(
                           1,
                           Text(
-                            'Enter your \nemail',
+                            'Enter your first and \nlast name',
                             style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,
@@ -79,41 +78,16 @@ class _EmailScreen extends State<EmailScreen> {
                         SizedBox(
                           height: 40,
                         ),
-                        FadeAnimation(
-                          1,
-                          Container(
-                            padding: EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.transparent,
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.all(10.0),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: Colors.grey[100],
-                                  ),
-                                ),
-                              ),
-                              child: TextField(
-
-                                controller: _textController,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'email',
-                                  hintStyle: TextStyle(color: Colors.white),
-                                ),
-                                onSubmitted: (str) {
-                                  FocusScope.of(context).unfocus();
-                                  bloc.add(EmailPageSubmitted(str));
-                                },
-                              ),
-                            ),
-                          ),
+                        DoubleInput(
+                          firstInputText: 'First name',
+                          secondInputText: 'Last name',
+                          fname: (fname) {
+                            //whenever firstname is inputed
+                          },
+                          lname: (lname) {
+                            //whenever lastname is inputed
+                            bloc.add(NamePageSubmitted(firstName, lastName))
+                          },
                         ),
                       ],
                     ),
@@ -135,8 +109,11 @@ class _EmailScreen extends State<EmailScreen> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            FocusScope.of(context).unfocus();
-                            bloc.add(EmailPageSubmitted(_textController.text));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DobScreen()),
+                            );
                           },
                           borderRadius: BorderRadius.circular(50),
                           highlightColor: Colors.white,
@@ -205,11 +182,20 @@ class _EmailScreen extends State<EmailScreen> {
       ),
     );
     /* Screen(
-      text: 'Enter your \email',
-      inputText: 'email',
-      page: FirstnameScreen(),
-      onSubmit: (text) {
-        //whenever press next u get the string from input
+      text: 'Enter your first and \nlast name',
+      page: DobScreen(),
+      alt: DoubleInput(
+        firstInputText: 'first name', 
+        secondInputText: 'second name',
+        fname: (fname) {
+          //whenever firstname is inputed
+        },
+        lname: (lname) {
+          //whenever lastname is inputed
+        },
+      ),
+      onSubmit: (s) {
+        //whenever submit button is pressed
       },
     ); */
   }

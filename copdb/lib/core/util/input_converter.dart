@@ -42,6 +42,18 @@ class InputConverter {
     }
   }
 
+  Either<Failure, String> parseUsername(String input) {
+    if (isNull(input)) {
+      return Left(InvalidInputFailure(message: Messages.NULL_USERNAME_INPUT));
+    }
+    Pattern pattern = r'^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(input))
+      return Left(InvalidInputFailure(message: Messages.INVALID_USERNAME_INPUT));
+    else
+      return Right(input);
+  }
+
   Either<Failure, String> parsePassword(String input) {
     if (isNull(input)) {
       return Left(InvalidInputFailure(message: Messages.NULL_PASSWORD_INPUT));
@@ -52,12 +64,12 @@ class InputConverter {
     return Left(InvalidInputFailure(message: Messages.INVALID_LENGTH_PASSWORD_INPUT));
   }
 
-  Map<String, String> validateLoginForm(String email, String password) {
-    final emailMessage = parseEmail(email);
+  Map<String, String> validateLoginForm(String username, String password) {
+    final usernameMessage = parseUsername(username);
     final passwordMessage = parsePassword(password);
     final Map<String, String> messages = Map<String, String>.from({});
-    emailMessage.fold((failure) => {
-      messages["email"] = failure.message
+    usernameMessage.fold((failure) => {
+      messages["username"] = failure.message
     }, (r) => {});
     passwordMessage.fold((failure) => {
       messages["password"] = failure.message

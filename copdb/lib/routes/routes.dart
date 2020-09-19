@@ -19,7 +19,7 @@ import 'package:copdb/features/copdb/presentation/pages/ReportScreenPages/CopLoc
 import 'package:copdb/features/copdb/presentation/pages/ReportScreenPages/SubmitScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/DobScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/EmailScreen.dart';
-import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/FirstnameScreen.dart';
+import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/NameScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/PasswordScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/UserScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/_ScreenX.dart';

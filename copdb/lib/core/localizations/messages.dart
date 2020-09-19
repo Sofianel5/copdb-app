@@ -15,6 +15,7 @@ class Messages {
   static const String INVALID_NAME_INPUT = "INVALID_NAME_INPUT";
   static const String INVALID_LENGTH_NAME_INPUT = "INVALID_LENGTH_NAME_INPUT";
   static const String INVALID_LENGTH_EMAIL = "INVALID_LENGTH_EMAIL";
+  static const String NULL_USERNAME_INPUT = "NULL_USERNAME_INPUT";
   static const String INVALID_FORM = "INVALID_FORM";
   static const String UNKNOWN_ERROR = "UNKNOWN_ERROR";
   static const String EMPTY_SEARCH_Q = "EMPTY_SEARCH_Q";
@@ -22,4 +23,5 @@ class Messages {
   static const String INVALID_USERNAME = "INVALID_USERNAME";
   static const String NO_QUERY = "NO_QUERY";
   static const String PERMISSON_DENIED = "PERMISSON_DENIED";
+  static const String INVALID_USERNAME_INPUT = "INVALID_USERNAME_INPUT";
 }

@@ -31,7 +31,7 @@ import '../features/copdb/presentation/pages/ReportScreenPages/CopLocationScreen
 import '../features/copdb/presentation/pages/ReportScreenPages/SubmitScreen.dart';
 import '../features/copdb/presentation/pages/SignUpScreenPages/DobScreen.dart';
 import '../features/copdb/presentation/pages/SignUpScreenPages/EmailScreen.dart';
-import '../features/copdb/presentation/pages/SignUpScreenPages/FirstnameScreen.dart';
+import '../features/copdb/presentation/pages/SignUpScreenPages/NameScreen.dart';
 import '../features/copdb/presentation/pages/SignUpScreenPages/PasswordScreen.dart';
 import '../features/copdb/presentation/pages/SignUpScreenPages/UserScreen.dart';
 import '../features/copdb/presentation/pages/_ScreenX.dart';

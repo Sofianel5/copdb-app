@@ -15,6 +15,7 @@ class LoginFailedState extends LoginState {
     }
     return widgetMessages.containsKey(field);
   }
+  List<Object> get props => [widgetMessages, globalMessage];
 }
 class LoginLoadingState extends LoginState implements LoadingState {
   @override
