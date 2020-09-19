@@ -63,7 +63,7 @@ class _EntryScreen extends State<EntryScreen> {
             },
             child: Container(
               height: double.infinity,
-                          child: SingleChildScrollView(
+              child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,12 +75,13 @@ class _EntryScreen extends State<EntryScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           FadeAnimation(
                             1,
                             Text(
-                              "Hello there, \nwelcome to CopDB",
+                              "Hello, \nWelcome To CopDB",
                               style: TextStyle(
                                 fontSize: 30,
                                 color: Colors.white,
@@ -100,6 +101,7 @@ class _EntryScreen extends State<EntryScreen> {
                                 color: Colors.transparent,
                               ),
                               child: Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   Container(
                                     padding: EdgeInsets.all(10.0),
@@ -117,10 +119,12 @@ class _EntryScreen extends State<EntryScreen> {
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         hintText: "Username",
-                                        hintStyle: TextStyle(color: Colors.white),
+                                        hintStyle: TextStyle(
+                                            color: Colors.white),
                                       ),
                                       onSubmitted: (value) {
-                                        if (value != null && value != "") {
+                                        if (value != null &&
+                                            value != "") {
                                           FocusScope.of(context)
                                               .requestFocus(passwordNode);
                                         }
@@ -144,7 +148,8 @@ class _EntryScreen extends State<EntryScreen> {
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         hintText: "Password",
-                                        hintStyle: TextStyle(color: Colors.white),
+                                        hintStyle: TextStyle(
+                                            color: Colors.white),
                                       ),
                                       onSubmitted: (value) {
                                         FocusScope.of(context).unfocus();
