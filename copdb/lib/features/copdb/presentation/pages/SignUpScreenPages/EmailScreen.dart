@@ -146,7 +146,9 @@ class _EmailScreen extends State<EmailScreen> {
                             child: GestureDetector(
                               onTap: () {},
                               child: Text(
-                                "Next",
+                                state is SignupEmailLoading
+                                  ? CircularProgressIndicator()
+                                  : "Next",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

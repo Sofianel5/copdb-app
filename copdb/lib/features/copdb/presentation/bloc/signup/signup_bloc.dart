@@ -5,12 +5,14 @@ class SignupBlocRouter {
   final InputConverter inputConverter;
   final CheckUsername checkUsername;
   final UploadProfilePic uploadPfp;
+  final CheckEmail checkEmail;
   User user;
   SignupBlocRouter({
-    this.signup, 
-    this.uploadPfp,
-    this.inputConverter,
-    this.checkUsername
+    @required this.signup, 
+    @required this.uploadPfp,
+    @required this.inputConverter,
+    @required this.checkUsername,
+    @required this.checkEmail,
   });
   String email;
   DateTime dob;
@@ -40,11 +42,21 @@ class SignupBlocRouter {
         });
       });
     } else if (event is EmailPageSubmitted) {
+      yield SignupEmailLoading();
       yield* inputConverter.parseEmail(event.email).fold((failure) async* {
         yield new SignupEmailFailure(email: event.email,message: failure.message);
-      } , (str) async* {
-        email = str;
-        ExtendedNavigator.root.push(Routes.firstnameScreen);
+      } , (_email) async* {
+         yield* (await checkEmail(CheckEmailParams(email: _email))).fold((failure) async* {
+          yield SignupEmailFailure(message: failure.message, email: event.email);
+        }, (res) async* {
+          if (res){
+            yield SignupEmail(email: _email);
+            ExtendedNavigator.root.push(Routes.nameScreen);
+            this.email = _email;
+          } else {
+            yield new SignupEmailFailure(message: Messages.UNAVAILABLE_EMAIL, email: event.email);
+          }
+        });
       });
     } else if (event is NamePageSubmitted) {
       yield* inputConverter.parseName(event.firstName).fold((failure) async* {

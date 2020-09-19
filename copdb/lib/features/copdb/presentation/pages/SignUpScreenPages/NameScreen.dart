@@ -8,12 +8,12 @@ import 'package:copdb/features/copdb/presentation/widgets/Bottom.dart';
 import 'package:copdb/features/copdb/presentation/widgets/top.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FirstnameScreen extends StatefulWidget {
+class NameScreen extends StatefulWidget {
   @override
-  _FirstnameScreen createState() => _FirstnameScreen();
+  _NameScreenState createState() => _NameScreenState();
 }
 
-class _FirstnameScreen extends State<FirstnameScreen> {
+class _NameScreenState extends State<NameScreen> {
   TextEditingController _firstNameController;
   TextEditingController _lastNameController;
   FocusNode firstNameNode = FocusNode();

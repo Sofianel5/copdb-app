@@ -43,7 +43,7 @@ class Routes {
   static const String entryScreen = '/entry-screen';
   static const String dobScreen = '/dob-screen';
   static const String emailScreen = '/email-screen';
-  static const String firstnameScreen = '/firstname-screen';
+  static const String nameScreen = '/name-screen';
   static const String passwordScreen = '/password-screen';
   static const String userScreen = '/user-screen';
   static const String screenX = '/screen-x';
@@ -68,7 +68,7 @@ class Routes {
     entryScreen,
     dobScreen,
     emailScreen,
-    firstnameScreen,
+    nameScreen,
     passwordScreen,
     userScreen,
     screenX,
@@ -99,7 +99,7 @@ class Router extends RouterBase {
     RouteDef(Routes.entryScreen, page: EntryScreen),
     RouteDef(Routes.dobScreen, page: DobScreen),
     RouteDef(Routes.emailScreen, page: EmailScreen),
-    RouteDef(Routes.firstnameScreen, page: FirstnameScreen),
+    RouteDef(Routes.nameScreen, page: NameScreen),
     RouteDef(Routes.passwordScreen, page: PasswordScreen),
     RouteDef(Routes.userScreen, page: UserScreen),
     RouteDef(Routes.screenX, page: ScreenX),
@@ -150,9 +150,9 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    FirstnameScreen: (data) {
+    NameScreen: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => FirstnameScreen(),
+        builder: (context) => NameScreen(),
         settings: data,
       );
     },

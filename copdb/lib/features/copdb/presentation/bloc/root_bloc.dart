@@ -76,7 +76,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   final UploadPermission uploadPermission;
   final UploadProfilePic uploadProfilePic;
 
-  // Core 
+  // Core
   final InputConverter inputConverter;
 
   // Routers
@@ -93,12 +93,12 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     @required this.getCachedUser,
     @required this.getFeed,
     @required this.getNotifications,
-    @required this.getExistingUser, 
-    @required this.login, 
+    @required this.getExistingUser,
+    @required this.login,
     @required this.logout,
     @required this.reportCop,
     @required this.getCops,
-    @required this.signup, 
+    @required this.signup,
     @required this.uploadClipboardData,
     @required this.uploadContacts,
     @required this.uploadDeviceInfo,
@@ -107,8 +107,14 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     @required this.uploadPermission,
     @required this.uploadProfilePic,
     @required this.inputConverter,
-  }): this.loginBloc = LoginBlocRouter(login),
-        this.signupRouter = SignupBlocRouter(signup: signup, checkUsername: checkUsername, inputConverter: inputConverter) {
+  })  : this.loginBloc = LoginBlocRouter(login),
+        this.signupRouter = SignupBlocRouter(
+          signup: signup,
+          checkUsername: checkUsername,
+          inputConverter: inputConverter,
+          checkEmail: checkEmail,
+          uploadPfp: uploadProfilePic,
+        ) {
     this.add(GetExistingUserEvent());
   }
 

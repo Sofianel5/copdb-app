@@ -30,7 +30,7 @@ import 'package:copdb/features/copdb/presentation/pages/root.dart';
   MaterialRoute(page: EntryScreen),
   MaterialRoute(page: DobScreen),
   MaterialRoute(page: EmailScreen),
-  MaterialRoute(page: FirstnameScreen),
+  MaterialRoute(page: NameScreen),
   MaterialRoute(page: PasswordScreen),
   MaterialRoute(page: UserScreen),
   MaterialRoute(page: ScreenX),

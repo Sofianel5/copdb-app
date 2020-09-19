@@ -24,4 +24,5 @@ class Messages {
   static const String NO_QUERY = "NO_QUERY";
   static const String PERMISSON_DENIED = "PERMISSON_DENIED";
   static const String INVALID_USERNAME_INPUT = "INVALID_USERNAME_INPUT";
+  static const String UNAVAILABLE_EMAIL = "UNAVAILABLE_EMAIL";
 }

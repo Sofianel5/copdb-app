@@ -9,6 +9,8 @@ class SignupEmail extends SignupState {
   SignupEmail({this.email});
 }
 
+class SignupEmailLoading extends SignupEmail {}
+
 class SignupEmailFailure extends SignupEmail {
   String email;
   String message;
@@ -24,7 +26,7 @@ class SignupUsername extends SignupState {
   SignupUsername({this.username});
 }
 
-class SignupUsernameLoading extends SignupState {}
+class SignupUsernameLoading extends SignupUsername {}
 
 class SignupUsernameFailure extends SignupUsername {
   String message;
