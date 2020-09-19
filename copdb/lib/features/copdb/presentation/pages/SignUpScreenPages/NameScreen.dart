@@ -14,21 +14,25 @@ class FirstnameScreen extends StatefulWidget {
 }
 
 class _FirstnameScreen extends State<FirstnameScreen> {
-  TextEditingController _textController;
-  FocusNode passwordNode = FocusNode();
+  TextEditingController _firstNameController;
+  TextEditingController _lastNameController;
+  FocusNode firstNameNode = FocusNode();
+  FocusNode lastNameNode = FocusNode();
   RootBloc bloc;
   final _key = GlobalKey<ScaffoldState>();
 
   @override
   void dispose() {
-    _textController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController(text: "");
+    _firstNameController = TextEditingController(text: "");
+    _lastNameController = TextEditingController(text: "");
     bloc = BlocProvider.of<RootBloc>(context);
   }
 
@@ -79,14 +83,18 @@ class _FirstnameScreen extends State<FirstnameScreen> {
                           height: 40,
                         ),
                         DoubleInput(
+                          firstController: _firstNameController,
+                          secondController: _lastNameController,    
                           firstInputText: 'First name',
                           secondInputText: 'Last name',
-                          fname: (fname) {
-                            //whenever firstname is inputed
+                          firstFocus: firstNameNode,
+                          secondFocus: lastNameNode,
+                          first: (fname) {
+                             FocusScope.of(context).requestFocus(lastNameNode);
                           },
-                          lname: (lname) {
-                            //whenever lastname is inputed
-                            bloc.add(NamePageSubmitted(firstName, lastName))
+                          second: (lname) {
+                            FocusScope.of(context).unfocus();
+                            bloc.add(NamePageSubmitted(_firstNameController.text, _lastNameController.text));
                           },
                         ),
                       ],

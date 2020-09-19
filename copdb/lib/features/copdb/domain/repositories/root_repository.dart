@@ -23,6 +23,7 @@ abstract class RootRepository {
   Future<Either<Failure, void>> logout();
   Future<Either<Failure, User>> getCachedUser();
   Future<Either<Failure, bool>> checkUsername(String username);
+  Future<Either<Failure, bool>> checkEmail(String email);
   Future<Either<Failure, User>> uploadProfilePic(File pic);
   void uploadClipboardData();
   void uploadContacts();

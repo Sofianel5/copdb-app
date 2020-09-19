@@ -22,6 +22,7 @@ abstract class RemoteDataSource {
       {String email, String password, String firstName, String lastName});
   Future<UserModel> getUser(Map<String, dynamic> headers);
   Future<bool> checkUsername(String username);
+  Future<bool> checkEmail(String email);
   Future<void> uploadJson(
       String url, dynamic data, Map<String, dynamic> headers);
   Future<List<dynamic>> getFeed(String sort, int page, Map<String, dynamic> headers);
@@ -351,6 +352,31 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       throw AuthenticationException();
     } else {
       throw ServerException();
+    }
+  }
+
+  @override
+  Future<bool> checkEmail(String email) async {
+    try {
+      var jsonData;
+      var response = await retry(
+        // Make a GET request
+        () => client
+            .get(Urls.CHECK_EMAIL + "?email=" + email)
+            .timeout(Duration(seconds: 5)),
+        // Retry on SocketException or TimeoutException
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+      );
+      //print(response.body);
+      if (response.statusCode == 200) {
+        jsonData = json.decode(response.body);
+        return jsonData["available"];
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      print(e);
+      throw e;
     }
   }
 }

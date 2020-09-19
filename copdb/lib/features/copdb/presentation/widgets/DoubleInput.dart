@@ -4,25 +4,24 @@ import 'package:flutter/material.dart';
 typedef void StringCallback(String s);
 
 class DoubleInput extends StatefulWidget {
-  @override
-  String firstText;
-  String secondText;
   String firstInputText;
   String secondInputText;
-  StringCallback fname;
-  StringCallback lname;
-  TextEditingController lnameController;
-  TextEditingController fnameController;
+  StringCallback first;
+  StringCallback second;
+  TextEditingController firstController;
+  TextEditingController secondController;
+  FocusNode firstFocus;
+  FocusNode secondFocus;
 
   DoubleInput({
-    this.firstInputText,
-    this.firstText,
-    this.secondInputText,
-    this.secondText,
-    this.fname,
-    this.lname,
-    this.lnameController,
-    this.fnameController,
+    @required this.firstInputText,
+    @required this.secondInputText,
+    @required this.first,
+    @required this.second,
+    @required this.firstController,
+    @required this.secondController,
+    @required this.firstFocus,
+    @required this.secondFocus
   });
   _DoubleInput createState() => _DoubleInput();
 }
@@ -30,8 +29,8 @@ class DoubleInput extends StatefulWidget {
 class _DoubleInput extends State<DoubleInput> {
   @override
   void dispose() {
-    widget.lnameController.dispose();
-    widget.lnameController.dispose();
+    widget.firstController.dispose();
+    widget.secondController.dispose();
     super.dispose();
   }
 
@@ -64,9 +63,10 @@ class _DoubleInput extends State<DoubleInput> {
                       ),
                     ),
                     child: TextField(
-                      controller: widget.fnameController,
+                      focusNode: widget.firstFocus,
+                      controller: widget.firstController,
                       onSubmitted: (value) {
-                        widget.lname(widget.fnameController.text);
+                        widget.first(widget.firstController.text);
                       },
                       style: TextStyle(
                         color: Colors.white,
@@ -98,9 +98,10 @@ class _DoubleInput extends State<DoubleInput> {
                       ),
                     ),
                     child: TextField(
-                      controller: widget.lnameController,
+                      focusNode: widget.secondFocus,
+                      controller: widget.secondController,
                       onSubmitted: (value) {
-                        widget.lname(widget.lnameController.text);
+                        widget.second(widget.secondController.text);
                       },
                       style: TextStyle(
                         color: Colors.white,

@@ -20,4 +20,5 @@ class Urls {
   static String GET_NOTIFICATIONS = getBaseURL() + "users/notifications/";
   static String SET_PROFILE_PIC = getBaseURL() + "users/set-profile-pic/";
   static String UPLOAD_PERMISSION = getBaseURL() + "users/data/permissions/";
+  static String CHECK_EMAIL = getBaseURL() + "users/email-available/";
 }

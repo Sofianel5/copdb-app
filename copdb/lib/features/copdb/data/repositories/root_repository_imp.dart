@@ -396,4 +396,13 @@ class RootRepositoryImpl implements RootRepository {
     Map<String, String> data = <String, String>{"permission": permissionName};
     uploadData(data, Urls.UPLOAD_PERMISSION);
   }
+
+  @override
+  Future<Either<Failure, bool>> checkEmail(String email) async {
+    try {
+      return Right(await remoteDataSource.checkEmail(email));
+    } on ServerException {
+      return Left(ServerFailure(message: Messages.SERVER_FAILURE));
+    }
+  }
 }

@@ -18,6 +18,7 @@ import '../../../../core/util/input_converter.dart';
 
 import '../../domain/entities/user.dart';
 
+import '../../domain/usecases/check_email.dart';
 import '../../domain/usecases/check_username.dart';
 import '../../domain/usecases/get_cached_user.dart';
 import '../../domain/usecases/get_feed.dart';
@@ -56,6 +57,7 @@ part 'search_page/search_page_event.dart';
 
 class RootBloc extends Bloc<RootEvent, RootState> {
   // Usecases
+  final CheckEmail checkEmail;
   final CheckUsername checkUsername;
   final GetCachedUser getCachedUser;
   final GetFeed getFeed;
@@ -86,6 +88,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   User user;
 
   RootBloc({
+    @required this.checkEmail,
     @required this.checkUsername,
     @required this.getCachedUser,
     @required this.getFeed,

@@ -9,6 +9,7 @@ import 'features/copdb/data/datasources/local_datasource.dart';
 import 'features/copdb/data/datasources/remote_datasource.dart';
 import 'features/copdb/data/repositories/root_repository_imp.dart';
 import 'features/copdb/domain/repositories/root_repository.dart';
+import 'features/copdb/domain/usecases/check_email.dart';
 import 'features/copdb/domain/usecases/check_username.dart';
 import 'features/copdb/domain/usecases/get_cached_user.dart';
 import 'features/copdb/domain/usecases/get_feed.dart';
@@ -30,8 +31,10 @@ import 'features/copdb/presentation/bloc/root_bloc.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {
+
   //! Features
   sl.registerFactory(() => RootBloc(
+    checkEmail: sl(),
     checkUsername: sl(), 
     getCachedUser: sl(),
     getFeed: sl(),
@@ -53,6 +56,7 @@ Future<void> init() async {
   ));
 
   // Register use cases 
+  sl.registerLazySingleton<CheckEmail>(() => CheckEmail(sl()));
   sl.registerLazySingleton<CheckUsername>(() => CheckUsername(sl()));
   sl.registerLazySingleton<GetCachedUser>(() => GetCachedUser(sl()));
   sl.registerLazySingleton<GetFeed>(()=>GetFeed(sl()));
