@@ -39,8 +39,11 @@ class _NavBar extends State<NavBar> {
       _navBarItemList.add(buildNavBarItem(_iconList[i], i));
     }
 
-    return Row(
-      children: _navBarItemList,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Row(
+        children: _navBarItemList,
+      ),
     );
   }
 

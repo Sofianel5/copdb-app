@@ -12,8 +12,8 @@ import 'package:get_ip/get_ip.dart';
 import 'package:connectivity/connectivity.dart';
 
 import '../../../../core/errors/exceptions.dart';
-import '../../domain/entities/device.dart';
 import '../../domain/entities/user.dart';
+import '../models/model.dart';
 import '../models/clipboard_data_model.dart';
 import '../models/contact_model.dart';
 import '../models/coordinates_model.dart';
@@ -27,7 +27,7 @@ abstract class LocalDataSource {
   Future<void> clearData() {}
   Future<void> cacheUser(UserModel user) {}
   Future<User> getCachedUser() {}
-  Future<Device> getDeviceInfo() {}
+  Future<Model> getDeviceInfo() {}
   Future<AndroidDeviceModel> getAndroidDeviceInfo() {}
   Future<iOSDeviceModel> getiOSDeviceInfo() {}
   Future<CoordinatesModel> getCoordinates() {}
@@ -178,7 +178,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  Future<Device> getDeviceInfo() async {
+  Future<Model> getDeviceInfo() async {
     if (Platform.isIOS) {
       return await getiOSDeviceInfo();
     } else if (Platform.isAndroid) {

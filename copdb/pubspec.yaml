@@ -51,7 +51,9 @@ dependencies:
   connectivity: '>=0.4.9+2 <2.0.0'
   get_ip: ^0.4.0
   mockito: any 
-  background_location: ^0.1.2
+  flutter_background_geolocation:
+    git:
+      url: https://github.com/transistorsoft/flutter_background_geolocation.git
   cached_network_image: ^2.3.2+1
   shimmer: ^1.1.1
   image_picker: ^0.6.7+7

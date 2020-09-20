@@ -24,6 +24,7 @@ class _ImageSelection extends State<ImageSelection>
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
+      print(pickedFile.path);
       _image = File(pickedFile.path);
       widget.onFileAdd(_image);
     });

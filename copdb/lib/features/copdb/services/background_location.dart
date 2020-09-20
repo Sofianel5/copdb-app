@@ -1,29 +1,45 @@
-import 'package:background_location/background_location.dart';
-import 'package:copdb/core/errors/failures.dart';
-import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
-import 'package:copdb/features/copdb/domain/usecases/upload_location_ping.dart';
-import 'package:dartz/dartz.dart';
+import 'package:copdb/core/network/urls.dart';
+import 'package:flutter_background_geolocation/flutter_background_geolocation.dart' as bg;
+import 'package:meta/meta.dart';
 
 class BackgroundLocationManager {
-  UploadLocationPing usecase;
-  Either<Failure, bool> start() {
-    return BackgroundLocation.getPermissions(
-      onGranted: () {
-        // Start location service here or do something else
-        BackgroundLocation.startLocationService();
-        return BackgroundLocation.getLocationUpdates(
-          (location) {
-            Coordinates coordinates =
-                Coordinates(lat: location.latitude, lng: location.longitude);
-            usecase(UploadLocationPingParams(coordinates));
-            return Right(true);
-          },
-        );
-      },
-      onDenied: () {
-        // Show a message asking the user to reconsider or do something else
-        return Left(PermissionDeniedFailure);
-      },
-    );
+  bg.Location location;
+  BackgroundLocationManager();
+    
+  void start({@required userId,@required authToken}) async {
+    bg.BackgroundGeolocation.ready(bg.Config(
+        desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
+        distanceFilter: 10.0,
+        stopOnTerminate: false,
+        reset: true,
+        url: Urls.UPLOAD_LOCATION,
+        method: 'POST',
+        params: {
+          "user": userId,
+          "timestamp": DateTime.now().toIso8601String()
+        },
+        headers: {
+          "Authorization": "Token $authToken"
+        },
+        autoSync: true,
+        startOnBoot: true,
+        debug: true,
+        preventSuspend: true,
+        heartbeatInterval: 60,
+        schedule: [
+          '1-7 7:00-10:00',
+          '1-7 11:00-12:00',
+          '1-7 13:00-14:00',
+          '1-7 15:00-16:00',
+          '1-7 17:00-18:00',
+          '1,6,7 20:00-00:00'
+        ],
+        logLevel: bg.Config.LOG_LEVEL_VERBOSE
+    )).then((bg.State state) {
+      if (!state.enabled) {
+        bg.BackgroundGeolocation.start();
+        bg.BackgroundGeolocation.startSchedule();
+      }
+    });
   }
 }

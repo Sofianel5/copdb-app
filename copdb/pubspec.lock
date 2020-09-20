@@ -50,13 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.8"
-  background_location:
-    dependency: "direct main"
+  background_fetch:
+    dependency: transitive
     description:
-      name: background_location
+      name: background_fetch
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2"
+    version: "0.6.0"
   basic_utils:
     dependency: transitive
     description:
@@ -328,6 +328,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_background_geolocation:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "81e589e0577b51f3162ac0b8b9558674f53b8092"
+      url: "https://github.com/transistorsoft/flutter_background_geolocation.git"
+    source: git
+    version: "1.10.0+1"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -637,20 +646,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.0"
-  permission_handler:
-    dependency: transitive
-    description:
-      name: permission_handler
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.1+1"
-  permission_handler_platform_interface:
-    dependency: transitive
-    description:
-      name: permission_handler_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   platform:
     dependency: transitive
     description:

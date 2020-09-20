@@ -102,22 +102,6 @@ class SignupBlocRouter {
           //ExtendedNavigator.rootNavigator.popUntil((route) => route.isFirst);
         },
       );
-    } else if (event is ProfilePicturePageSubmitted) {
-      if (event.picture == null) {
-        yield SignupProfilePictureFailure(message: Messages.NULL_IMAGE);
-      } else {
-        yield SignupProfilePictureLoading(picture: event.picture);
-        final result = await uploadPfp(UploadProfilePicParams(pic: event.picture));
-        yield* result.fold((failure) async* {
-          yield SignupProfilePictureFailure(message: failure.message, picture: event.picture);
-        }, (success) async* {
-          yield AuthenticatedState(user);
-          ExtendedNavigator.root.popUntil((route) => route.isFirst);
-        });
-      }
-    } else if (event is SignUpComplete) {
-      yield AuthenticatedState(user);
-      ExtendedNavigator.root.popUntil((route) => route.isFirst);
     }
   }
 }

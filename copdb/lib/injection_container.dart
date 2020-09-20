@@ -1,4 +1,5 @@
 import 'package:copdb/core/network/http_override.dart';
+import 'package:copdb/features/copdb/services/background_location.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -82,7 +83,7 @@ Future<void> init() async {
   sl.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl(client: sl()));
 
   // Register services 
-  
+
 
   //! Core
   sl.registerLazySingleton<InputConverter>(() => InputConverter());

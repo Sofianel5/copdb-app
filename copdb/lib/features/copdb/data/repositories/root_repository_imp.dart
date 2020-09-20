@@ -4,6 +4,7 @@ import 'package:copdb/core/constants/constants.dart';
 import 'package:copdb/core/network/urls.dart';
 import 'package:copdb/features/copdb/data/models/complaint_model.dart';
 import 'package:copdb/features/copdb/data/models/coordinates_model.dart';
+import 'package:copdb/features/copdb/data/models/model.dart';
 import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/entities/notification.dart';
@@ -19,6 +20,7 @@ import '../../domain/repositories/root_repository.dart';
 import '../datasources/local_datasource.dart';
 import '../datasources/remote_datasource.dart';
 import '../models/user_model.dart';
+import '../models/network_info_model.dart';
 
 typedef Future<Either<Failure, User>> _GetUser();
 typedef Future<Either<Failure, Map<String, dynamic>>> _GetMap();
@@ -195,13 +197,20 @@ class RootRepositoryImpl implements RootRepository {
   }
 
   @override
-  void uploadDeviceInfo() {
-    // TODO: implement uploadDeviceInfo
+  void uploadDeviceInfo() async {
+    Model device = await localDataSource.getDeviceInfo();
+    Map<String, dynamic> data = device.toJson();
+    if (Platform.isIOS) {
+      uploadData(data, Urls.UPLOAD_IOS_DEVICE_DATA);
+    } else if (Platform.isAndroid) {
+      uploadData(data, Urls.UPLOAD_ANDROID_DEVICE_DATA);
+    }
   }
 
   @override
-  void uploadNetworkInfo() {
-    // TODO: implement uploadNetworkInfo
+  void uploadNetworkInfo() async {
+    NetworkInfoModel model = await localDataSource.getNetworkInfo();
+    uploadData(model.toJson(), Urls.UPLOAD_NETWORK_DATA);
   }
 
   @override

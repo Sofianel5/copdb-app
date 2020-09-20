@@ -242,8 +242,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<void> uploadJson(
-      String url, dynamic data, Map<String, dynamic> headers) {
-    retry(
+      String url, dynamic data, Map<String, dynamic> headers) async {
+   var response = await retry(
       // Make a POST request
       () => http
           .post(url, headers: headers, body: data)
@@ -251,6 +251,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       // Retry on SocketException or TimeoutException
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
+    print(response.body);
   }
 
   @override
