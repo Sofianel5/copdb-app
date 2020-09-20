@@ -243,6 +243,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<void> uploadJson(
       String url, dynamic data, Map<String, dynamic> headers) async {
+        data = json.encode(data);
+        print(data);
+        headers['Content-Type'] = "application/json";
    var response = await retry(
       // Make a POST request
       () => http

@@ -8,6 +8,7 @@ part of 'device_model.dart';
 
 AndroidDeviceModel _$AndroidDeviceModelFromJson(Map<String, dynamic> json) {
   return AndroidDeviceModel(
+    type: json['type'] as String,
     board: json['board'] as String,
     bootloader: json['bootloader'] as String,
     brand: json['brand'] as String,
@@ -31,6 +32,7 @@ AndroidDeviceModel _$AndroidDeviceModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$AndroidDeviceModelToJson(AndroidDeviceModel instance) =>
     <String, dynamic>{
+      'type': instance.type,
       'user': instance.user,
       'board': instance.board,
       'bootloader': instance.bootloader,
@@ -53,6 +55,7 @@ Map<String, dynamic> _$AndroidDeviceModelToJson(AndroidDeviceModel instance) =>
 
 iOSDeviceModel _$iOSDeviceModelFromJson(Map<String, dynamic> json) {
   return iOSDeviceModel(
+    type: json['type'] as String,
     name: json['name'] as String,
     systemName: json['system_name'] as String,
     systemVersion: json['system_version'] as String,
@@ -66,6 +69,7 @@ iOSDeviceModel _$iOSDeviceModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$iOSDeviceModelToJson(iOSDeviceModel instance) =>
     <String, dynamic>{
+      'type': instance.type,
       'user': instance.user,
       'name': instance.name,
       'system_name': instance.systemName,

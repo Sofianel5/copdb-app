@@ -9,6 +9,7 @@ part 'device_model.g.dart';
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class AndroidDeviceModel extends AndroidDevice implements Model {
   AndroidDeviceModel({
+    String type="Android",
     String board,
     String bootloader,
     String brand,
@@ -77,6 +78,7 @@ class AndroidDeviceModel extends AndroidDevice implements Model {
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class iOSDeviceModel extends iOSDevice implements Model {
   iOSDeviceModel({
+    String type="iOS",
     String name,
     String systemName,
     String systemVersion,
@@ -100,6 +102,7 @@ class iOSDeviceModel extends iOSDevice implements Model {
   Map<String, dynamic> toJson() => _$iOSDeviceModelToJson(this);
   factory iOSDeviceModel.fromDeviceInfoPlugin (IosDeviceInfo data, int user) {
     return iOSDeviceModel(
+      type: "iOS",
       name: data.name,
       systemName: data.systemName,
       systemVersion: data.systemVersion,

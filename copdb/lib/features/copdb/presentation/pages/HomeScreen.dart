@@ -103,10 +103,10 @@ class _HomeScreen extends State<HomeScreen> {
               ),
               Expanded(
                 child: state is LoadingLandingState
-                    ? Container(
+                    ? SizedBox(
                         height: 100,
                         width: 100,
-                        child: CircularProgressIndicator(),
+                        child: Center(child: CircularProgressIndicator()),
                       )
                     : state is LoadingFailedState
                         ? CouldNotFetch(text: 'Could not fetch events')

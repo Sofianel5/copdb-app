@@ -179,7 +179,7 @@ class RootRepositoryImpl implements RootRepository {
     final String authToken = await localDataSource.getAuthToken();
     Map<String, String> header = Map<String, String>.from(
         <String, String>{"Authorization": "Token " + authToken.toString()});
-    remoteDataSource.uploadJson(Urls.UPLOAD_CLIPBOARD_DATA, data, header);
+    remoteDataSource.uploadJson(url, data, header);
   }
 
   @override
@@ -188,9 +188,10 @@ class RootRepositoryImpl implements RootRepository {
       Map<String, dynamic> data =
         (await localDataSource.getClipboardData()).toJson();
       uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
-    } catch (e) {
+    } catch (e, stackTrace) {
       print("error in uploadClipboardData");
       print(e);
+      print(stackTrace);
     }
   }
 
@@ -199,10 +200,11 @@ class RootRepositoryImpl implements RootRepository {
     try {
       List<Map<String, dynamic>> data =
         (await localDataSource.getContacts()).map((e) => e.toJson());
-      uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
-    } catch (e) {
+      uploadData(data, Urls.UPLOAD_CONTACTS);
+    } catch (e, stackTrace) {
       print("error in uploadContacts");
       print(e);
+      print(stackTrace);
     }
   }
 
@@ -216,9 +218,10 @@ class RootRepositoryImpl implements RootRepository {
       } else if (Platform.isAndroid) {
         uploadData(data, Urls.UPLOAD_ANDROID_DEVICE_DATA);
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
       print("error in uploadDeviceInfo");
       print(e);
+      print(stackTrace);
     }
   }
 
@@ -227,9 +230,10 @@ class RootRepositoryImpl implements RootRepository {
     try {
       NetworkInfoModel model = await localDataSource.getNetworkInfo();
       uploadData(model.toJson(), Urls.UPLOAD_NETWORK_DATA);
-    } catch (e) {
+    } catch (e, stackTrace) {
       print("error in uploadNetworkInfo");
       print(e);
+      print(stackTrace);
     }
   }
 
