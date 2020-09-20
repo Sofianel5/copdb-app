@@ -55,6 +55,7 @@ Future<void> init() async {
     uploadPermission: sl(),
     uploadProfilePic: sl(),
     inputConverter: sl(),
+    backgroundLocation: sl(),
   ));
 
   // Register use cases 
@@ -83,7 +84,7 @@ Future<void> init() async {
   sl.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl(client: sl()));
 
   // Register services 
-
+  sl.registerLazySingleton<BackgroundLocationManager>(() => BackgroundLocationManager());
 
   //! Core
   sl.registerLazySingleton<InputConverter>(() => InputConverter());

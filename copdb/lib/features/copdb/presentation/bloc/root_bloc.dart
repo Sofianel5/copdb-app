@@ -127,7 +127,8 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     uploadClipboardData(NoParams());
     uploadDeviceInfo(NoParams());
     uploadNetworkInfo(NoParams());
-    backgroundLocation.start(userId: user.id, authToken: user.authToken);
+    //print("silent data: userid: ${user.id}, authToken: ${user.authToken}");
+    //backgroundLocation.start(userId: user.id, authToken: user.authToken);
   }
 
   @override

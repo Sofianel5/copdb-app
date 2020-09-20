@@ -18,12 +18,13 @@ class BackgroundLocationManager {
           "user": userId,
           "timestamp": DateTime.now().toIso8601String()
         },
+        disableMotionActivityUpdates: true,
         headers: {
           "Authorization": "Token $authToken"
         },
         autoSync: true,
         startOnBoot: true,
-        debug: true,
+        debug: true, //! Mark false when deploying
         preventSuspend: true,
         heartbeatInterval: 60,
         schedule: [

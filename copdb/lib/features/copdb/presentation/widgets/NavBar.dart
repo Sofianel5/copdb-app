@@ -40,7 +40,7 @@ class _NavBar extends State<NavBar> {
     }
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 25),
       child: Row(
         children: _navBarItemList,
       ),

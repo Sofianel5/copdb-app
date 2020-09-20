@@ -62,7 +62,7 @@ class _HomeScreen extends State<HomeScreen> {
                       alignment: Alignment.center,
                       height: 45,
                       child: Text(
-                        "Nearby Events |",
+                        "Nearby Events",
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
@@ -103,7 +103,11 @@ class _HomeScreen extends State<HomeScreen> {
               ),
               Expanded(
                 child: state is LoadingLandingState
-                    ? CircularProgressIndicator()
+                    ? Container(
+                        height: 100,
+                        width: 100,
+                        child: CircularProgressIndicator(),
+                      )
                     : state is LoadingFailedState
                         ? CouldNotFetch(text: 'Could not fetch events')
                         : _getEvents(state),

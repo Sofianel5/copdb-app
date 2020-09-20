@@ -1,6 +1,9 @@
 PODS:
-  - background_location (0.0.1):
+  - background_fetch (0.6.0):
     - Flutter
+  - CocoaLumberjack (3.6.2):
+    - CocoaLumberjack/Core (= 3.6.2)
+  - CocoaLumberjack/Core (3.6.2)
   - connectivity (0.0.1):
     - Flutter
     - Reachability
@@ -9,6 +12,9 @@ PODS:
   - device_info (0.0.1):
     - Flutter
   - Flutter (1.0.0)
+  - "flutter_background_geolocation (1.10.0+1)":
+    - CocoaLumberjack (~> 3.6.0)
+    - Flutter
   - flutter_tts (0.0.1):
     - Flutter
   - FMDB (2.7.5):
@@ -26,8 +32,6 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
-  - "permission_handler (5.0.1+1)":
-    - Flutter
   - Reachability (3.2)
   - shared_preferences (0.0.1):
     - Flutter
@@ -38,11 +42,12 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - background_location (from `.symlinks/plugins/background_location/ios`)
+  - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - contacts_service (from `.symlinks/plugins/contacts_service/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
+  - flutter_background_geolocation (from `.symlinks/plugins/flutter_background_geolocation/ios`)
   - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - get_ip (from `.symlinks/plugins/get_ip/ios`)
@@ -50,19 +55,19 @@ DEPENDENCIES:
   - ios_network_info (from `.symlinks/plugins/ios_network_info/ios`)
   - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
-  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
   trunk:
+    - CocoaLumberjack
     - FMDB
     - Reachability
 
 EXTERNAL SOURCES:
-  background_location:
-    :path: ".symlinks/plugins/background_location/ios"
+  background_fetch:
+    :path: ".symlinks/plugins/background_fetch/ios"
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
   contacts_service:
@@ -71,6 +76,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/device_info/ios"
   Flutter:
     :path: Flutter
+  flutter_background_geolocation:
+    :path: ".symlinks/plugins/flutter_background_geolocation/ios"
   flutter_tts:
     :path: ".symlinks/plugins/flutter_tts/ios"
   geolocator:
@@ -85,8 +92,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/location_permissions/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
-  permission_handler:
-    :path: ".symlinks/plugins/permission_handler/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   sqflite:
@@ -95,11 +100,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
-  background_location: dcb73e9fd2d29c29b7d08d0dc945289b5c5e7cc4
+  background_fetch: 9221ccc02b41aff8a52b2090d9f791c5ed82eaee
+  CocoaLumberjack: bd155f2dd06c0e0b03f876f7a3ee55693122ec94
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_background_geolocation: 24e7a54403a9cabbcace22b8e4db152b747bb783
   flutter_tts: 0f492aab6accf87059b72354fcb4ba934304771d
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator: f7622e0e7e2a24718285b73916d60c4a54b9f5b6
@@ -108,12 +115,11 @@ SPEC CHECKSUMS:
   ios_network_info: cc65db3e7947f38d2952f7e6581a815141cf58a9
   location_permissions: 7e0f9aa0f60deb8ff93ddf0e2a164c7e8197bc94
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
 COCOAPODS: 1.9.2
