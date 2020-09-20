@@ -32,7 +32,10 @@ class _HomeScreen extends State<HomeScreen> {
         physics: BouncingScrollPhysics(),
         itemCount: state.events.length,
         itemBuilder: (BuildContext context, int index) {
-          return state.events[index] is CopDBEvent ? EventItem(copDBEvent: state.events[index], index: index) : ComplaintItem(copDBComplaint: state.events[index], index: index);
+          return state.events[index] is CopDBEvent ? 
+          EventItem(copDBEvent: state.events[index], index: index) 
+          : 
+          ComplaintItem(complaint: state.events[index], index: index);
         });
   }
 

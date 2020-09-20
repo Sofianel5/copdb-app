@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 
 class ComplaintItem extends StatefulWidget
 {
-  CopDBComplaint copDBComplaint;
+  Complaint complaint;
   int index;
-  ComplaintItem({this.copDBComplaint, this.index});
+  ComplaintItem({this.complaint, this.index});
   @override 
   _ComplaintItem createState() => _ComplaintItem();
 }
 
 class _ComplaintItem extends State<ComplaintItem>
 {
-  CopDBComplaint _copDBComplaint;
+  Complaint _complaint;
   int _index;
   bool showImage = true;
 
@@ -22,14 +22,14 @@ class _ComplaintItem extends State<ComplaintItem>
   void initState() 
   {
     super.initState();
-    _copDBComplaint = widget.copDBComplaint;
+    _complaint = widget.complaint;
     _index = widget.index;
-    if (_copDBComplaint.image == null)
+    if (_complaint.cop.image == null)
     {
       print('null');
       showImage = false;
     }
-      print('iit');
+      print('-');
   }
 
   Widget build(BuildContext context)
@@ -86,7 +86,7 @@ class _ComplaintItem extends State<ComplaintItem>
               Container(
                 margin: EdgeInsets.only(bottom: 4),
                 child: Text(
-                  _copDBComplaint.dateRecieved.toString(), 
+                  _complaint.dateRecieved.toString(), 
                   style: TextStyle(
                     fontSize: 13, 
                     color: Colors.white70
@@ -96,7 +96,7 @@ class _ComplaintItem extends State<ComplaintItem>
               Container(
                 margin: EdgeInsets.only(bottom: 2),
                 child: Text(
-                  _copDBComplaint.cop.firstName + " " + _copDBComplaint.cop.lastName, 
+                  _complaint.cop.firstName + " " + _complaint.cop.lastName, 
                   style: TextStyle(
                     fontSize: 22, fontWeight: FontWeight.bold
                   ),
@@ -105,7 +105,7 @@ class _ComplaintItem extends State<ComplaintItem>
               Container(
                 margin: EdgeInsets.only(bottom: 14),
                 child: Text(
-                  _copDBComplaint.address.city +", " + _copDBComplaint.address.state,
+                  _complaint.cop.precinct.address.address_1 /* +", " + _complaint.address.state */,
                   style: TextStyle(
                     fontSize: 13, 
                     color: Colors.white70
@@ -122,11 +122,11 @@ class _ComplaintItem extends State<ComplaintItem>
                   border: Border.all(color: Colors.white, )
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: _copDBComplaint.image ?? _noImage(),
+                  imageUrl: _complaint.cop.image ?? _noImage(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ) 
               ) : Container(height: 0, width: 0,),
-              Text(_copDBComplaint.description),
+              Text(_complaint.description),
             ],
           ),
         ),
