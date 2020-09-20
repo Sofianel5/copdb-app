@@ -10,6 +10,7 @@ class User extends Equatable{
   final String profilePic;
   final DateTime dob;
   final DateTime dateJoined;
+  final String authToken;
   final bool verified;
   final List<User> friends;
   final List<User> following;
@@ -25,6 +26,7 @@ class User extends Equatable{
     @required this.profilePic,
     @required this.dob,
     @required this.dateJoined,
+    this.authToken,
     this.friends,
     this.following,
     this.followers,

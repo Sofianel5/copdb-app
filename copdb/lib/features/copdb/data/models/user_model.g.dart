@@ -11,6 +11,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     username: json['username'] as String,
     email: json['email'] as String,
+    authToken: json['auth_token'] as String,
     profilePic: json['profile_pic'] as String,
     dob: json['dob'] == null ? null : DateTime.parse(json['dob'] as String),
     dateJoined: json['date_joined'] == null
@@ -43,6 +44,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'profile_pic': instance.profilePic,
       'dob': instance.dob?.toIso8601String(),
       'date_joined': instance.dateJoined?.toIso8601String(),
+      'auth_token': instance.authToken,
       'verified': instance.verified,
       'friends': instance.friends?.map((e) => e?.toJson())?.toList(),
       'following': instance.following?.map((e) => e?.toJson())?.toList(),
