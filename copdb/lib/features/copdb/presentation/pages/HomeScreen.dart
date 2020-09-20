@@ -2,6 +2,7 @@ import 'package:copdb/features/copdb/domain/entities/address.dart';
 import 'package:copdb/features/copdb/domain/entities/complaint.dart';
 import 'package:copdb/features/copdb/domain/entities/copdbevent.dart';
 import 'package:copdb/features/copdb/presentation/bloc/root_bloc.dart';
+import 'package:copdb/features/copdb/presentation/widgets/ComplaintItem.dart';
 import 'package:copdb/features/copdb/presentation/widgets/EventItem.dart';
 import 'package:copdb/features/copdb/presentation/widgets/errors/CouldNotFetchEvents.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _HomeScreen extends State<HomeScreen> {
         physics: BouncingScrollPhysics(),
         itemCount: state.events.length,
         itemBuilder: (BuildContext context, int index) {
-          return EventItem(copDBEvent: state.events[index], index: index);
+          return state.events[index] is CopDBEvent ? EventItem(copDBEvent: state.events[index], index: index) : ComplaintItem(copDBComplaint: state.events[index], index: index);
         });
   }
 
