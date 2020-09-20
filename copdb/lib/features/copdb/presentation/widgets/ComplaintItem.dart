@@ -112,20 +112,58 @@ class _ComplaintItem extends State<ComplaintItem>
                   ),
                 ),
               ),
-              showImage ? Container(
-                margin: EdgeInsets.only(bottom: 14),
-                height: 180,
-                width: 400,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(8, 11, 17, 1),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white, )
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: _complaint.cop.image ?? _noImage(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ) 
-              ) : Container(height: 0, width: 0,),
+              Row(
+                children: [
+                  showImage ? Container(
+                    margin: EdgeInsets.only(bottom: 14, right: 16),
+                    width: 42,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      /* image: DecorationImage(
+                        image: AssetImage('assets/cat.jpg'),
+                        fit: BoxFit.cover,
+                      ), */
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFF54C6EB).withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 7,
+                          offset: Offset(0, 0), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                    ),
+                    alignment: Alignment.center,
+                    child: CachedNetworkImage(
+                      imageUrl: _complaint.cop.image ?? _noImage(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ) 
+                  ) : Container(height: 0, width: 0,),
+                  Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 4),
+                        child: Text(
+                          _complaint.abuseType, 
+                          style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 2),
+                        child: Text(
+                          _complaint.allegation, 
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
               Text(_complaint.description),
             ],
           ),
