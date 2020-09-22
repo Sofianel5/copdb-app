@@ -66,38 +66,13 @@ class _HomeScreen extends State<HomeScreen> {
                       alignment: Alignment.center,
                       height: 45,
                       child: Text(
-                        "Nearby Events",
+                        "Recent Reports",
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Expanded(
                       child: Container(),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: 45,
-                      width: 170,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 45,
-                                child: Text(
-                                  "",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Icon(Icons.arrow_drop_down),
-                          ],
-                        ),
-                      ),
                     ),
                   ],
                 ),

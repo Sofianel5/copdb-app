@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:copdb/features/copdb/domain/entities/complaint.dart';
-import 'package:copdb/models/Event.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintItem extends StatefulWidget
@@ -15,6 +15,7 @@ class ComplaintItem extends StatefulWidget
 class _ComplaintItem extends State<ComplaintItem>
 {
   Complaint _complaint;
+  DateFormat format = DateFormat.yMMMd();
   int _index;
   bool showImage = true;
 
@@ -86,7 +87,7 @@ class _ComplaintItem extends State<ComplaintItem>
               Container(
                 margin: EdgeInsets.only(bottom: 4),
                 child: Text(
-                  _complaint.dateRecieved.toString(), 
+                  format.format(_complaint.dateRecieved) ?? "", 
                   style: TextStyle(
                     fontSize: 13, 
                     color: Colors.white70
@@ -96,7 +97,7 @@ class _ComplaintItem extends State<ComplaintItem>
               Container(
                 margin: EdgeInsets.only(bottom: 2),
                 child: Text(
-                  _complaint.cop.firstName + " " + _complaint.cop.lastName, 
+                  "Cop: " + _complaint.cop.firstName + " " + _complaint.cop.lastName, 
                   style: TextStyle(
                     fontSize: 22, fontWeight: FontWeight.bold
                   ),
@@ -105,7 +106,7 @@ class _ComplaintItem extends State<ComplaintItem>
               Container(
                 margin: EdgeInsets.only(bottom: 14),
                 child: Text(
-                  _complaint.cop.precinct.address.address_1 /* +", " + _complaint.address.state */,
+                  _complaint.cop.precinct.address?.address_1 ?? "Unknown" /* +", " + _complaint.address.state */,
                   style: TextStyle(
                     fontSize: 13, 
                     color: Colors.white70
@@ -164,7 +165,7 @@ class _ComplaintItem extends State<ComplaintItem>
                   )
                 ],
               ),
-              Text(_complaint.description),
+              Text(_complaint.description ?? ""),
             ],
           ),
         ),
