@@ -4,6 +4,7 @@ import 'package:copdb/features/copdb/presentation/widgets/SearchBar.dart';
 import 'package:copdb/features/copdb/presentation/widgets/errors/CouldNotFetchEvents.dart';
 import 'package:flutter/material.dart';
 import 'ReportDetailScreen.dart';
+import 'package:intl/intl.dart';
 
 class DatabaseScreen extends StatefulWidget 
 {
@@ -14,7 +15,7 @@ class DatabaseScreen extends StatefulWidget
 
 class _DatabaseScreen extends State<DatabaseScreen>
 {
-
+  DateFormat format = DateFormat.yMMMd();
   Widget _flightShuttleBuilder(BuildContext f, Animation<double> a, HeroFlightDirection d, BuildContext h, BuildContext t) 
   {
     return DefaultTextStyle(
@@ -84,7 +85,7 @@ class _DatabaseScreen extends State<DatabaseScreen>
               alignment: Alignment.center,
               padding: EdgeInsets.only(left: 30, right: 30),
               /* width: 90, */
-              height: 100,
+              height: 160,
               decoration: BoxDecoration(
                 color: Color.fromRGBO(8, 11, 17, 1),
                 boxShadow: [
@@ -118,19 +119,46 @@ class _DatabaseScreen extends State<DatabaseScreen>
                         child: Icon(reportList[index].icon, size: 38),
                       ), */
                       Container(
+                        margin: EdgeInsets.only(bottom: 4),
+                        child: Text(
+                          format.format(reportList[index].dateRecieved) ?? "", 
+                          style: TextStyle(
+                            fontSize: 14, 
+                            color: Colors.white70
+                          ),
+                        ),
+                      ),
+                      Container(
                         height: 25,
                         child: Text(
                           reportList[index].cop.firstName + " " + reportList[index].cop.firstName,
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
                         )
                       ),
                       Container(
                         /* alignment: Alignment.centerLeft, */
+                        margin: EdgeInsets.only(bottom: 6),
                         height: 20,
                         child: Text(
-                          reportList[index].dateRecieved.toString(),
+                          'address',
                           style: TextStyle(fontSize: 14, color: Colors.white70),
                         )
+                      ),
+                      Container(
+                        child: Text(
+                          reportList[index].abuseType ?? 'abuse', 
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          reportList[index].allegation ?? 'allegation', 
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
                       Container(
                         /* width: 130, */

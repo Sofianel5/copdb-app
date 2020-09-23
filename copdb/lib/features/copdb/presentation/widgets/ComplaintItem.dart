@@ -23,6 +23,7 @@ class _ComplaintItem extends State<ComplaintItem>
   void initState() 
   {
     super.initState();
+
     _complaint = widget.complaint;
     _index = widget.index;
     if (_complaint.cop.image == null)
@@ -142,13 +143,15 @@ class _ComplaintItem extends State<ComplaintItem>
                     ) 
                   ) : Container(height: 0, width: 0,),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         margin: EdgeInsets.only(bottom: 4),
                         child: Text(
                           _complaint.abuseType, 
                           style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold,
+                            fontSize: 18,
                           ),
                         ),
                       ),
@@ -157,7 +160,7 @@ class _ComplaintItem extends State<ComplaintItem>
                         child: Text(
                           _complaint.allegation, 
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                         ),
                       ),

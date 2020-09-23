@@ -51,12 +51,13 @@ class _ProfileScreen extends State<ProfileScreen> {
                     child: CachedNetworkImage(
                       imageUrl: rootBloc.user.friends[index].profilePic,
                       errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
                     ),
                     decoration: BoxDecoration(
-                      /* image: DecorationImage(
-                      image: AssetImage('assets/cat.jpg'),
-                      fit: BoxFit.cover,
-                    ), */
+                        /* image: DecorationImage(
+                          image: CachedNetworkImage('assets/cat.jpg'),
+                          fit: BoxFit.cover,
+                      ), */
                       boxShadow: [
                         /* BoxShadow(
                         color: Color(0xFF54C6EB).withOpacity(0.5),
@@ -161,6 +162,24 @@ class _ProfileScreen extends State<ProfileScreen> {
                     fit: BoxFit.cover,
                     imageUrl: rootBloc.user.profilePic,
                     errorWidget: (context, url, error) => Icon(Icons.error),
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 152.0,
+                      height: 152.0,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xFF54C6EB).withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 7,
+                            offset: Offset(0, 0), // changes position of shadow
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                        image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
                   ),
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -317,7 +336,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                 ),
                 Container(
                     alignment: Alignment.center,
-                    height: 220,
+                    height: 200,
                     width: 300,
                     child: false
                         ? CouldNotFetch(text: 'could not load')
