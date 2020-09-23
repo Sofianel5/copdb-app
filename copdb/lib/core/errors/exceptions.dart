@@ -8,3 +8,4 @@ class SignUpException extends AuthenticationException{
     this.message
   }); // User submits bad data 
 }
+class PermissionException implements Exception {} // User permissions not granted

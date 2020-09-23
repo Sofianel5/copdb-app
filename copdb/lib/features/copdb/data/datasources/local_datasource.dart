@@ -10,6 +10,7 @@ import 'package:geolocator/geolocator.dart' as geo;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_ip/get_ip.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/user.dart';
@@ -202,12 +203,20 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<List<ContactModel>> getContacts() async {
+    var status = await Permission.contacts.status;
+    if (status.isUndetermined) {
+      if (!(await Permission.contacts.request().isGranted)) {
+        throw PermissionException();
+      }
+    } else if (!(status.isGranted)) {
+      throw PermissionException();
+    } 
     Iterable<contacts_service.Contact> contacts =
         await contacts_service.ContactsService.getContacts();
     int userid = await userId();
     return contacts
         .toList()
-        .map((e) => ContactModel.fromDeviceInfoPlugin(e, userid));
+        .map((e) => ContactModel.fromDeviceInfoPlugin(e, userid)).toList();
   }
 
   @override

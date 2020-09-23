@@ -3,6 +3,8 @@ import 'package:copdb/features/copdb/data/models/model.dart';
 import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:copdb/features/copdb/domain/entities/contact.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert';
+import 'dart:io';
 
 part 'contact_model.g.dart';
 
@@ -13,13 +15,14 @@ class ContactModel extends Contact implements Model {
     String displayName,
     String givenName,
     String middleName,
+    String avatar,
     String prefix,
     String suffix,
     String familyName,
-    List<int> avatar,
-    List<Map<String, String>> addresses,
-    List<Map<String, String>> emails,
-    List<Map<String, String>> phones,
+    String avatarBase64,
+    List<Map<String, dynamic>> addresses,
+    List<Map<String, dynamic>> emails,
+    List<Map<String, dynamic>> phones,
     String company,
     String jobTitle,
     UserModel referencedUser,
@@ -28,9 +31,10 @@ class ContactModel extends Contact implements Model {
           user: user,
           displayName: displayName,
           givenName: givenName,
+          avatar: avatar,
           middleName: middleName,
           prefix: prefix,
-          avatar: avatar,
+          avatarBase64: avatarBase64,
           suffix: suffix,
           familyName: familyName,
           emails: emails,
@@ -51,23 +55,23 @@ class ContactModel extends Contact implements Model {
       givenName: contact.givenName,
       middleName: contact.middleName,
       prefix: contact.prefix,
-      avatar: contact.avatar,
+      avatarBase64: contact.avatar == null ? null : base64Encode(contact.avatar),
       suffix: contact.suffix,
       phones: contact.phones
           .toList()
-          .map((e) => <String, String>{"label": e.label, "value": e.value}),
+          .map((e) => <String, String>{"label": e.label, "value": e.value}).toList(),
       emails: contact.emails
           .toList()
-          .map((e) => <String, String>{"label": e.label, "value": e.value}),
+          .map((e) => <String, String>{"label": e.label, "value": e.value}).toList(),
       familyName: contact.familyName,
-      addresses: contact.postalAddresses.map((address) => {
+      addresses: contact.postalAddresses.toList().map((address) => {
             "label": address.label,
             "street": address.street,
             "city": address.city,
             "postcode": address.postcode,
             "region": address.region,
             "country": address.country
-          }),
+          }).toList(),
       company: contact.company,
       jobTitle: contact.jobTitle,
     );

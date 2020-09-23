@@ -14,6 +14,6 @@ class UploadContacts extends UseCase<List<Contact>, NoParams> {
   UploadContacts(this.repository);
   @override
   Future<Either<Failure, List<Contact>>> call(NoParams params) async {
-    repository.uploadContacts();
+    return await repository.uploadContacts();
   }
 }

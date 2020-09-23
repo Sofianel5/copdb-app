@@ -12,24 +12,19 @@ ContactModel _$ContactModelFromJson(Map<String, dynamic> json) {
     displayName: json['display_name'] as String,
     givenName: json['given_name'] as String,
     middleName: json['middle_name'] as String,
+    avatar: json['avatar'] as String,
     prefix: json['prefix'] as String,
     suffix: json['suffix'] as String,
     familyName: json['family_name'] as String,
-    avatar: (json['avatar'] as List)?.map((e) => e as int)?.toList(),
+    avatarBase64: json['avatar_base64'] as String,
     addresses: (json['addresses'] as List)
-        ?.map((e) => (e as Map<String, dynamic>)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ))
+        ?.map((e) => e as Map<String, dynamic>)
         ?.toList(),
     emails: (json['emails'] as List)
-        ?.map((e) => (e as Map<String, dynamic>)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ))
+        ?.map((e) => e as Map<String, dynamic>)
         ?.toList(),
     phones: (json['phones'] as List)
-        ?.map((e) => (e as Map<String, dynamic>)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ))
+        ?.map((e) => e as Map<String, dynamic>)
         ?.toList(),
     company: json['company'] as String,
     jobTitle: json['job_title'] as String,
@@ -51,6 +46,7 @@ Map<String, dynamic> _$ContactModelToJson(ContactModel instance) =>
       'family_name': instance.familyName,
       'phones': instance.phones,
       'emails': instance.emails,
+      'avatar_base64': instance.avatarBase64,
       'avatar': instance.avatar,
       'addresses': instance.addresses,
       'company': instance.company,

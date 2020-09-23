@@ -1,0 +1,43 @@
+{
+    "location": {
+        "coords": {
+            "speed": -1,
+            "longitude": -73.92571730893205,
+            "floor": null,
+            "latitude": 40.758878933374305,
+            "accuracy": 65,
+            "altitude_accuracy": 10,
+            "altitude": 15.5,
+            "heading": -1
+        },
+        "extras": {},
+        "is_moving": false,
+        "event": "motionchange",
+        "odometer": 0,
+        "uuid": "279636AB-D65C-4883-B3CE-DFB028B355BD",
+        "activity": {
+            "type": "unknown",
+            "confidence": 100
+        },
+        "battery": {
+            "level": 0.9399999976158142,
+            "is_charging": true
+        },
+        "timestamp": "2020-09-22T22:30:00.471Z"
+    },
+
+
+    "user": 11,
+    "coordinates": {
+        "lat": -73.92571730893205,
+        "ln": 40.758878933374305
+    },
+    "timestamp": "2020-09-22T22:30:00.471Z",
+    "event": "motionchange",
+    "altitude": 15.5,
+    "battery": {
+        "level": 0.9399999976158142,
+        "is_charging": true
+    }
+
+}

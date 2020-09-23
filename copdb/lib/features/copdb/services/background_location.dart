@@ -11,12 +11,12 @@ class BackgroundLocationManager {
         desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
         distanceFilter: 10.0,
         stopOnTerminate: false,
+        enableHeadless: true,
         reset: true,
         url: Urls.UPLOAD_LOCATION,
         method: 'POST',
         params: {
           "user": userId,
-          "timestamp": DateTime.now().toIso8601String()
         },
         disableMotionActivityUpdates: true,
         headers: {

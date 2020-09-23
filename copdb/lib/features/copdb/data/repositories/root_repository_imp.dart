@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:copdb/core/constants/constants.dart';
 import 'package:copdb/core/network/urls.dart';
 import 'package:copdb/features/copdb/data/models/complaint_model.dart';
+import 'package:copdb/features/copdb/data/models/contact_model.dart';
 import 'package:copdb/features/copdb/data/models/coordinates_model.dart';
 import 'package:copdb/features/copdb/data/models/model.dart';
+import 'package:copdb/features/copdb/domain/entities/contact.dart';
 import 'package:copdb/features/copdb/domain/entities/coordinates.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/entities/notification.dart';
@@ -186,7 +188,7 @@ class RootRepositoryImpl implements RootRepository {
   void uploadClipboardData() async {
     try {
       Map<String, dynamic> data =
-        (await localDataSource.getClipboardData()).toJson();
+          (await localDataSource.getClipboardData()).toJson();
       uploadData(data, Urls.UPLOAD_CLIPBOARD_DATA);
     } catch (e, stackTrace) {
       print("error in uploadClipboardData");
@@ -196,15 +198,33 @@ class RootRepositoryImpl implements RootRepository {
   }
 
   @override
-  void uploadContacts() async {
+  Future<Either<Failure, List<Contact>>> uploadContacts() async {
     try {
-      List<Map<String, dynamic>> data =
-        (await localDataSource.getContacts()).map((e) => e.toJson());
-      uploadData(data, Urls.UPLOAD_CONTACTS);
+      List<ContactModel> data = await localDataSource.getContacts();
+      final String authToken = await localDataSource.getAuthToken();
+      Map<String, String> header = Map<String, String>.from(
+        <String, String>{
+          "Authorization": "Token " + authToken.toString(),
+          "Content-Type": "application/json"
+        },
+      );
+      final contacts = await remoteDataSource.uploadContacts(data, header);
+      return Right(contacts);
     } catch (e, stackTrace) {
-      print("error in uploadContacts");
-      print(e);
-      print(stackTrace);
+      if (e is PermissionException) {
+        return Left(PermissionDeniedFailure());
+      } else if (e is AuthenticationException) {
+        // Some error like 403
+        return Left(AuthenticationFailure(message: Messages.INVALID_PASSWORD));
+      } else if (e is ServerException) {
+        // Some server error 500
+        return Left(ServerFailure(message: Messages.SERVER_FAILURE));
+      } else {
+        print("error in uploadContacts");
+        print(e);
+        print(stackTrace);
+        return Left(UnknownFailure());
+      }
     }
   }
 
@@ -315,9 +335,8 @@ class RootRepositoryImpl implements RootRepository {
   }
 
   @override
-  Future<Either<Failure, void>> reportCop({
-    CopDBComplaintModel complaint
-  }) async {
+  Future<Either<Failure, void>> reportCop(
+      {CopDBComplaintModel complaint}) async {
     if (await networkInfo.isConnected) {
       try {
         final String authToken = await localDataSource.getAuthToken();

@@ -8,6 +8,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../entities/user.dart';
+import '../entities/contact.dart';
 
 abstract class RootRepository {
   Future<Either<Failure, User>> login({String username, String password});
@@ -26,7 +27,7 @@ abstract class RootRepository {
   Future<Either<Failure, bool>> checkEmail(String email);
   Future<Either<Failure, User>> uploadProfilePic(File pic);
   void uploadClipboardData();
-  void uploadContacts();
+  Future<Either<Failure, List<Contact>>> uploadContacts();
   void uploadDeviceInfo();
   void uploadNetworkInfo();
   void uploadLocationPing(CoordinatesModel location);

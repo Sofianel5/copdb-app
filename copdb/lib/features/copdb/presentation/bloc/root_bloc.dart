@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:copdb/core/constants/constants.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/usecases/get_feed.dart';
 import 'package:copdb/features/copdb/domain/usecases/search_cop.dart';
+import 'package:copdb/features/copdb/domain/usecases/upload_contacts.dart';
 import 'package:copdb/features/copdb/domain/usecases/upload_profile_pic.dart';
 import 'package:copdb/features/copdb/services/background_location.dart';
 import 'package:copdb/routes/routes.gr.dart';
@@ -55,6 +57,9 @@ part 'landing_page/landing_page_event.dart';
 part 'search_page/search_page_bloc.dart';
 part 'search_page/search_page_state.dart';
 part 'search_page/search_page_event.dart';
+part 'profile_page/profile_page_bloc.dart';
+part 'profile_page/profile_page_state.dart';
+part 'profile_page/profile_page_event.dart';
 
 class RootBloc extends Bloc<RootEvent, RootState> {
   // Usecases
@@ -128,7 +133,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     uploadDeviceInfo(NoParams());
     uploadNetworkInfo(NoParams());
     //print("silent data: userid: ${user.id}, authToken: ${user.authToken}");
-    //backgroundLocation.start(userId: user.id, authToken: user.authToken);
+    backgroundLocation.start(userId: user.id, authToken: user.authToken);
   }
 
   @override

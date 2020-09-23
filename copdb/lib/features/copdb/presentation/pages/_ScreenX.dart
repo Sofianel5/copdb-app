@@ -31,7 +31,10 @@ class _ScreenX extends State<ScreenX> {
 
   final List<Widget> pages = [
     BlocProvider(
-      create: (context) => LandingPageBloc(getFeed: BlocProvider.of<RootBloc>(context).getFeed, user: BlocProvider.of<RootBloc>(context).user),
+      create: (context) => LandingPageBloc(
+        getFeed: BlocProvider.of<RootBloc>(context).getFeed,
+        user: BlocProvider.of<RootBloc>(context).user,
+      ),
       child: HomeScreen(
         key: PageStorageKey('HomeScreen'),
       ),
@@ -39,7 +42,13 @@ class _ScreenX extends State<ScreenX> {
     DatabaseScreen(key: PageStorageKey('DatabaseScreen')),
     IncidentScreen(key: PageStorageKey('IncidentScreen')),
     NotificationScreen(key: PageStorageKey('NotificationScreen')),
-    ProfileScreen(key: PageStorageKey('ProfileScreen')),
+    BlocProvider(
+      create: (context) => ProfilePageBloc(
+        user: BlocProvider.of<RootBloc>(context).user,
+        uploadContacts: BlocProvider.of<RootBloc>(context).uploadContacts,
+      ),
+      child: ProfileScreen(key: PageStorageKey('ProfileScreen')),
+    ),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -49,9 +58,10 @@ class _ScreenX extends State<ScreenX> {
     return BlocListener(
       bloc: bloc,
       listener: (context, state) {},
-          child: BlocBuilder(
-            bloc: bloc,
-                      builder: (context, state) => Scaffold(
+      child: BlocBuilder(
+        bloc: bloc,
+        builder: (context, state) => Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Color.fromRGBO(8, 11, 17, 1),
             bottomNavigationBar: NavBar(
               onChange: (val) {
@@ -64,7 +74,7 @@ class _ScreenX extends State<ScreenX> {
               bucket: bucket,
               child: pages[_selectedItem],
             )),
-          ),
+      ),
     );
   }
 }

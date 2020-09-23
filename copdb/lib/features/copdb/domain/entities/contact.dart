@@ -9,10 +9,11 @@ class Contact extends Equatable {
   String prefix;
   String suffix;
   String familyName;
-  List<Map<String, String>> phones;
-  List<Map<String, String>> emails;
-  List<int> avatar;
-  List<Map<String, String>> addresses;
+  List<Map<String, dynamic>> phones;
+  List<Map<String, dynamic>> emails;
+  String avatarBase64;
+  String avatar;
+  List<Map<String, dynamic>> addresses;
   String company;
   String jobTitle;
   UserModel referencedUser;
@@ -22,6 +23,7 @@ class Contact extends Equatable {
     this.displayName,
     this.givenName,
     this.middleName,
+    this.avatarBase64,
     this.avatar,
     this.prefix,
     this.suffix,
