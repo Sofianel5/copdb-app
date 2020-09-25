@@ -11,7 +11,7 @@ import 'package:copdb/features/copdb/data/models/notification_model.dart';
 import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:copdb/features/copdb/domain/entities/contact.dart';
 import 'package:copdb/features/copdb/domain/entities/notification.dart';
-import 'package:flutter_uploader/flutter_uploader.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:retry/retry.dart';
