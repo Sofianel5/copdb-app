@@ -382,13 +382,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.7"
-  flutter_uploader:
-    dependency: "direct main"
-    description:
-      name: flutter_uploader
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter

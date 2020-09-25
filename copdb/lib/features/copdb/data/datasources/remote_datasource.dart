@@ -11,6 +11,7 @@ import 'package:copdb/features/copdb/data/models/notification_model.dart';
 import 'package:copdb/features/copdb/data/models/user_model.dart';
 import 'package:copdb/features/copdb/domain/entities/contact.dart';
 import 'package:copdb/features/copdb/domain/entities/notification.dart';
+import 'package:flutter_uploader/flutter_uploader.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:retry/retry.dart';
@@ -59,42 +60,41 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   Future<http.Response> _getResponse(dynamic data, String url,
       {Map<String, dynamic> headers, bool getMethod = false}) async {
-      //print("going to post: ");
-      http.Response response;
-      //print(data);
-      //print("headers: ");
-      //print(headers);
-      if (getMethod) {
-        String urlParams = urlEncodeMap(data);
-        response = await retry(
-          // Make a GET request
-          () => client
-              .get(url + "?" + urlParams,
-                  headers: headers ?? <String, String>{})
-              .timeout(Duration(seconds: 5)),
-          // Retry on SocketException or TimeoutException
-          retryIf: (e) => e is SocketException || e is TimeoutException,
-        );
-      } else {
-        response = await retry(
-          // Make a GET request
-          () => client
-              .post(url, body: data, headers: headers ?? <String, String>{})
-              .timeout(Duration(seconds: 5)),
-          // Retry on SocketException or TimeoutException
-          retryIf: (e) => e is SocketException || e is TimeoutException,
-        );
-      }
-      //print("contacts: ");
-      //print(response.body);
-      //print(response.body);
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return response;
-      } else if (response.statusCode ~/ 100 == 4) {
-        throw AuthenticationException();
-      } else if (response.statusCode ~/ 100 == 5) {
-        throw ServerException();
-      }
+    //print("going to post: ");
+    http.Response response;
+    //print(data);
+    //print("headers: ");
+    //print(headers);
+    if (getMethod) {
+      String urlParams = urlEncodeMap(data);
+      response = await retry(
+        // Make a GET request
+        () => client
+            .get(url + "?" + urlParams, headers: headers ?? <String, String>{})
+            .timeout(Duration(seconds: 5)),
+        // Retry on SocketException or TimeoutException
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+      );
+    } else {
+      response = await retry(
+        // Make a GET request
+        () => client
+            .post(url, body: data, headers: headers ?? <String, String>{})
+            .timeout(Duration(seconds: 5)),
+        // Retry on SocketException or TimeoutException
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+      );
+    }
+    //print("contacts: ");
+    //print(response.body);
+    //print(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return response;
+    } else if (response.statusCode ~/ 100 == 4) {
+      throw AuthenticationException();
+    } else if (response.statusCode ~/ 100 == 5) {
+      throw ServerException();
+    }
   }
 
   Future<Map<String, dynamic>> _getJson(Map<String, dynamic> data, String url,
@@ -404,20 +404,24 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<List<Contact>> uploadContacts(
       List<ContactModel> contacts, Map<String, dynamic> headers) async {
-    print(contacts[1].toJson());
-    List<ContactModel> responseContacts = [];
-    for (var contact in contacts) {
-      try {
-        String responseBody = (await _getResponse(
-            json.encode(contact.toJson()), Urls.UPLOAD_CONTACTS,
-            headers: headers, getMethod: false))
-        .body;
-        //print(responseBody);
-        responseContacts.add(ContactModel.fromJson(json.decode(responseBody)));
-      } on ServerException {
-        continue;
+    List<Map<String, dynamic>> jsonData = List<Map<String, dynamic>>.from(
+        contacts.map((e) => e.toJson()).toList());
+    final requestBody = json.encode(jsonData);
+    final response = await client
+        .post(Urls.UPLOAD_CONTACTS, body: requestBody, headers: headers)
+        .timeout(Duration(minutes: 30));
+    print("REQUEST COMPLETE");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      List<ContactModel> results = [];
+      final jsonResult = json.decode(response.body);
+      for (var obj in jsonResult) {
+        results.add(ContactModel.fromJson(obj));
       }
+      return results;
+    } else if (response.statusCode ~/ 100 == 4) {
+      throw AuthenticationException();
+    } else if (response.statusCode ~/ 100 == 5) {
+      throw ServerException();
     }
-    return responseContacts;
   }
 }

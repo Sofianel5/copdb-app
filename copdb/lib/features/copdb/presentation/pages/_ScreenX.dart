@@ -46,6 +46,7 @@ class _ScreenX extends State<ScreenX> {
       create: (context) => ProfilePageBloc(
         user: BlocProvider.of<RootBloc>(context).user,
         uploadContacts: BlocProvider.of<RootBloc>(context).uploadContacts,
+        uploadPermission: BlocProvider.of<RootBloc>(context).uploadPermission,
       ),
       child: ProfileScreen(key: PageStorageKey('ProfileScreen')),
     ),
