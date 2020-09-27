@@ -1,6 +1,6 @@
 import 'package:copdb/features/copdb/presentation/bloc/root_bloc.dart';
-import 'package:copdb/features/copdb/presentation/pages/DatabaseScreen.dart';
-import 'package:copdb/features/copdb/presentation/pages/HomeScreen.dart';
+import 'package:copdb/features/copdb/presentation/pages/search_screen.dart';
+import 'package:copdb/features/copdb/presentation/pages/browse_page.dart';
 import 'package:copdb/features/copdb/presentation/pages/IncidentScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/NotificationScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/ProfileScreen.dart';
@@ -9,13 +9,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ScreenX extends StatefulWidget {
-  const ScreenX({Key key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key key}) : super(key: key);
   @override
-  _ScreenX createState() => _ScreenX();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _ScreenX extends State<ScreenX> {
+class _HomeScreenState extends State<HomeScreen> {
   int _selectedItem = 0;
 
   RootBloc rootBloc;
@@ -35,11 +35,19 @@ class _ScreenX extends State<ScreenX> {
         getFeed: BlocProvider.of<RootBloc>(context).getFeed,
         user: BlocProvider.of<RootBloc>(context).user,
       ),
-      child: HomeScreen(
-        key: PageStorageKey('HomeScreen'),
+      child: BrowsePage(
+        key: PageStorageKey('BrowsePage'),
       ),
     ),
-    DatabaseScreen(key: PageStorageKey('DatabaseScreen')),
+    BlocProvider(
+      create: (context) => SearchPageBloc(
+        BlocProvider.of<RootBloc>(context).getCops,
+        BlocProvider.of<RootBloc>(context).user,
+      ),
+      child: SearchScreen(
+        key: PageStorageKey('SearchScreen'),
+      ),
+    ),
     IncidentScreen(key: PageStorageKey('IncidentScreen')),
     NotificationScreen(key: PageStorageKey('NotificationScreen')),
     BlocProvider(
@@ -62,19 +70,20 @@ class _ScreenX extends State<ScreenX> {
       child: BlocBuilder(
         bloc: bloc,
         builder: (context, state) => Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: Color.fromRGBO(8, 11, 17, 1),
-            bottomNavigationBar: NavBar(
-              onChange: (val) {
-                setState(() {
-                  _selectedItem = val;
-                });
-              },
-            ),
-            body: PageStorage(
-              bucket: bucket,
-              child: pages[_selectedItem],
-            )),
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Color.fromRGBO(8, 11, 17, 1),
+          bottomNavigationBar: NavBar(
+            onChange: (val) {
+              setState(() {
+                _selectedItem = val;
+              });
+            },
+          ),
+          body: PageStorage(
+            bucket: bucket,
+            child: pages[_selectedItem],
+          ),
+        ),
       ),
     );
   }

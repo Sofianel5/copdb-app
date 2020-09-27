@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (4.9.1)
   - background_fetch (0.6.0):
     - Flutter
   - CocoaLumberjack (3.6.2):
@@ -17,9 +16,6 @@ PODS:
     - CocoaLumberjack (~> 3.6.0)
     - Flutter
   - flutter_tts (0.0.1):
-    - Flutter
-  - flutter_uploader (1.2.0):
-    - Alamofire (= 4.9.1)
     - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -55,7 +51,6 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_background_geolocation (from `.symlinks/plugins/flutter_background_geolocation/ios`)
   - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
-  - flutter_uploader (from `.symlinks/plugins/flutter_uploader/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - get_ip (from `.symlinks/plugins/get_ip/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
@@ -69,7 +64,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Alamofire
     - CocoaLumberjack
     - FMDB
     - Reachability
@@ -89,8 +83,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_background_geolocation/ios"
   flutter_tts:
     :path: ".symlinks/plugins/flutter_tts/ios"
-  flutter_uploader:
-    :path: ".symlinks/plugins/flutter_uploader/ios"
   geolocator:
     :path: ".symlinks/plugins/geolocator/ios"
   get_ip:
@@ -113,7 +105,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   background_fetch: 9221ccc02b41aff8a52b2090d9f791c5ed82eaee
   CocoaLumberjack: bd155f2dd06c0e0b03f876f7a3ee55693122ec94
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
@@ -122,7 +113,6 @@ SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_background_geolocation: 24e7a54403a9cabbcace22b8e4db152b747bb783
   flutter_tts: 0f492aab6accf87059b72354fcb4ba934304771d
-  flutter_uploader: 7957e1b9d6516b6cccc37e5ffd6c5a0975a7cc4c
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator: f7622e0e7e2a24718285b73916d60c4a54b9f5b6
   get_ip: c063133e0a399ae4089048c90d6a232cb2344846

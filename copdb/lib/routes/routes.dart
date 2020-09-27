@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route_annotations.dart';
-import 'package:copdb/features/copdb/presentation/pages/DatabaseScreen.dart';
+import 'package:copdb/features/copdb/presentation/pages/search_screen.dart';
 
 import 'package:copdb/features/copdb/presentation/pages/EntryScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/EventScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/FriendProfileScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/FriendScreen.dart';
-import 'package:copdb/features/copdb/presentation/pages/HomeScreen.dart';
+import 'package:copdb/features/copdb/presentation/pages/browse_page.dart';
 import 'package:copdb/features/copdb/presentation/pages/IncidentScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/NotificationScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/ProfileScreen.dart';
@@ -23,7 +23,7 @@ import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/EmailS
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/NameScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/PasswordScreen.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/UserScreen.dart';
-import 'package:copdb/features/copdb/presentation/pages/_ScreenX.dart';
+import 'package:copdb/features/copdb/presentation/pages/home_screen.dart';
 import 'package:copdb/features/copdb/presentation/pages/root.dart';
 
 @MaterialAutoRouter(routes: <AutoRoute>[
@@ -35,13 +35,13 @@ import 'package:copdb/features/copdb/presentation/pages/root.dart';
   MaterialRoute(page: NameScreen),
   MaterialRoute(page: PasswordScreen),
   MaterialRoute(page: UserScreen),
-  MaterialRoute(page: ScreenX),
+  MaterialRoute(page: HomeScreen),
   MaterialRoute(page: ReportDetailScreen),
   MaterialRoute(page: EventScreen),
   MaterialRoute(page: ProfileScreen),
-  MaterialRoute(page: HomeScreen),
+  MaterialRoute(page: BrowsePage),
   MaterialRoute(page: NotificationScreen),
-  MaterialRoute(page: DatabaseScreen),
+  MaterialRoute(page: SearchScreen),
   MaterialRoute(page: IncidentScreen),
   MaterialRoute(page: FriendProfileScreen),
   MaterialRoute(page: FriendScreen),

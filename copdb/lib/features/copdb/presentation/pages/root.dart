@@ -1,4 +1,4 @@
-import 'package:copdb/features/copdb/presentation/pages/_ScreenX.dart';
+import 'package:copdb/features/copdb/presentation/pages/home_screen.dart';
 import 'package:copdb/features/copdb/presentation/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +29,7 @@ class _RootPageState extends State<RootPage> {
           } else if (state is AuthenticatedState) {
             return BlocProvider(
               create: (context) => BlocProvider.of<RootBloc>(context).homeBloc,
-              child: ScreenX(),
+              child: HomeScreen(),
             );
           } else if (state is ErrorState) {
             return ErrorScreen(message: state.message);

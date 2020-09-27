@@ -12,12 +12,10 @@ import 'package:flutter/material.dart';
 import '../features/copdb/domain/entities/complaint.dart';
 import '../features/copdb/domain/entities/copdbevent.dart';
 import '../features/copdb/domain/entities/user.dart';
-import '../features/copdb/presentation/pages/DatabaseScreen.dart';
 import '../features/copdb/presentation/pages/EntryScreen.dart';
 import '../features/copdb/presentation/pages/EventScreen.dart';
 import '../features/copdb/presentation/pages/FriendProfileScreen.dart';
 import '../features/copdb/presentation/pages/FriendScreen.dart';
-import '../features/copdb/presentation/pages/HomeScreen.dart';
 import '../features/copdb/presentation/pages/IncidentScreen.dart';
 import '../features/copdb/presentation/pages/NotificationScreen.dart';
 import '../features/copdb/presentation/pages/ProfileScreen.dart';
@@ -35,8 +33,10 @@ import '../features/copdb/presentation/pages/SignUpScreenPages/EmailScreen.dart'
 import '../features/copdb/presentation/pages/SignUpScreenPages/NameScreen.dart';
 import '../features/copdb/presentation/pages/SignUpScreenPages/PasswordScreen.dart';
 import '../features/copdb/presentation/pages/SignUpScreenPages/UserScreen.dart';
-import '../features/copdb/presentation/pages/_ScreenX.dart';
+import '../features/copdb/presentation/pages/browse_page.dart';
+import '../features/copdb/presentation/pages/home_screen.dart';
 import '../features/copdb/presentation/pages/root.dart';
+import '../features/copdb/presentation/pages/search_screen.dart';
 import '../models/Event.dart';
 
 class Routes {
@@ -48,13 +48,13 @@ class Routes {
   static const String nameScreen = '/name-screen';
   static const String passwordScreen = '/password-screen';
   static const String userScreen = '/user-screen';
-  static const String screenX = '/screen-x';
+  static const String homeScreen = '/home-screen';
   static const String reportDetailScreen = '/report-detail-screen';
   static const String eventScreen = '/event-screen';
   static const String profileScreen = '/profile-screen';
-  static const String homeScreen = '/home-screen';
+  static const String browsePage = '/browse-page';
   static const String notificationScreen = '/notification-screen';
-  static const String databaseScreen = '/database-screen';
+  static const String searchScreen = '/search-screen';
   static const String incidentScreen = '/incident-screen';
   static const String friendProfileScreen = '/friend-profile-screen';
   static const String friendScreen = '/friend-screen';
@@ -74,13 +74,13 @@ class Routes {
     nameScreen,
     passwordScreen,
     userScreen,
-    screenX,
+    homeScreen,
     reportDetailScreen,
     eventScreen,
     profileScreen,
-    homeScreen,
+    browsePage,
     notificationScreen,
-    databaseScreen,
+    searchScreen,
     incidentScreen,
     friendProfileScreen,
     friendScreen,
@@ -106,13 +106,13 @@ class Router extends RouterBase {
     RouteDef(Routes.nameScreen, page: NameScreen),
     RouteDef(Routes.passwordScreen, page: PasswordScreen),
     RouteDef(Routes.userScreen, page: UserScreen),
-    RouteDef(Routes.screenX, page: ScreenX),
+    RouteDef(Routes.homeScreen, page: HomeScreen),
     RouteDef(Routes.reportDetailScreen, page: ReportDetailScreen),
     RouteDef(Routes.eventScreen, page: EventScreen),
     RouteDef(Routes.profileScreen, page: ProfileScreen),
-    RouteDef(Routes.homeScreen, page: HomeScreen),
+    RouteDef(Routes.browsePage, page: BrowsePage),
     RouteDef(Routes.notificationScreen, page: NotificationScreen),
-    RouteDef(Routes.databaseScreen, page: DatabaseScreen),
+    RouteDef(Routes.searchScreen, page: SearchScreen),
     RouteDef(Routes.incidentScreen, page: IncidentScreen),
     RouteDef(Routes.friendProfileScreen, page: FriendProfileScreen),
     RouteDef(Routes.friendScreen, page: FriendScreen),
@@ -178,9 +178,9 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    ScreenX: (data) {
+    HomeScreen: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const ScreenX(),
+        builder: (context) => const HomeScreen(),
         settings: data,
       );
     },
@@ -215,9 +215,9 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    HomeScreen: (data) {
+    BrowsePage: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const HomeScreen(),
+        builder: (context) => const BrowsePage(),
         settings: data,
       );
     },
@@ -227,12 +227,12 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    DatabaseScreen: (data) {
-      final args = data.getArgs<DatabaseScreenArguments>(
-        orElse: () => DatabaseScreenArguments(),
+    SearchScreen: (data) {
+      final args = data.getArgs<SearchScreenArguments>(
+        orElse: () => SearchScreenArguments(),
       );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => DatabaseScreen(key: args.key),
+        builder: (context) => SearchScreen(key: args.key),
         settings: data,
       );
     },
@@ -330,10 +330,10 @@ class EventScreenArguments {
   EventScreenArguments({this.event, this.copDBEvent, this.index});
 }
 
-/// DatabaseScreen arguments holder class
-class DatabaseScreenArguments {
+/// SearchScreen arguments holder class
+class SearchScreenArguments {
   final Key key;
-  DatabaseScreenArguments({this.key});
+  SearchScreenArguments({this.key});
 }
 
 /// FriendProfileScreen arguments holder class

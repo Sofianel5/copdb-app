@@ -8,13 +8,13 @@ import 'package:copdb/features/copdb/presentation/widgets/errors/CouldNotFetchEv
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+class BrowsePage extends StatefulWidget {
+  const BrowsePage({Key key}) : super(key: key);
   @override
-  _HomeScreen createState() => _HomeScreen();
+  _BrowsePageState createState() => _BrowsePageState();
 }
 
-class _HomeScreen extends State<HomeScreen> {
+class _BrowsePageState extends State<BrowsePage> {
   RootBloc rootBloc;
   LandingPageBloc bloc;
   final _key = GlobalKey<ScaffoldState>();
@@ -46,9 +46,9 @@ class _HomeScreen extends State<HomeScreen> {
       listener: (context, state) {},
       child: BlocBuilder(
         bloc: bloc,
-        builder: (context, state) => Scaffold(
-          backgroundColor: Color.fromRGBO(8, 11, 17, 1),
-          body: Column(
+        builder: (context, state) => Container(
+          color: Color.fromRGBO(8, 11, 17, 1),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(

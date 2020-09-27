@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatefulWidget
 {
   String text;
-  SearchBar({this.text});
+  Function onSearch;
+  FocusNode focusNode;
+  SearchBar({this.text, this.onSearch, this.focusNode});
   @override 
   _SearchBar createState() => _SearchBar();
 }
@@ -31,6 +33,8 @@ class _SearchBar extends State<SearchBar>
               Container(
                 width: 220,
                 child: TextField(
+                  focusNode: widget.focusNode,
+                  onSubmitted: (value) => widget.onSearch(value),
                   style: TextStyle(color: Colors.white,),
                   decoration: InputDecoration(
                     border: InputBorder.none,

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:copdb/features/copdb/presentation/bloc/root_bloc.dart';
-import 'package:copdb/features/copdb/presentation/pages/HomeScreen.dart';
 import 'package:copdb/features/copdb/presentation/animations/FadeAnimation.dart';
 import 'package:copdb/features/copdb/presentation/widgets/Bottom.dart';
 import 'package:copdb/features/copdb/presentation/widgets/top.dart';

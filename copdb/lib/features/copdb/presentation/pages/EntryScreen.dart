@@ -2,7 +2,7 @@ import 'package:copdb/core/localizations/localizations.dart';
 import 'package:copdb/features/copdb/presentation/animations/FadeAnimation.dart';
 import 'package:copdb/features/copdb/presentation/bloc/root_bloc.dart';
 import 'package:copdb/features/copdb/presentation/pages/SignUpScreenPages/UserScreen.dart';
-import 'package:copdb/features/copdb/presentation/pages/_ScreenX.dart';
+import 'package:copdb/features/copdb/presentation/pages/home_screen.dart';
 import 'package:copdb/features/copdb/presentation/widgets/Bottom.dart';
 import 'package:copdb/features/copdb/presentation/widgets/top.dart';
 import 'package:flutter/material.dart';

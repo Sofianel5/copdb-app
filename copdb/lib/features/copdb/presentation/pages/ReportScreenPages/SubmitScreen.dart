@@ -1,5 +1,5 @@
 import 'package:copdb/features/copdb/presentation/animations/FadeAnimation.dart';
-import 'package:copdb/features/copdb/presentation/pages/_ScreenX.dart';
+import 'package:copdb/features/copdb/presentation/pages/home_screen.dart';
 import 'package:copdb/features/copdb/presentation/widgets/Bottom.dart';
 import 'package:copdb/features/copdb/presentation/widgets/top.dart';
 import 'package:flutter/cupertino.dart';
@@ -76,7 +76,7 @@ class _SubmitScreen extends State<SubmitScreen>
                   {
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) =>
-                      ScreenX()), 
+                      HomeScreen()), 
                       (Route<dynamic> route) => false
                     );
                   },
@@ -119,7 +119,7 @@ class _SubmitScreen extends State<SubmitScreen>
                   {
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) =>
-                      ScreenX()), 
+                      HomeScreen()), 
                       (Route<dynamic> route) => false
                     );
                   },
