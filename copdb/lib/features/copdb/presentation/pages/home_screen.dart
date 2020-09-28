@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocBuilder(
         bloc: bloc,
         builder: (context, state) => Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           backgroundColor: Color.fromRGBO(8, 11, 17, 1),
           bottomNavigationBar: NavBar(
             onChange: (val) {

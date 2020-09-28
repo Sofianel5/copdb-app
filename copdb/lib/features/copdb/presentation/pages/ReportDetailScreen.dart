@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class ReportDetailScreen extends StatefulWidget 
 {
-  CopDBComplaint report;
+  var report;
   int index;
   ReportDetailScreen({this.report, this.index});
   @override
@@ -14,7 +14,7 @@ class ReportDetailScreen extends StatefulWidget
 
 class _ReportDetailScreen extends State<ReportDetailScreen>
 {
-  CopDBComplaint _report;
+  var _report;
   int _index;
   bool showImage = true;
   int _age;
@@ -42,6 +42,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
       body: Hero(
         tag: '$_index',
         child: Container(
+          padding: EdgeInsets.only(top: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -146,7 +147,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16, top: 4),
                       child: Text(
-                        _report.description * 5, 
+                        'lorem iptsum' * 5, 
                         style: TextStyle(
                           fontSize: 16, color: Colors.white,
                         ),
@@ -163,7 +164,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16, top: 4),
                       child: Text(
-                        _report.description * 5, 
+                        'lorem iptsum' * 5, 
                         style: TextStyle(
                           fontSize: 16, color: Colors.white,
                         ),
@@ -180,7 +181,7 @@ class _ReportDetailScreen extends State<ReportDetailScreen>
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(bottom: 16, top: 4),
                       child: Text(
-                        _report.description * 5, 
+                        'lorem iptsum' * 5,  
                         style: TextStyle(
                           fontSize: 16, color: Colors.white,
                         ),

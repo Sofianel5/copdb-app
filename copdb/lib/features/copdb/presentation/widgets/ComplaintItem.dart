@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:copdb/features/copdb/data/models/complaint_model.dart';
 import 'package:copdb/features/copdb/domain/entities/complaint.dart';
+import 'package:copdb/features/copdb/domain/entities/cop.dart';
+import 'package:copdb/features/copdb/presentation/pages/ReportDetailScreen.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintItem extends StatefulWidget
 {
-  Complaint complaint;
+  ComplaintModel complaint;
   int index;
   ComplaintItem({this.complaint, this.index});
   @override 
@@ -14,7 +17,7 @@ class ComplaintItem extends StatefulWidget
 
 class _ComplaintItem extends State<ComplaintItem>
 {
-  Complaint _complaint;
+  ComplaintModel _complaint;
   DateFormat format = DateFormat.yMMMd();
   int _index;
   bool showImage = true;
@@ -55,14 +58,19 @@ class _ComplaintItem extends State<ComplaintItem>
 
     return GestureDetector(
       onTap: () {
-        /* Navigator.push(
-
-        ); */
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => ReportDetailScreen(
+            report: _complaint,
+            )
+          ),
+        );
       },
       child: Hero(
         flightShuttleBuilder: _flightShuttleBuilder,
         tag: '$_index',
         child: Container(
+          alignment: Alignment.center,
           padding: EdgeInsets.only(top: 20, bottom: 20, left: 30, right: 30),
           decoration: BoxDecoration(
             color: Color.fromRGBO(8, 11, 17, 1),
@@ -168,7 +176,7 @@ class _ComplaintItem extends State<ComplaintItem>
                   )
                 ],
               ),
-              Text(_complaint.description ?? ""),
+              /* Text(_complaint.description ?? ""), */
             ],
           ),
         ),

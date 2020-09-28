@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:copdb/core/localizations/localizations.dart';
+import 'package:copdb/features/copdb/domain/entities/address.dart';
 import 'package:copdb/features/copdb/domain/entities/complaint.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
+import 'package:copdb/features/copdb/domain/entities/precinct.dart';
 import 'package:copdb/features/copdb/presentation/bloc/root_bloc.dart';
 import 'package:copdb/features/copdb/presentation/widgets/SearchBar.dart';
 import 'package:copdb/features/copdb/presentation/widgets/errors/CouldNotFetchEvents.dart';
@@ -12,6 +15,7 @@ import 'package:intl/intl.dart';
 class SearchScreen extends StatefulWidget {
   SearchScreen({
     Key key,
+
   }) : super(key: key);
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -47,37 +51,85 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  List<CopDBComplaint> reportList = [
-    CopDBComplaint(
-      cop: Cop(
-        firstName: 'Firstname',
-        lastName: 'Lastname',
+  List<Cop> reportList = [
+    Cop(
+      firstName: 'firstname',
+      lastName: 'lastname',
+      sex: 'sex',
+      ethnicity: 'ethnicity',
+      age: 0,
+      badgeNumber: 'badgenumber',
+      precinct: Precinct(
+        name: 'precinct name',
+        image: '',
+        address: Address(
+          address_1: 'addy 1',
+          address_2: 'addy 2',
+          city: 'city',
+          state: 'state',
+        ),
       ),
-      dateRecieved: DateTime(2020, 0, 0),
+      image: '',
       description: 'lorem iptsum ido mina foli isa moream',
     ),
-    CopDBComplaint(
-      cop: Cop(
-        firstName: 'Firstname',
-        lastName: 'Lastname',
+    Cop(
+      firstName: 'firstname',
+      lastName: 'lastname',
+      sex: 'sex',
+      ethnicity: 'ethnicity',
+      age: 0,
+      badgeNumber: 'badgenumber',
+      precinct: Precinct(
+        name: 'precinct name',
+        image: '',
+        address: Address(
+          address_1: 'addy 1',
+          address_2: 'addy 2',
+          city: 'city',
+          state: 'state',
+        ),
       ),
-      dateRecieved: DateTime(2020, 0, 0),
+      image: '',
       description: 'lorem iptsum ido mina foli isa moream',
     ),
-    CopDBComplaint(
-      cop: Cop(
-        firstName: 'Firstname',
-        lastName: 'Lastname',
+    Cop(
+      firstName: 'firstname',
+      lastName: 'lastname',
+      sex: 'sex',
+      ethnicity: 'ethnicity',
+      age: 0,
+      badgeNumber: 'badgenumber',
+      precinct: Precinct(
+        name: 'precinct name',
+        image: '',
+        address: Address(
+          address_1: 'addy 1',
+          address_2: 'addy 2',
+          city: 'city',
+          state: 'state',
+        ),
       ),
-      dateRecieved: DateTime(2020, 0, 0),
+      image: '',
       description: 'lorem iptsum ido mina foli isa moream',
     ),
-    CopDBComplaint(
-      cop: Cop(
-        firstName: 'Firstname',
-        lastName: 'Lastname',
+    Cop(
+      firstName: 'firstname',
+      lastName: 'lastname',
+      sex: 'sex',
+      ethnicity: 'ethnicity',
+      age: 0,
+      badgeNumber: 'badgenumber',
+      precinct: Precinct(
+        name: 'precinct name',
+        image: '',
+        address: Address(
+          address_1: 'addy 1',
+          address_2: 'addy 2',
+          city: 'city',
+          state: 'state',
+        ),
       ),
-      dateRecieved: DateTime(2020, 0, 0),
+      image: '',
       description: 'lorem iptsum ido mina foli isa moream',
     ),
   ];
@@ -94,10 +146,11 @@ class _SearchScreenState extends State<SearchScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ReportDetailScreen(
-                          report: reportList[index],
-                          index: index,
-                        )),
+                  builder: (context) => ReportDetailScreen(
+                    report: CopDBComplaint(cop: reportList[index]),
+                    index: index,
+                  ),
+                ),
               );
             },
             child: Hero(
@@ -107,7 +160,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.only(left: 30, right: 30),
                 /* width: 90, */
-                height: 160,
+                height: 175,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(8, 11, 17, 1),
                   boxShadow: [
@@ -129,68 +182,115 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Row(
                   children: [
                     Container(
+                      width: 85,
                       margin: EdgeInsets.only(right: 16),
                       alignment: Alignment.centerLeft,
-                      /* alignment: Alignment.centerLeft, */
-                      child: Icon(Icons.record_voice_over, size: 38),
+                      child: Container(
+                        width: 75,
+                        height: 75,
+                        child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: reportList[index].image,
+                          errorWidget: (context, url, error) => Icon(Icons.error),
+                          imageBuilder: (context, imageProvider) => Container(
+                            width: 75.0,
+                            height: 75.0,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xFF54C6EB).withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 0),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                              image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover),
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF54C6EB).withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 7,
+                              offset: Offset(0, 0), // changes position of shadow
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                        ),
+                        alignment: Alignment.center,
+                      ),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /* Container(
-                        child: Icon(reportList[index].icon, size: 38),
-                      ), */
                         Container(
-                          margin: EdgeInsets.only(bottom: 4),
+                          height: 25,
                           child: Text(
-                            format.format(reportList[index].dateRecieved) ?? "",
-                            style:
-                                TextStyle(fontSize: 14, color: Colors.white70),
+                            reportList[index].firstName +
+                            " " +
+                            reportList[index].lastName,
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                          )
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 8),
+                          child: Text(
+                            reportList[index].badgeNumber ?? 'badgenumber',
+                            style: TextStyle(
+                              fontSize: 19,
+                              color: Colors.white70,
+                            ),
                           ),
                         ),
                         Container(
-                            height: 25,
-                            child: Text(
-                              reportList[index].cop.firstName +
-                                  " " +
-                                  reportList[index].cop.firstName,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                        Container(
-                            /* alignment: Alignment.centerLeft, */
-                            margin: EdgeInsets.only(bottom: 6),
-                            height: 20,
-                            child: Text(
-                              'address',
-                              style: TextStyle(
-                                  fontSize: 14, color: Colors.white70),
-                            )),
-                        Container(
+                          /* alignment: Alignment.centerLeft, */
+                          margin: EdgeInsets.only(bottom: 2),
                           child: Text(
-                            reportList[index].abuseType ?? 'abuse',
+                            'sex: ' + reportList[index].sex,
+                            style: TextStyle(
+                                fontSize: 16,
+                              )
+                          ),
+                        ),
+                        Container(
+                          /* alignment: Alignment.centerLeft, */
+                          margin: EdgeInsets.only(bottom: 2),
+                          child: Text(
+                            'age: ' + reportList[index].age.toString(),
+                            style: TextStyle(
+                                fontSize: 16,
+                              )
+                          ),
+                        ),
+                        Container(
+                          /* alignment: Alignment.centerLeft, */
+                          margin: EdgeInsets.only(bottom: 2),
+                          child: Text(
+                            'ethnicity: ' + reportList[index].ethnicity,
+                            style: TextStyle(
+                                fontSize: 16,
+                              )
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 2),
+                          child: Text(
+                            reportList[index].precinct.name ?? 'precinct',
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                         ),
-                        Container(
-                          child: Text(
-                            reportList[index].allegation ?? 'allegation',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                        Container(
-                            /* width: 130, */
-                            child: Text(
-                          reportList[index].description,
-                          style: TextStyle(fontSize: 14, color: Colors.white70),
-                        )),
                       ],
                     ),
                   ],
@@ -281,11 +381,35 @@ class _SearchScreenState extends State<SearchScreen> {
                       text: "Enter cop name or badge number.",
                     ),
                   ),
+                  false ? Expanded(
+                    child: Container(
+                      width: 350,
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(child: Icon(Icons.search, size: 100,)),
+                          Container(width: 10,),
+                          Text(
+                            'Search for a\ncop name \nor badge #',
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                  : 
                   Expanded(
-                      child: state is NoResultsState
-                          ? CouldNotFetch(text: 'Could not find cop')
-                          : _getReports()),
-                ]),
+                    child: state is NoResultsState
+                      ? CouldNotFetch(text: 'Could not find cop')
+                        // CouldNotFetch(text: 'FailedSearch')
+                      : _getReports()
+                  ),
+                ]
+              ),
           ),
         ),
       ),
