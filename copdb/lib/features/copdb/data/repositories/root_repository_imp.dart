@@ -326,7 +326,9 @@ class RootRepositoryImpl implements RootRepository {
       } on CacheException {
         // No stored auth token
         return Left(AuthenticationFailure(message: Messages.NO_USER));
-      } catch (e) {
+      } catch (e, stackTrace) {
+        print(e);
+        print(stackTrace);
         return Left(UnknownFailure());
       }
     } else {

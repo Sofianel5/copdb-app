@@ -15,7 +15,6 @@ import 'package:intl/intl.dart';
 class SearchScreen extends StatefulWidget {
   SearchScreen({
     Key key,
-
   }) : super(key: key);
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -51,95 +50,12 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  List<Cop> reportList = [
-    Cop(
-      firstName: 'firstname',
-      lastName: 'lastname',
-      sex: 'sex',
-      ethnicity: 'ethnicity',
-      age: 0,
-      badgeNumber: 'badgenumber',
-      precinct: Precinct(
-        name: 'precinct name',
-        image: '',
-        address: Address(
-          address_1: 'addy 1',
-          address_2: 'addy 2',
-          city: 'city',
-          state: 'state',
-        ),
-      ),
-      image: '',
-      description: 'lorem iptsum ido mina foli isa moream',
-    ),
-    Cop(
-      firstName: 'firstname',
-      lastName: 'lastname',
-      sex: 'sex',
-      ethnicity: 'ethnicity',
-      age: 0,
-      badgeNumber: 'badgenumber',
-      precinct: Precinct(
-        name: 'precinct name',
-        image: '',
-        address: Address(
-          address_1: 'addy 1',
-          address_2: 'addy 2',
-          city: 'city',
-          state: 'state',
-        ),
-      ),
-      image: '',
-      description: 'lorem iptsum ido mina foli isa moream',
-    ),
-    Cop(
-      firstName: 'firstname',
-      lastName: 'lastname',
-      sex: 'sex',
-      ethnicity: 'ethnicity',
-      age: 0,
-      badgeNumber: 'badgenumber',
-      precinct: Precinct(
-        name: 'precinct name',
-        image: '',
-        address: Address(
-          address_1: 'addy 1',
-          address_2: 'addy 2',
-          city: 'city',
-          state: 'state',
-        ),
-      ),
-      image: '',
-      description: 'lorem iptsum ido mina foli isa moream',
-    ),
-    Cop(
-      firstName: 'firstname',
-      lastName: 'lastname',
-      sex: 'sex',
-      ethnicity: 'ethnicity',
-      age: 0,
-      badgeNumber: 'badgenumber',
-      precinct: Precinct(
-        name: 'precinct name',
-        image: '',
-        address: Address(
-          address_1: 'addy 1',
-          address_2: 'addy 2',
-          city: 'city',
-          state: 'state',
-        ),
-      ),
-      image: '',
-      description: 'lorem iptsum ido mina foli isa moream',
-    ),
-  ];
-
-  ListView _getReports() {
+  ListView _getReports(SearchFinishedState state) {
     return ListView.builder(
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.only(top: 0),
         physics: BouncingScrollPhysics(),
-        itemCount: reportList.length,
+        itemCount: state.cops.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
@@ -147,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ReportDetailScreen(
-                    report: CopDBComplaint(cop: reportList[index]),
+                    report: CopDBComplaint(cop: state.cops[index]),
                     index: index,
                   ),
                 ),
@@ -190,8 +106,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         height: 75,
                         child: CachedNetworkImage(
                           fit: BoxFit.cover,
-                          imageUrl: reportList[index].image,
-                          errorWidget: (context, url, error) => Icon(Icons.error),
+                          imageUrl: state.cops[index].getImage(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                           imageBuilder: (context, imageProvider) => Container(
                             width: 75.0,
                             height: 75.0,
@@ -205,9 +122,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ),
                               ],
                               borderRadius: BorderRadius.circular(100),
-                              border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                              border: Border.all(
+                                  color: Color(0xFF54C6EB), width: 1.5),
                               image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.cover),
+                                  image: imageProvider, fit: BoxFit.cover),
                             ),
                           ),
                         ),
@@ -217,11 +135,13 @@ class _SearchScreenState extends State<SearchScreen> {
                               color: Color(0xFF54C6EB).withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 7,
-                              offset: Offset(0, 0), // changes position of shadow
+                              offset:
+                                  Offset(0, 0), // changes position of shadow
                             ),
                           ],
                           borderRadius: BorderRadius.circular(100),
-                          border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                          border:
+                              Border.all(color: Color(0xFF54C6EB), width: 1.5),
                         ),
                         alignment: Alignment.center,
                       ),
@@ -231,21 +151,20 @@ class _SearchScreenState extends State<SearchScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 25,
-                          child: Text(
-                            reportList[index].firstName +
-                            " " +
-                            reportList[index].lastName,
-                            style: TextStyle(
-                              fontSize: 24,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                          )
-                        ),
+                            height: 25,
+                            child: Text(
+                              state.cops[index].firstName +
+                                  " " +
+                                  state.cops[index].lastName,
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            )),
                         Container(
                           margin: EdgeInsets.only(bottom: 8),
                           child: Text(
-                            reportList[index].badgeNumber ?? 'badgenumber',
+                            state.cops[index].badgeNumber ?? 'badgenumber',
                             style: TextStyle(
                               fontSize: 19,
                               color: Colors.white70,
@@ -255,37 +174,33 @@ class _SearchScreenState extends State<SearchScreen> {
                         Container(
                           /* alignment: Alignment.centerLeft, */
                           margin: EdgeInsets.only(bottom: 2),
-                          child: Text(
-                            'sex: ' + reportList[index].sex,
-                            style: TextStyle(
+                          child: Text('Sex: ' + state.cops[index].sex,
+                              style: TextStyle(
                                 fontSize: 16,
-                              )
-                          ),
+                              )),
                         ),
                         Container(
                           /* alignment: Alignment.centerLeft, */
                           margin: EdgeInsets.only(bottom: 2),
-                          child: Text(
-                            'age: ' + reportList[index].age.toString(),
-                            style: TextStyle(
-                                fontSize: 16,
-                              )
-                          ),
+                          child:
+                              Text('Age: ' + (state.cops[index].age?.toString() ?? "Unknown"),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  )),
                         ),
                         Container(
                           /* alignment: Alignment.centerLeft, */
                           margin: EdgeInsets.only(bottom: 2),
-                          child: Text(
-                            'ethnicity: ' + reportList[index].ethnicity,
-                            style: TextStyle(
-                                fontSize: 16,
-                              )
-                          ),
+                          child:
+                              Text('Ethnicity: ' + (state.cops[index].ethnicity ?? "Unknown"),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  )),
                         ),
                         Container(
                           margin: EdgeInsets.only(bottom: 2),
                           child: Text(
-                            reportList[index].precinct.name ?? 'precinct',
+                            state.cops[index].precinct.name ?? 'Unknown precinct',
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -378,38 +293,42 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: SearchBar(
                       focusNode: searchFocus,
                       onSearch: (q) => bloc.add(SearchSubmitted(q)),
-                      text: "Enter cop name or badge number.",
+                      text: "Search name or badge number.",
                     ),
                   ),
-                  false ? Expanded(
-                    child: Container(
-                      width: 350,
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(child: Icon(Icons.search, size: 100,)),
-                          Container(width: 10,),
-                          Text(
-                            'Search for a\ncop name \nor badge #',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
+                  state is InitialSearchState
+                      ? Expanded(
+                          child: Container(
+                            width: 350,
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                    child: Icon(
+                                  Icons.search,
+                                  size: 100,
+                                )),
+                                Container(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Search for a\ncop name \nor badge #',
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  )
-                  : 
-                  Expanded(
-                    child: state is NoResultsState
-                      ? CouldNotFetch(text: 'Could not find cop')
-                        // CouldNotFetch(text: 'FailedSearch')
-                      : _getReports()
-                  ),
-                ]
-              ),
+                        )
+                      : Expanded(
+                          child: state is NoResultsState
+                              ? CouldNotFetch(text: 'Could not find cop')
+                              // CouldNotFetch(text: 'FailedSearch')
+                              : _getReports(state)),
+                ]),
           ),
         ),
       ),

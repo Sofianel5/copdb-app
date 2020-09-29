@@ -27,4 +27,10 @@ class Cop extends Equatable {
   });
   @override
   List<Object> get props => [firstName, lastName, badgeNumber];
+  String getImage() {
+    if (this.image != null) return this.image;
+    else if (this.precinct.image != null) return this.precinct.image;
+    else if (this.precinct.policeDepartment.image != null) return this.precinct.policeDepartment.image;
+    return null;
+  }
 }

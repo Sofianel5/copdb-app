@@ -16,12 +16,14 @@ class SearchPageBloc extends Bloc<SearchPageEvent, SearchState> {
 
   @override
   Stream<SearchState> mapEventToState(SearchPageEvent event) async* {
+    print(event);
     if (event is SearchCancelled) {
       yield InitialSearchState(user);
     } else if (event is SearchSubmitted) {
       searchQ = event.query;
       yield SearchLoadingState(user);
       final result = await search(GetCopsParams(query: event.query));
+      print(result);
       yield* result.fold((failure) async* {
         yield SearchFailedState(user, message: failure.message);
       }, (cops) async* {
