@@ -12,10 +12,11 @@ class SearchBar extends StatefulWidget {
 class _SearchBar extends State<SearchBar> {
   Widget build(BuildContext context) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
+            alignment: Alignment.center,
             height: 40,
             width: MediaQuery.of(context).size.width*0.65,
             decoration: BoxDecoration(
@@ -25,11 +26,10 @@ class _SearchBar extends State<SearchBar> {
               ),
               color: Colors.transparent,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+            child: 
                 Container(
-                  width: MediaQuery.of(context).size.width*0.65,
+                  width: MediaQuery.of(context).size.width*0.55,
+                  height: 40,
                   child: TextField(
                     focusNode: widget.focusNode,
                     onSubmitted: (value) => widget.onSearch(value),
@@ -44,25 +44,25 @@ class _SearchBar extends State<SearchBar> {
                     ),
                   ),
                 ),
-              ],
+       
+            
+          ),
+          Expanded(
+            child: Container(),
+          ),
+          Container(
+            alignment: Alignment.center,
+            width: 70,
+            height: 34,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Color(0xFF54C6EB),
+            ),
+            child: Text(
+              'Search',
+              style: TextStyle(color: Colors.white, fontSize: 12),
             ),
           ),
-          Container(width: 10),
-          Expanded(
-            child: Container(
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width*0.27,
-              height: 34,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Color(0xFF54C6EB),
-              ),
-              child: Text(
-                'Search',
-                style: TextStyle(color: Colors.white, fontSize: 12),
-              ),
-            ),
-          )
         ]);
   }
 }
