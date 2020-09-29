@@ -40,7 +40,7 @@ class _SearchBar extends State<SearchBar> {
                       icon: Icon(Icons.search, color: Colors.white,),
                       border: InputBorder.none,
                       hintText: widget.text,
-                      hintStyle: TextStyle(color: Colors.white),
+                      hintStyle: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                 ),
@@ -58,7 +58,7 @@ class _SearchBar extends State<SearchBar> {
               ),
               child: Text(
                 'Search',
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(color: Colors.white, fontSize: 12),
               ),
             ),
           )
