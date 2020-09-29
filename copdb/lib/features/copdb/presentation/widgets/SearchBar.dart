@@ -17,7 +17,7 @@ class _SearchBar extends State<SearchBar> {
         children: [
           Container(
             height: 40,
-            width: MediaQuery.of(context).size.width*0.65,
+            width: MediaQuery.of(context).size.width*0.6,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
               border: Border.all(
@@ -50,7 +50,7 @@ class _SearchBar extends State<SearchBar> {
           Expanded(
             child: Container(
               alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width*0.25,
+              width: MediaQuery.of(context).size.width*0.32,
               height: 34,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
