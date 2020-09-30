@@ -141,7 +141,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                       alignment: Alignment.center,
                       height: 45,
                       child: Text(
-                        "Profile |",
+                        "Profile",
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),

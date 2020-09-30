@@ -48,7 +48,7 @@ class _NotificationScreen extends State<NotificationScreen>
               Container(
                 alignment: Alignment.center,
                 height: 45,
-                child: Text("Notifications |", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                child: Text("Notifications", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
               ),
               Expanded(child: Container(),),
             ],
