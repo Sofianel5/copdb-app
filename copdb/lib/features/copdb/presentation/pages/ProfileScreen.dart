@@ -217,10 +217,10 @@ class _ProfileScreen extends State<ProfileScreen> {
                 height: 30,
               ),
               //scrollview
-              SingleChildScrollView(
+              /* SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [
+                child:  *//* Column(
+                  children: [ */
                     Container(
                       width: 300,
                       height: 1,
@@ -340,19 +340,21 @@ class _ProfileScreen extends State<ProfileScreen> {
                     Container(
                       height: 10,
                     ),
-                    Container(
+                    Expanded(
+                      child: Container(
                       alignment: Alignment.center,
-                      height: 200,
+                      /* height: 500, */
                       width: 300,
                       child: false
                         ? CouldNotFetch(text: 'could not load')
                         : _getContacts()
                     ),
-                  ],
+                  ),
+                ],
               )
-              ),
-            ],
-          ),
+              /* ), */
+            /* ],
+          ), */
         ),    
       ),
     );
