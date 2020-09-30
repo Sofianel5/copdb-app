@@ -59,6 +59,7 @@ class _SearchBar extends State<SearchBar> {
 ,              ],
             ),
           ),
+          Container(width: 10),
           Expanded(
             child: Container(),
           ),

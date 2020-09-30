@@ -342,7 +342,6 @@ class _ProfileScreen extends State<ProfileScreen> {
                     ),
                     Container(
                       alignment: Alignment.center,
-                      height: 200,
                       width: 300,
                       child: false
                         ? CouldNotFetch(text: 'could not load')
