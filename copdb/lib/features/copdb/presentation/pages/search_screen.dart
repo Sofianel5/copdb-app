@@ -3,6 +3,7 @@ import 'package:copdb/core/localizations/localizations.dart';
 import 'package:copdb/features/copdb/domain/entities/complaint.dart';
 import 'package:copdb/features/copdb/presentation/bloc/root_bloc.dart';
 import 'package:copdb/features/copdb/presentation/widgets/SearchBar.dart';
+import 'package:copdb/features/copdb/presentation/widgets/cop_preview.dart';
 import 'package:copdb/features/copdb/presentation/widgets/errors/CouldNotFetchEvents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,175 +52,18 @@ class _SearchScreenState extends State<SearchScreen> {
 
   ListView _getReports(SearchFinishedState state) {
     return ListView.builder(
-        scrollDirection: Axis.vertical,
-        padding: EdgeInsets.only(top: 0),
-        physics: BouncingScrollPhysics(),
-        itemCount: state.cops.length,
-        itemBuilder: (BuildContext context, int index) {
-          print(state.cops[index].precinct?.policeDepartment?.image);
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ReportDetailScreen(
-                    report: CopDBComplaint(cop: state.cops[index]),
-                    index: index,
-                  ),
-                ),
-              );
-            },
-            child: Hero(
-              flightShuttleBuilder: _flightShuttleBuilder,
-              tag: '$index',
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(left: 30, right: 30),
-                /* width: 90, */
-                height: 175,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(8, 11, 17, 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xFF54C6EB).withOpacity(0.5),
-                      spreadRadius: .5,
-                      blurRadius: 7,
-                      offset: Offset(0, 0), // changes position of shadow
-                    ),
-                  ],
-                  border: Border(
-                    left: BorderSide.none,
-                    right: BorderSide.none,
-                    top: BorderSide(
-                        color: Color(0xFF54C6EB).withOpacity(0.6), width: .5),
-                    /*  bottom: BorderSide(color: Colors.white) */
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 85,
-                      margin: EdgeInsets.only(right: 16),
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        width: 75,
-                        height: 75,
-                        child: state.cops[index].hasImage() ? CachedNetworkImage(
-                          fit: BoxFit.contain,
-                          imageUrl: state.cops[index].getImage(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                          imageBuilder: (context, imageProvider) => Container(
-                            width: 75.0,
-                            height: 75.0,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xFF54C6EB).withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 0),
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(100),
-                              border: Border.all(
-                                  color: Color(0xFF54C6EB), width: 1.5),
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.cover),
-                            ),
-                          ),
-                        ) : Icon(Icons.local_police),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFF54C6EB).withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 7,
-                              offset:
-                                  Offset(0, 0), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(100),
-                          border:
-                              Border.all(color: Color(0xFF54C6EB), width: 1.5),
-                        ),
-                        alignment: Alignment.center,
-                      ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            height: 25,
-                            child: Text(
-                              state.cops[index].firstName +
-                                  " " +
-                                  state.cops[index].lastName,
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                        if (state.cops[index].badgeNumber != null)
-                          Container(
-                            margin: EdgeInsets.only(bottom: 8),
-                            child: Text(
-                              "Badge Number: " + state.cops[index].badgeNumber.toString(),
-                              style: TextStyle(
-                                fontSize: 19,
-                                color: Colors.white70,
-                              ),
-                            ),
-                          ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 2),
-                          child: Text(                 
-                            state.cops[index]?.precinct?.name ??
-                                'Unknown precinct',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          /* alignment: Alignment.centerLeft, */
-                          margin: EdgeInsets.only(bottom: 2),
-                          child: Text('Sex: ' + state.cops[index].sex,
-                              style: TextStyle(
-                                fontSize: 16,
-                              )),
-                        ),
-                        Container(
-                          /* alignment: Alignment.centerLeft, */
-                          margin: EdgeInsets.only(bottom: 2),
-                          child: Text(
-                              'Age: ' +
-                                  (state.cops[index]?.age?.toString() ??
-                                      "Unknown"),
-                              style: TextStyle(
-                                fontSize: 16,
-                              )),
-                        ),
-                        Container(
-                          /* alignment: Alignment.centerLeft, */
-                          margin: EdgeInsets.only(bottom: 2),
-                          child: Text(
-                              'Ethnicity: ' +
-                                  (state.cops[index]?.ethnicity ?? "Unknown"),
-                              style: TextStyle(
-                                fontSize: 16,
-                              )),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
+      scrollDirection: Axis.vertical,
+      padding: EdgeInsets.only(top: 0),
+      physics: BouncingScrollPhysics(),
+      itemCount: state.cops.length,
+      itemBuilder: (BuildContext context, int index) {
+        return CopPreview(
+          state.cops[index],
+          index: index,
+          flightShuttleBuilder: _flightShuttleBuilder,
+        );
+      },
+    );
   }
 
   @override

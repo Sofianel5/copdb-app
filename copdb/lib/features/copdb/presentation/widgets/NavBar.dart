@@ -56,16 +56,16 @@ class _NavBar extends State<NavBar> {
         });
       },
       child: Container(
-        height: 60,
+        height: 70,
         width: MediaQuery.of(context).size.width / _iconList.length,
         decoration: index == _selectedIndex
             ? BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(width: 4, color: Color(0xFF54C6EB),),
+                  top: BorderSide(width: 4, color: Color(0xFF54C6EB),),
                 ),
                 gradient: LinearGradient(colors: [
-                  Color(0xFF54C6EB).withOpacity(0.3),
                   Color(0xFF54C6EB).withOpacity(0.015),
+                  Color(0xFF54C6EB).withOpacity(0.3),
                 ], begin: Alignment.bottomCenter, end: Alignment.topCenter)
                 // color: index == _selectedItemIndex ? Colors.green : Colors.white,
                 )
