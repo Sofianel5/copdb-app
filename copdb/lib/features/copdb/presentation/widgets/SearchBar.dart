@@ -12,7 +12,7 @@ class SearchBar extends StatefulWidget {
 class _SearchBar extends State<SearchBar> {
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
@@ -58,10 +58,6 @@ class _SearchBar extends State<SearchBar> {
                 Container(width: 10)
 ,              ],
             ),
-          ),
-          Container(width: 10),
-          Expanded(
-            child: Container(),
           ),
           Container(
             alignment: Alignment.center,

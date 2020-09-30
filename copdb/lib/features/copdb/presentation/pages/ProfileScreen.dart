@@ -27,96 +27,92 @@ class _ProfileScreen extends State<ProfileScreen> {
 
   ListView _getContacts() {
     return ListView.builder(
-      padding: EdgeInsets.only(top: 5),
-      physics: BouncingScrollPhysics(),
-      itemCount: rootBloc.user.friends.length,
-      itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              SlideFromBottomPageRoute(
-                  widget: FriendProfileScreen(
-                  user: rootBloc.user.friends[index],
-                )
-              )
-            );
-          },
-          child: Container(
-            alignment: Alignment.center,
-            height: 50,
-            child: Row(
-              children: [
-                Container(
-                  width: 42,
-                  height: 42,
-                  child: CachedNetworkImage(
-                    imageUrl: rootBloc.user.friends[index].profilePic,
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                    fit: BoxFit.cover,
+        padding: EdgeInsets.only(top: 5),
+        physics: BouncingScrollPhysics(),
+        itemCount: rootBloc.user.friends.length,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  SlideFromBottomPageRoute(
+                      widget: FriendProfileScreen(
+                    user: rootBloc.user.friends[index],
+                  )));
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: 50,
+              child: Row(
+                children: [
+                  Container(
+                    width: 42,
+                    height: 42,
+                    child: CachedNetworkImage(
+                      imageUrl: rootBloc.user.friends[index].profilePic,
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    ),
+                    decoration: BoxDecoration(
+                        /* image: DecorationImage(
+                          image: CachedNetworkImage('assets/cat.jpg'),
+                          fit: BoxFit.cover,
+                      ), */
+                      boxShadow: [
+                        /* BoxShadow(
+                        color: Color(0xFF54C6EB).withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ), */
+                      ],
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                    ),
+                    alignment: Alignment.center,
                   ),
-                  decoration: BoxDecoration(
-                      /* image: DecorationImage(
-                        image: CachedNetworkImage('assets/cat.jpg'),
-                        fit: BoxFit.cover,
-                    ), */
-                    boxShadow: [
-                      /* BoxShadow(
-                      color: Color(0xFF54C6EB).withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: Offset(0, 0), // changes position of shadow
-                    ), */
-                    ],
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            padding: EdgeInsets.only(left: 10),
+                            alignment: Alignment.centerLeft,
+                            height: 25,
+                            child: Text(
+                              rootBloc.user.friends[index].firstName +
+                                  " " +
+                                  rootBloc.user.friends[index].lastName,
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                            )),
+                        Container(
+                            padding: EdgeInsets.only(left: 10),
+                            alignment: Alignment.centerLeft,
+                            height: 15,
+                            child: Text(
+                              rootBloc.user.friends[index].username,
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.white70),
+                            )),
+                      ],
+                    ),
                   ),
-                  alignment: Alignment.center,
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerLeft,
-                        height: 25,
-                        child: Text(
-                          rootBloc.user.friends[index].firstName +
-                              " " +
-                              rootBloc.user.friends[index].lastName,
-                          style:
-                              TextStyle(fontSize: 16, color: Colors.white),
-                        )
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerLeft,
-                        height: 15,
-                        child: Text(
-                          rootBloc.user.friends[index].username,
-                          style: TextStyle(
-                              fontSize: 12, color: Colors.white70),
-                        )
-                      ),
-                    ],
+                  Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Color(0xFF54C6EB),
+                    ),
+                    width: 60,
+                    height: 30,
+                    child: Text('add'),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Color(0xFF54C6EB),
-                  ),
-                  width: 60,
-                  height: 30,
-                  child: Text('add'),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      });
+          );
+        });
   }
 
   @override
@@ -346,6 +342,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                     ),
                     Container(
                       alignment: Alignment.center,
+                      height: 200,
                       width: 300,
                       child: false
                         ? CouldNotFetch(text: 'could not load')
