@@ -311,7 +311,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     print(response.body);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      List<dynamic> results = [];
+      List<CopModel> results = [];
       for (var obj in jsonData["results"]) {
         results.add(CopModel.fromJson(obj));
       }
