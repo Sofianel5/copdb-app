@@ -1,9 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:copdb/core/localizations/localizations.dart';
-import 'package:copdb/features/copdb/domain/entities/address.dart';
 import 'package:copdb/features/copdb/domain/entities/complaint.dart';
-import 'package:copdb/features/copdb/domain/entities/cop.dart';
-import 'package:copdb/features/copdb/domain/entities/precinct.dart';
 import 'package:copdb/features/copdb/presentation/bloc/root_bloc.dart';
 import 'package:copdb/features/copdb/presentation/widgets/SearchBar.dart';
 import 'package:copdb/features/copdb/presentation/widgets/errors/CouldNotFetchEvents.dart';
@@ -30,6 +27,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+    //DefaultCacheManager manager = new DefaultCacheManager();
+    //manager.emptyCache();
     bloc = BlocProvider.of<SearchPageBloc>(context);
     rootBloc = BlocProvider.of<RootBloc>(context);
     searchFocus = FocusNode();
@@ -57,6 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
         physics: BouncingScrollPhysics(),
         itemCount: state.cops.length,
         itemBuilder: (BuildContext context, int index) {
+          print(state.cops[index].precinct?.policeDepartment?.image);
           return GestureDetector(
             onTap: () {
               Navigator.push(
@@ -104,8 +104,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: Container(
                         width: 75,
                         height: 75,
-                        child: CachedNetworkImage(
-                          fit: BoxFit.cover,
+                        child: state.cops[index].hasImage() ? CachedNetworkImage(
+                          fit: BoxFit.contain,
                           imageUrl: state.cops[index].getImage(),
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
@@ -128,7 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   image: imageProvider, fit: BoxFit.cover),
                             ),
                           ),
-                        ),
+                        ) : Icon(Icons.local_police),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -161,13 +161,25 @@ class _SearchScreenState extends State<SearchScreen> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             )),
+                        if (state.cops[index].badgeNumber != null)
+                          Container(
+                            margin: EdgeInsets.only(bottom: 8),
+                            child: Text(
+                              "Badge Number: " + state.cops[index].badgeNumber.toString(),
+                              style: TextStyle(
+                                fontSize: 19,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ),
                         Container(
-                          margin: EdgeInsets.only(bottom: 8),
-                          child: Text(
-                            state.cops[index].badgeNumber ?? 'badgenumber',
+                          margin: EdgeInsets.only(bottom: 2),
+                          child: Text(                 
+                            state.cops[index]?.precinct?.name ??
+                                'Unknown precinct',
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: 19,
-                              color: Colors.white70,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -182,29 +194,23 @@ class _SearchScreenState extends State<SearchScreen> {
                         Container(
                           /* alignment: Alignment.centerLeft, */
                           margin: EdgeInsets.only(bottom: 2),
-                          child:
-                              Text('Age: ' + (state.cops[index].age?.toString() ?? "Unknown"),
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                  )),
+                          child: Text(
+                              'Age: ' +
+                                  (state.cops[index]?.age?.toString() ??
+                                      "Unknown"),
+                              style: TextStyle(
+                                fontSize: 16,
+                              )),
                         ),
                         Container(
                           /* alignment: Alignment.centerLeft, */
                           margin: EdgeInsets.only(bottom: 2),
-                          child:
-                              Text('Ethnicity: ' + (state.cops[index].ethnicity ?? "Unknown"),
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                  )),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 2),
                           child: Text(
-                            state.cops[index].precinct.name ?? 'Unknown precinct',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
+                              'Ethnicity: ' +
+                                  (state.cops[index]?.ethnicity ?? "Unknown"),
+                              style: TextStyle(
+                                fontSize: 16,
+                              )),
                         ),
                       ],
                     ),
@@ -296,7 +302,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       text: "Search name or badge number.",
                     ),
                   ),
-                  state is InitialSearchState
+                  (state is InitialSearchState || state is SearchFailedState)
                       ? Expanded(
                           child: Container(
                             width: 350,
@@ -327,7 +333,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: state is NoResultsState
                               ? CouldNotFetch(text: 'Could not find cop')
                               // CouldNotFetch(text: 'FailedSearch')
-                              : _getReports(state)),
+                              : state is SearchLoadingState
+                                  ? CircularProgressIndicator()
+                                  : _getReports(state)),
                 ]),
           ),
         ),
