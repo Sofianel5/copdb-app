@@ -6,11 +6,11 @@ import '../../../../core/usecases/params.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../repositories/root_repository.dart';
 
-class UploadContacts extends UseCase<List<Contact>, NoParams> {
+class GetLocalContacts extends UseCase<List<Contact>, NoParams> {
   final RootRepository repository;
-  UploadContacts(this.repository);
+  GetLocalContacts(this.repository);
   @override
   Future<Either<Failure, List<Contact>>> call(NoParams params) async {
-    return await repository.uploadContacts();
+    return await repository.getLocalContacts();
   }
 }

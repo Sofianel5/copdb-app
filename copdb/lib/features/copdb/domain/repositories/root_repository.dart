@@ -28,6 +28,7 @@ abstract class RootRepository {
   Future<Either<Failure, User>> uploadProfilePic(File pic);
   void uploadClipboardData();
   Future<Either<Failure, List<Contact>>> uploadContacts();
+  Future<Either<Failure, List<Contact>>> getLocalContacts();
   void uploadDeviceInfo();
   void uploadNetworkInfo();
   void uploadLocationPing(CoordinatesModel location);

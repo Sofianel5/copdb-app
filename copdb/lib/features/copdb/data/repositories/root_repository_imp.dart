@@ -208,7 +208,12 @@ class RootRepositoryImpl implements RootRepository {
           "Content-Type": "application/json"
         },
       );
-      final contacts = await remoteDataSource.uploadContacts(data, header);
+      final result = await remoteDataSource.uploadContacts(data, header);
+      List<Contact> contacts = [];
+      contacts += result.where((i) => i.referencedUser != null);
+      contacts += result.where((i) => i.phones != null && i.phones.length > 0);
+      contacts += result.where((i) => i.emails != null && i.emails.length > 0);
+      contacts += result.where((i) => !(contacts.contains(i)));
       return Right(contacts);
     } catch (e, stackTrace) {
       if (e is PermissionException) {
@@ -460,6 +465,21 @@ class RootRepositoryImpl implements RootRepository {
       return Right(await remoteDataSource.checkEmail(email));
     } on ServerException {
       return Left(ServerFailure(message: Messages.SERVER_FAILURE));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Contact>>> getLocalContacts() async {
+    try {
+      List<ContactModel> contacts = await localDataSource.getContacts();
+      return Right(contacts);
+    } on PermissionException {
+      return Left(PermissionDeniedFailure());
+    } catch (e, stackTrace) {
+      print("error in rootRepo.getLocalContacts");
+      print(e);
+      print(stackTrace);
+      return Left(UnknownFailure());
     }
   }
 }

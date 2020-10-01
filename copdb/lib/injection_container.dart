@@ -1,4 +1,5 @@
 import 'package:copdb/core/network/http_override.dart';
+import 'package:copdb/features/copdb/domain/usecases/get_local_contacts.dart';
 import 'package:copdb/features/copdb/services/background_location.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
@@ -56,9 +57,11 @@ Future<void> init() async {
     uploadProfilePic: sl(),
     inputConverter: sl(),
     backgroundLocation: sl(),
+    getLocalContacts: sl(),
   ));
 
   // Register use cases 
+  sl.registerLazySingleton<GetLocalContacts>(() => GetLocalContacts(sl()));
   sl.registerLazySingleton<CheckEmail>(() => CheckEmail(sl()));
   sl.registerLazySingleton<CheckUsername>(() => CheckUsername(sl()));
   sl.registerLazySingleton<GetCachedUser>(() => GetCachedUser(sl()));

@@ -55,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         user: BlocProvider.of<RootBloc>(context).user,
         uploadContacts: BlocProvider.of<RootBloc>(context).uploadContacts,
         uploadPermission: BlocProvider.of<RootBloc>(context).uploadPermission,
+        getLocalContacts: BlocProvider.of<RootBloc>(context).getLocalContacts,
       ),
       child: ProfileScreen(key: PageStorageKey('ProfileScreen')),
     ),

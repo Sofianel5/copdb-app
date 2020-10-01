@@ -25,20 +25,23 @@ class _ProfileScreen extends State<ProfileScreen> {
     rootBloc = BlocProvider.of<RootBloc>(context);
   }
 
-  ListView _getContacts() {
+  ListView _getContacts(LoadedProfileState state) {
     return ListView.builder(
         padding: EdgeInsets.only(top: 5),
         physics: BouncingScrollPhysics(),
-        itemCount: rootBloc.user.friends.length,
+        itemCount: state.contacts.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              Navigator.push(
+              if (state.contacts[index].referencedUser != null)
+                Navigator.push(
                   context,
                   SlideFromBottomPageRoute(
-                      widget: FriendProfileScreen(
-                    user: rootBloc.user.friends[index],
-                  )));
+                    widget: FriendProfileScreen(
+                      user: state.contacts[index].referencedUser,
+                    ),
+                  ),
+                );
             },
             child: Container(
               alignment: Alignment.center,
@@ -48,13 +51,17 @@ class _ProfileScreen extends State<ProfileScreen> {
                   Container(
                     width: 42,
                     height: 42,
-                    child: CachedNetworkImage(
-                      imageUrl: rootBloc.user.friends[index].profilePic,
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      fit: BoxFit.cover,
-                    ),
+                    child: state.contacts[index].referencedUser != null
+                        ? CachedNetworkImage(
+                            imageUrl:
+                                state.contacts[index].referencedUser.profilePic,
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                            fit: BoxFit.cover,
+                          )
+                        : Icon(Icons.face),
                     decoration: BoxDecoration(
-                        /* image: DecorationImage(
+                      /* image: DecorationImage(
                           image: CachedNetworkImage('assets/cat.jpg'),
                           fit: BoxFit.cover,
                       ), */
@@ -80,9 +87,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                             alignment: Alignment.centerLeft,
                             height: 25,
                             child: Text(
-                              rootBloc.user.friends[index].firstName +
-                                  " " +
-                                  rootBloc.user.friends[index].lastName,
+                              state.contacts[index].displayName,
                               style:
                                   TextStyle(fontSize: 16, color: Colors.white),
                             )),
@@ -91,7 +96,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                             alignment: Alignment.centerLeft,
                             height: 15,
                             child: Text(
-                              rootBloc.user.friends[index].username,
+                              "idk",
                               style: TextStyle(
                                   fontSize: 12, color: Colors.white70),
                             )),
@@ -123,239 +128,240 @@ class _ProfileScreen extends State<ProfileScreen> {
       child: BlocBuilder(
         bloc: bloc,
         builder: (context, state) => Scaffold(
-          backgroundColor: Color.fromRGBO(8, 11, 17, 1),
-          body: Column(
-            children: [
-              Container(
-                height: 45,
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                  left: 30,
-                  right: 30,
+            backgroundColor: Color.fromRGBO(8, 11, 17, 1),
+            body: Column(
+              children: [
+                Container(
+                  height: 45,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                Container(
+                  padding: EdgeInsets.only(
+                    left: 30,
+                    right: 30,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: 45,
+                        child: Text(
+                          "Profile",
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 35,
+                ),
+                Container(
+                  width: 152,
+                  height: 152,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: rootBloc.user.profilePic,
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 152.0,
+                      height: 152.0,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xFF54C6EB).withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 7,
+                            offset: Offset(0, 0), // changes position of shadow
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(100),
+                        border:
+                            Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xFF54C6EB).withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
+                  ),
+                  alignment: Alignment.center,
+                ),
+                Container(
+                  height: 20,
+                ),
+                Container(
+                  child: Text(
+                    rootBloc.user.firstName + " " + rootBloc.user.lastName,
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  height: 10,
+                ),
+                Container(
+                  child: Text(
+                    "@" + rootBloc.user.username,
+                    style: TextStyle(fontSize: 18, color: Colors.white70),
+                  ),
+                ),
+                Container(
+                  height: 30,
+                ),
+                //scrollview
+                /* SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child:  */ /* Column(
+                  children: [ */
+                Container(
+                  width: 300,
+                  height: 1,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF54C6EB),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xFF54C6EB).withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  alignment: Alignment.center,
+                ),
+                Container(
+                  height: 30,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        SlideFromBottomPageRoute(widget: FriendScreen()));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Icon(
+                          Icons.person_add,
+                          size: 32,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Add Friends",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'add your friends on copDB',
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.white70),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      alignment: Alignment.center,
-                      height: 45,
-                      child: Text(
-                        "Profile",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
+                      child: Icon(
+                        Icons.share,
+                        size: 32,
                       ),
                     ),
-                    Expanded(
-                      child: Container(),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 35,
-              ),
-              Container(
-                width: 152,
-                height: 152,
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  imageUrl: rootBloc.user.profilePic,
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                  imageBuilder: (context, imageProvider) => Container(
-                    width: 152.0,
-                    height: 152.0,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xFF54C6EB).withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 7,
-                          offset: Offset(0, 0), // changes position of shadow
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
-                      image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.cover),
-                    ),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xFF54C6EB).withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: Offset(0, 0), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: Color(0xFF54C6EB), width: 1.5),
-                ),
-                alignment: Alignment.center,
-              ),
-              Container(
-                height: 20,
-              ),
-              Container(
-                child: Text(
-                  rootBloc.user.firstName + " " + rootBloc.user.lastName,
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Container(
-                height: 10,
-              ),
-              Container(
-                child: Text(
-                  "@"+rootBloc.user.username,
-                  style: TextStyle(fontSize: 18, color: Colors.white70),
-                ),
-              ),
-              Container(
-                height: 30,
-              ),
-              //scrollview
-              /* SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child:  *//* Column(
-                  children: [ */
                     Container(
-                      width: 300,
-                      height: 1,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF54C6EB),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF54C6EB).withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 7,
-                            offset: Offset(0, 0), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      alignment: Alignment.center,
-                    ),
-                    Container(
-                      height: 30,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            SlideFromBottomPageRoute(widget: FriendScreen()));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      padding: EdgeInsets.only(left: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            child: Icon(
-                              Icons.person_add,
-                              size: 32,
-                            ),
+                          Text(
+                            "Invite Friends",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Add Friends",
-                                  style: TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'add your friends on copDB',
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.white70),
-                                )
-                              ],
-                            ),
-                          ),
+                          Text(
+                            'invite your friends to copDB',
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.white70),
+                          )
                         ],
                       ),
                     ),
-                    Container(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: Icon(
-                            Icons.share,
-                            size: 32,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Invite Friends",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                'invite your friends to copDB',
-                                style:
-                                    TextStyle(fontSize: 12, color: Colors.white70),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 30,
-                    ),
-                    Container(
-                      width: 300,
-                      height: 1,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF54C6EB),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF54C6EB).withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 7,
-                            offset: Offset(0, 0), // changes position of shadow
-                          ),
-                        ],
+                  ],
+                ),
+                Container(
+                  height: 30,
+                ),
+                Container(
+                  width: 300,
+                  height: 1,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF54C6EB),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xFF54C6EB).withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: Offset(0, 0), // changes position of shadow
                       ),
-                      alignment: Alignment.center,
-                    ),
-                    Container(
-                      height: 30,
-                    ),
-                    Container(
-                      child: Text(
-                        'People you may know',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      )
-                    ),
-                    Container(
-                      height: 10,
-                    ),
-                    Expanded(
-                      child: Container(
-                      alignment: Alignment.center,
-                      /* height: 500, */
-                      width: 300,
-                      child: false
-                        ? CouldNotFetch(text: 'could not load')
-                        : _getContacts()
-                    ),
+                    ],
                   ),
-                ],
-              )
-              /* ), */
+                  alignment: Alignment.center,
+                ),
+                Container(
+                  height: 30,
+                ),
+                if (state is LoadedProfileState)
+                  Container(
+                      child: Text(
+                    'People you may know',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  )),
+                Container(
+                  height: 10,
+                ),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    /* height: 500, */
+                    width: 300,
+                    child: state is LoadedProfileState
+                        ? _getContacts(state)
+                        : CouldNotFetch(text: 'Could not load contacts'),
+                  ),
+                ),
+              ],
+            )
+            /* ), */
             /* ],
           ), */
-        ),    
+            ),
       ),
     );
   }

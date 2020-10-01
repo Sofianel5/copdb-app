@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:copdb/core/constants/constants.dart';
+import 'package:copdb/features/copdb/domain/entities/contact.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
 import 'package:copdb/features/copdb/domain/usecases/get_feed.dart';
+import 'package:copdb/features/copdb/domain/usecases/get_local_contacts.dart';
 import 'package:copdb/features/copdb/domain/usecases/search_cop.dart';
 import 'package:copdb/features/copdb/domain/usecases/upload_contacts.dart';
 import 'package:copdb/features/copdb/domain/usecases/upload_profile_pic.dart';
@@ -81,6 +83,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
   final UploadNetworkInfo uploadNetworkInfo;
   final UploadPermission uploadPermission;
   final UploadProfilePic uploadProfilePic;
+  final GetLocalContacts getLocalContacts;
 
   // Core
   final InputConverter inputConverter;
@@ -117,6 +120,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
     @required this.uploadProfilePic,
     @required this.inputConverter,
     @required this.backgroundLocation,
+    @required this.getLocalContacts,
   })  : this.loginBloc = LoginBlocRouter(login),
         this.signupRouter = SignupBlocRouter(
           signup: signup,
