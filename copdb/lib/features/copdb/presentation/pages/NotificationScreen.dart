@@ -1,7 +1,10 @@
+import 'package:copdb/core/localizations/localizations.dart';
+import 'package:copdb/features/copdb/presentation/bloc/root_bloc.dart';
 import 'package:copdb/features/copdb/presentation/widgets/NotificationItem.dart';
 import 'package:copdb/features/copdb/presentation/widgets/errors/CouldNotFetchEvents.dart';
 import 'package:copdb/features/copdb/domain/entities/notification.dart' as n;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotificationScreen extends StatefulWidget 
 {
@@ -12,53 +15,68 @@ class NotificationScreen extends StatefulWidget
 
 class _NotificationScreen extends State<NotificationScreen>
 {
-  List<n.Notification> notificationList = [
-    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
-    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
-    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
-    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
-    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
-    n.Notification(title: 'notification title', sentAt: DateTime(2020, 0, 0), body: 'notification location'),
-  ];
+  RootBloc rootBloc;
+  NotificationsPageBloc bloc;
 
-  ListView _getNotifications()
+  @override
+  void initState() {
+    super.initState();
+    bloc = BlocProvider.of<NotificationsPageBloc>(context);
+    rootBloc = BlocProvider.of<RootBloc>(context);
+  }
+
+  ListView _getNotifications(LoadedNotificationsState state)
   {
     return ListView.builder(
       padding: EdgeInsets.only(top: 5),
       physics: BouncingScrollPhysics(),
-      itemCount: notificationList.length,
+      itemCount: state.notifications.length,
       itemBuilder:(BuildContext context, int index) 
       {
-        return NotificationItem(notification: notificationList[index]);
+        return NotificationItem(notification: state.notifications[index]);
       }
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(height: 45,),
-        Container(
-          padding: EdgeInsets.only(left: 30, right: 30,),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                child: Text("Notifications", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+    return BlocListener(
+      bloc: bloc,
+      listener: (context, state) {
+        print(state);
+        if (state is FailedNotificationsState) {
+          Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(Localizer.of(context).get(state.message))));
+        }
+      },
+          child: BlocBuilder(
+        bloc: bloc,
+            builder: (context, state) => Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(height: 45,),
+            Container(
+              padding: EdgeInsets.only(left: 30, right: 30,),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: 45,
+                    child: Text("Notifications", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                  ),
+                  Expanded(child: Container(),),
+                ],
               ),
-              Expanded(child: Container(),),
-            ],
-          ),
+            ),
+            SizedBox(height: 10, ),
+            state is NotificationsLoadingState ? Center(child: Container(child: CircularProgressIndicator(), width: 50, height: 50)) :
+            Expanded(
+                child: (state is LoadedNotificationsState && state.notifications.length > 0) ? _getNotifications(state) :CouldNotFetch(text: 'No notifcations found') ,
+              ),
+          ],
         ),
-        Container(height: 10, ),
-        Expanded(
-            child: false ? CouldNotFetch(text: 'No notifcations found') : _getNotifications(),
-          ),
-      ],
+      ),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:copdb/core/constants/constants.dart';
 import 'package:copdb/features/copdb/domain/entities/contact.dart';
 import 'package:copdb/features/copdb/domain/entities/cop.dart';
+import 'package:copdb/features/copdb/domain/entities/notification.dart';
 import 'package:copdb/features/copdb/domain/usecases/get_feed.dart';
 import 'package:copdb/features/copdb/domain/usecases/get_local_contacts.dart';
 import 'package:copdb/features/copdb/domain/usecases/search_cop.dart';
@@ -62,6 +63,9 @@ part 'search_page/search_page_event.dart';
 part 'profile_page/profile_page_bloc.dart';
 part 'profile_page/profile_page_state.dart';
 part 'profile_page/profile_page_event.dart';
+part 'notifications_page/notifications_page_bloc.dart';
+part 'notifications_page/notifications_page_state.dart';
+part 'notifications_page/notifications_page_event.dart';
 
 class RootBloc extends Bloc<RootEvent, RootState> {
   // Usecases

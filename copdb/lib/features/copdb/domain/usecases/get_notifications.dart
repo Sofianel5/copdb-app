@@ -21,5 +21,4 @@ class GetNotificationsParams extends Params {
   GetNotificationsParams({this.page=1});
   @override
   List<Object> get props => [ page];
-  
 }

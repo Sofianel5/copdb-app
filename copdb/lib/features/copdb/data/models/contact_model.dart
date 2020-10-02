@@ -26,7 +26,8 @@ class ContactModel extends Contact implements Model {
     String company,
     String jobTitle,
     UserModel referencedUser,
-    bool areFriends
+    bool areFriends,
+    bool added,
   }) : super(
           user: user,
           displayName: displayName,
@@ -43,6 +44,7 @@ class ContactModel extends Contact implements Model {
           company: company,
           jobTitle: jobTitle,
           areFriends: areFriends,
+          added: added,
           referencedUser: referencedUser
         );
   factory ContactModel.fromJson(Map<String, dynamic> json) =>

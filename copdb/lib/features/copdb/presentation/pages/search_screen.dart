@@ -178,7 +178,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               ? CouldNotFetch(text: 'Could not find cop')
                               // CouldNotFetch(text: 'FailedSearch')
                               : state is SearchLoadingState
-                                  ? CircularProgressIndicator()
+                                  ? Center(child: Container(child: CircularProgressIndicator(), width: 50, height: 50))
                                   : _getReports(state)),
                 ]),
           ),

@@ -49,7 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ),
     IncidentScreen(key: PageStorageKey('IncidentScreen')),
-    NotificationScreen(key: PageStorageKey('NotificationScreen')),
+    BlocProvider(
+        create: (context) => NotificationsPageBloc(
+              user: BlocProvider.of<RootBloc>(context).user,
+              getNotifications:
+                  BlocProvider.of<RootBloc>(context).getNotifications,
+            ),
+        child: NotificationScreen(key: PageStorageKey('NotificationScreen')),
+    ),
     BlocProvider(
       create: (context) => ProfilePageBloc(
         user: BlocProvider.of<RootBloc>(context).user,

@@ -340,6 +340,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       // Retry on SocketException or TimeoutException
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
+    print(response.body);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       List<Notification> results = [];

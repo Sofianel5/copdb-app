@@ -210,10 +210,10 @@ class RootRepositoryImpl implements RootRepository {
       );
       final result = await remoteDataSource.uploadContacts(data, header);
       List<Contact> contacts = [];
-      contacts += result.where((i) => i.referencedUser != null);
-      contacts += result.where((i) => i.phones != null && i.phones.length > 0);
-      contacts += result.where((i) => i.emails != null && i.emails.length > 0);
-      contacts += result.where((i) => !(contacts.contains(i)));
+      contacts += result.where((i) => i.referencedUser != null && !i.areFriends).toList();
+      contacts += result.where((i) => i.phones != null && i.phones.length > 0).toList();
+      contacts += result.where((i) => i.emails != null && i.emails.length > 0).toList();
+      contacts += result.where((i) => i.areFriends).toList();
       return Right(contacts);
     } catch (e, stackTrace) {
       if (e is PermissionException) {

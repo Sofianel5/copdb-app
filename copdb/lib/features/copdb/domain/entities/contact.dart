@@ -18,6 +18,8 @@ class Contact extends Equatable {
   String jobTitle;
   UserModel referencedUser;
   bool areFriends;
+  bool added;
+  bool invited;
   Contact({
     this.user,
     this.displayName,
@@ -35,7 +37,29 @@ class Contact extends Equatable {
     this.jobTitle,
     this.referencedUser,
     this.areFriends,
+    this.added=false,
+    this.invited=false,
   });
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [user, givenName, middleName, prefix, suffix, familyName, phones, emails, avatar, avatarBase64, addresses, referencedUser, areFriends];
+
+  String getPrimaryContactInfo() {
+    if (this.phones != null && this.phones.length > 0 && this.phones[0]["value"] != null) {
+      return this.phones[0]["value"];
+    }
+    else if (this.emails != null && this.emails.length > 0 && this.emails[0]["value"] != null) {
+      return this.emails[0]["value"];
+    }
+    return null;
+  }
+
+  String primaryContactType() {
+    if (this.phones != null && this.phones.length > 0 && this.phones[0]["value"] != null) {
+      return "phone";
+    }
+    else if (this.emails != null && this.emails.length > 0 && this.emails[0]["value"] != null) {
+      return "email";
+    }
+    return null;
+  }
 }
