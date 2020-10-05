@@ -1,4 +1,3 @@
-import 'package:copdb/models/Notification.dart' as nf;
 import 'package:copdb/features/copdb/domain/entities/notification.dart' as n;
 import 'package:flutter/material.dart';
 
@@ -24,7 +23,7 @@ class _NotificationItem extends State<NotificationItem>
   Widget build(BuildContext context)
   {
     return Container(
-      padding: EdgeInsets.only(top: 20, bottom: 20, left: 30, right: 30),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       decoration: BoxDecoration(
         color: Color.fromRGBO(8, 11, 17, 1),
         boxShadow: [
@@ -49,7 +48,7 @@ class _NotificationItem extends State<NotificationItem>
           Container(
             margin: EdgeInsets.only(bottom: 4),
             child: Text(
-              _notification.sentAt.toString() + "  •  " + 'location',
+              _notification.sentAt.toString(),
               style: TextStyle(
                 fontSize: 13, 
                 color: Colors.white70

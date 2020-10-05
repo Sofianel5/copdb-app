@@ -2,6 +2,7 @@ import 'package:copdb/core/network/http_override.dart';
 import 'package:copdb/features/copdb/domain/usecases/get_local_contacts.dart';
 import 'package:copdb/features/copdb/services/background_location.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,7 +84,7 @@ Future<void> init() async {
   // Register repositories
   sl.registerLazySingleton<RootRepository>(() => RootRepositoryImpl(remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()));
   // Register data sources 
-  sl.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl(sl()));
+  sl.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl(sl(), sl()));
   sl.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl(client: sl()));
 
   // Register services 
@@ -98,5 +99,6 @@ Future<void> init() async {
   sl.registerLazySingleton<DataConnectionChecker>(() => DataConnectionChecker());
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+  sl.registerLazySingleton<FirebaseMessaging>(()=>FirebaseMessaging());
   sl.registerLazySingleton<http.Client>(() => http.Client());
 }

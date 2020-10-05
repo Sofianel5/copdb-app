@@ -6,7 +6,8 @@ class Device extends Equatable {
   final String deviceId;
   final String type;
   final int user;
-  Device({@required this.deviceId, @required this.type, @required this.user})
+  final String firebaseToken;
+  Device({@required this.deviceId, @required this.type, @required this.user, @required this.firebaseToken})
       : assert(TYPES.contains(type));
 
   @override
@@ -49,8 +50,9 @@ class AndroidDevice extends Device {
       this.isPhysicalDevice,
       @required this.androidId,
       this.systemFeatures,
+      String firebaseToken,
       @required int user})
-      : super(deviceId: androidId, type: "Android", user: user);
+      : super(deviceId: androidId, type: "Android", user: user, firebaseToken: firebaseToken);
 }
 
 class iOSDevice extends Device {
@@ -70,5 +72,6 @@ class iOSDevice extends Device {
     @required this.identifierForVendor,
     this.isPhysicalDevice,
     @required int user,
-  }) : super(deviceId: identifierForVendor, type: "iOS", user: user);
+    String firebaseToken,
+  }) : super(deviceId: identifierForVendor, type: "iOS", user: user, firebaseToken: firebaseToken);
 }

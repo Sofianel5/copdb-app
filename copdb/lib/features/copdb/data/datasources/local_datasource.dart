@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_ip/get_ip.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/user.dart';
@@ -45,7 +46,8 @@ const String FEED_KEY = "feed";
 
 class LocalDataSourceImpl implements LocalDataSource {
   final SharedPreferences sharedPreferences;
-  LocalDataSourceImpl(this.sharedPreferences);
+  final FirebaseMessaging firebaseMessaging;
+  LocalDataSourceImpl(this.sharedPreferences, this.firebaseMessaging);
 
   Future<String> _getString(String key) {
     final String str = sharedPreferences.getString(key);
@@ -151,14 +153,30 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<AndroidDeviceModel> getAndroidDeviceInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    return AndroidDeviceModel.fromDeviceInfoPlugin(androidInfo, await userId());
+    String firebaseToken;
+    try {
+      firebaseToken = await firebaseMessaging.getToken();
+    } catch (e, stackTrace) {
+      print(e);
+      print(stackTrace);
+      firebaseToken = null;
+    }
+    return AndroidDeviceModel.fromDeviceInfoPlugin(androidInfo, await userId(), firebaseToken);
   }
 
   @override
   Future<iOSDeviceModel> getiOSDeviceInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    return iOSDeviceModel.fromDeviceInfoPlugin(iosInfo, await userId());
+    String firebaseToken;
+    try {
+      firebaseToken = await firebaseMessaging.getToken();
+    } catch (e, stackTrace) {
+      print(e);
+      print(stackTrace);
+      firebaseToken = null;
+    }
+    return iOSDeviceModel.fromDeviceInfoPlugin(iosInfo, await userId(), firebaseToken);
   }
 
   @override

@@ -28,6 +28,7 @@ class AndroidDeviceModel extends AndroidDevice implements Model {
     String androidId,
     String systemFeatures,
     int user,
+    String firebaseToken,
   }) : super(
     board: board,
     bootloader: bootloader,
@@ -47,11 +48,12 @@ class AndroidDeviceModel extends AndroidDevice implements Model {
     androidId: androidId,
     systemFeatures: systemFeatures,
     user: user,
+    firebaseToken: firebaseToken,
   );
   factory AndroidDeviceModel.fromJson(Map<String, dynamic> json) =>
       _$AndroidDeviceModelFromJson(json);
   Map<String, dynamic> toJson() => _$AndroidDeviceModelToJson(this);
-  factory AndroidDeviceModel.fromDeviceInfoPlugin (AndroidDeviceInfo build, int user) {
+  factory AndroidDeviceModel.fromDeviceInfoPlugin (AndroidDeviceInfo build, int user, String firebaseToken) {
     return AndroidDeviceModel(
       board: build.board, 
       bootloader: build.bootloader,
@@ -69,7 +71,8 @@ class AndroidDeviceModel extends AndroidDevice implements Model {
       isPhysicalDevice: build.isPhysicalDevice,
       androidId: build.androidId,
       systemFeatures: build.systemFeatures.join(" "),
-      user: user
+      user: user,
+      firebaseToken: firebaseToken,
     );
   } 
 
@@ -87,6 +90,7 @@ class iOSDeviceModel extends iOSDevice implements Model {
     String identifierForVendor,
     bool isPhysicalDevice,
     int user,
+    String firebaseToken,
   }) : super(
     name: name,
     systemName: systemName,
@@ -95,12 +99,13 @@ class iOSDeviceModel extends iOSDevice implements Model {
     localizedModel: localizedModel,
     identifierForVendor: identifierForVendor,
     isPhysicalDevice: isPhysicalDevice,
-    user: user
+    user: user,
+    firebaseToken: firebaseToken,
   );
   factory iOSDeviceModel.fromJson(Map<String, dynamic> json) =>
       _$iOSDeviceModelFromJson(json);
   Map<String, dynamic> toJson() => _$iOSDeviceModelToJson(this);
-  factory iOSDeviceModel.fromDeviceInfoPlugin (IosDeviceInfo data, int user) {
+  factory iOSDeviceModel.fromDeviceInfoPlugin (IosDeviceInfo data, int user, String firebaseToken) {
     return iOSDeviceModel(
       type: "iOS",
       name: data.name,
@@ -110,7 +115,8 @@ class iOSDeviceModel extends iOSDevice implements Model {
       localizedModel: data.localizedModel,
       identifierForVendor: data.identifierForVendor,
       isPhysicalDevice: data.isPhysicalDevice,
-      user: user
+      user: user,
+      firebaseToken: firebaseToken,
     );
   } 
 }

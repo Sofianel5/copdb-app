@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>327573359606-umo9vphc0sv3p0g69d9nh1gsat8bmsv1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.327573359606-umo9vphc0sv3p0g69d9nh1gsat8bmsv1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBn271AXIoyCM66zzGu5GZuBqNpRZG38Pk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>327573359606</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.tracery.copdb</string>
+	<key>PROJECT_ID</key>
+	<string>copdb-2a29f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>copdb-2a29f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:327573359606:ios:45792a9991ecd493ba55d7</string>
+	<key>DATABASE_URL</key>
+	<string>https://copdb-2a29f.firebaseio.com</string>
+</dict>
+</plist>

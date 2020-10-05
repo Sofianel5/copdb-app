@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "327573359606",
+    "firebase_url": "https://copdb-2a29f.firebaseio.com",
+    "project_id": "copdb-2a29f",
+    "storage_bucket": "copdb-2a29f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327573359606:android:bd5bce8a76b460d1ba55d7",
+        "android_client_info": {
+          "package_name": "com.tracery.copdb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "327573359606-3thd3qj7l6kov54alf8svnngq1s51kpe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tracery.copdb",
+            "certificate_hash": "e55dcb9f1ce3289c8c63222456c8ba8afa231e74"
+          }
+        },
+        {
+          "client_id": "327573359606-0bncs7v0a3in9qj003b35m34tadkovn2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE74UdmPzvSHCaFx9ShGgB0o4S754L_ZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "327573359606-0bncs7v0a3in9qj003b35m34tadkovn2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "327573359606-umo9vphc0sv3p0g69d9nh1gsat8bmsv1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tracery.copdb",
+                "app_store_id": "1534403198"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
