@@ -27,6 +27,7 @@ AndroidDeviceModel _$AndroidDeviceModelFromJson(Map<String, dynamic> json) {
     androidId: json['android_id'] as String,
     systemFeatures: json['system_features'] as String,
     user: json['user'] as int,
+    firebaseToken: json['firebase_token'] as String,
   );
 }
 
@@ -34,6 +35,7 @@ Map<String, dynamic> _$AndroidDeviceModelToJson(AndroidDeviceModel instance) =>
     <String, dynamic>{
       'type': instance.type,
       'user': instance.user,
+      'firebase_token': instance.firebaseToken,
       'board': instance.board,
       'bootloader': instance.bootloader,
       'brand': instance.brand,
@@ -64,6 +66,7 @@ iOSDeviceModel _$iOSDeviceModelFromJson(Map<String, dynamic> json) {
     identifierForVendor: json['identifier_for_vendor'] as String,
     isPhysicalDevice: json['is_physical_device'] as bool,
     user: json['user'] as int,
+    firebaseToken: json['firebase_token'] as String,
   );
 }
 
@@ -71,6 +74,7 @@ Map<String, dynamic> _$iOSDeviceModelToJson(iOSDeviceModel instance) =>
     <String, dynamic>{
       'type': instance.type,
       'user': instance.user,
+      'firebase_token': instance.firebaseToken,
       'name': instance.name,
       'system_name': instance.systemName,
       'system_version': instance.systemVersion,

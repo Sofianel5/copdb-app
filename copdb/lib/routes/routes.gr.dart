@@ -9,7 +9,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../features/copdb/domain/entities/complaint.dart';
 import '../features/copdb/domain/entities/copdbevent.dart';
 import '../features/copdb/domain/entities/user.dart';
 import '../features/copdb/presentation/pages/EntryScreen.dart';
@@ -317,7 +316,7 @@ class RootPageArguments {
 
 /// ReportDetailScreen arguments holder class
 class ReportDetailScreenArguments {
-  final CopDBComplaint report;
+  final dynamic report;
   final int index;
   ReportDetailScreenArguments({this.report, this.index});
 }

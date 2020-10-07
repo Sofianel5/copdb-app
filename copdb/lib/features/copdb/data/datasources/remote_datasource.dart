@@ -255,6 +255,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<void> uploadJson(
       String url, dynamic data, Map<String, dynamic> headers) async {
     data = json.encode(data);
+    print("uploading: ");
     print(data);
     headers['Content-Type'] = "application/json";
     var response = await retry(
@@ -265,6 +266,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       // Retry on SocketException or TimeoutException
       retryIf: (e) => e is SocketException || e is TimeoutException,
     );
+    print("result: ");
     print(response.body);
   }
 
