@@ -10,6 +10,19 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBar extends State<SearchBar> {
+  TextEditingController _controller = TextEditingController();
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,6 +54,7 @@ class _SearchBar extends State<SearchBar> {
                     width: 100,
                     height: 40,
                     child: TextField(
+                      controller: _controller,
                       focusNode: widget.focusNode,
                       onSubmitted: (value) => widget.onSearch(value),
                       style: TextStyle(
@@ -59,17 +73,22 @@ class _SearchBar extends State<SearchBar> {
 ,              ],
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            width: 70,
-            height: 34,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Color(0xFF54C6EB),
-            ),
-            child: Text(
-              'Search',
-              style: TextStyle(color: Colors.white, fontSize: 12),
+          GestureDetector(
+            onTap: () {
+              widget.onSearch(_controller.text);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              width: 70,
+              height: 34,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Color(0xFF54C6EB),
+              ),
+              child: Text(
+                'Search',
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
             ),
           ),
         ]);

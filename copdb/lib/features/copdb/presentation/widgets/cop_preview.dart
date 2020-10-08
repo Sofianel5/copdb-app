@@ -126,6 +126,7 @@ class CopPreview extends StatelessWidget {
                             ),
                           ),
                         Container(
+                          width: 220,
                           margin: EdgeInsets.only(bottom: 2),
                           child: Text(                 
                             cop?.precinct?.name ??

@@ -115,7 +115,7 @@ class _ComplaintItem extends State<ComplaintItem>
               Container(
                 margin: EdgeInsets.only(bottom: 14),
                 child: Text(
-                  _complaint.cop.precinct.address?.address_1 ?? "Unknown" /* +", " + _complaint.address.state */,
+                  _complaint.cop?.precinct?.address?.address_1 ?? "Unknown" /* +", " + _complaint.address.state */,
                   style: TextStyle(
                     fontSize: 13, 
                     color: Colors.white70

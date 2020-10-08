@@ -411,14 +411,16 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     List<Map<String, dynamic>> jsonData = List<Map<String, dynamic>>.from(
         contacts.map((e) => e.toJson()).toList());
     final requestBody = json.encode(jsonData);
+    print(requestBody);
     final response = await retry(
       // Make a GET request
       () => client
         .post(Urls.UPLOAD_CONTACTS, body: requestBody, headers: headers)
         .timeout(Duration(minutes: 10)),
-        retryIf: (e) => e is SocketException || e is TimeoutException, 
+        retryIf: (e) => e is SocketException || e is TimeoutException || e is HttpException, 
       );
     print("REQUEST COMPLETE");
+    print(response.body);
     if (response.statusCode == 200 || response.statusCode == 201) {
       List<ContactModel> results = [];
       final jsonResult = json.decode(response.body);
